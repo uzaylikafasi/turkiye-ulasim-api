@@ -12,6 +12,8 @@
 
 Şehirlerin kurulum durumu ve yetenekleri `/v1/cities` yanıtındaki `available` ve `capabilities` alanlarından okunur. Canlı verisi desteklenmeyen uç `501`, henüz veritabanı kurulmamış şehir `503` döner. Boş bir araç listesi başarılı bir canlı sorgunun sonucu olabilir; destek yokluğu anlamına gelmez.
 
+**Ortak geliştirme:** [Yapılacaklar ve işi devralma](YAPILACAKLAR.md).
+
 ## Kurulum
 
 ```sh
