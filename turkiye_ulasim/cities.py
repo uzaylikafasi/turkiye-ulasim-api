@@ -1,8 +1,4 @@
-"""Desteklenen şehirler. Yeni şehir: GTFS adresi + canlı bağlayıcı + lisans bilgisi.
-
-Yalnız resmi açık veri yayınlayan kaynaklar buraya girer. Uygulamaların kendi uçlarından
-(izin alınmadan) çekilen veri bu projede yayınlanmaz.
-"""
+"""Kaynak türü ve veri lisansı belirtilen şehirler; resmi ve topluluk kaynakları ayrıdır."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -21,6 +17,9 @@ class City:
     live_arrivals: bool = False
     catalog_url: str | None = None
     warnings: tuple[str, ...] = ()
+    source_kind: str = "official_open_data"
+    line_catalog: bool = True
+    gtfs: bool = True
 
 
 CITIES = {
@@ -54,5 +53,21 @@ CITIES = {
         license="Creative Commons Atıf 4.0 Uluslararası (CC BY 4.0)",
         source_url="https://acikveri.konya.bel.tr/dataset/toplu-tasima-gtfs-verileri",
         warnings=("Kaynak Kasım 2025 dosyasıdır; takvimin 2030'a uzanması verinin güncel olduğunu kanıtlamaz.",),
+    ),
+    "kahramanmaras": City(
+        id="kahramanmaras",
+        name="Kahramanmaraş",
+        operator="Pallium / Kahramankart · topluluk köprüsü",
+        gtfs_url="",
+        license="Kaynak veri lisansı belirtilmemiş; bağlayıcı kodu MIT",
+        source_url="https://mithrixa.com/ulasim-api/docs",
+        live_vehicles=True,
+        live_arrivals=True,
+        source_kind="community_bridge",
+        line_catalog=False,
+        gtfs=False,
+        warnings=("Resmi açık veri kaynağı değildir; mevcut Kahramankart topluluk API'si kullanılır. Kaynak veri lisansı doğrulanmadı.",
+                  "Hatlar yalnız q ile aranır; kaynak sonuçları sınırlıdır, bütün şehir envanteri değildir.",
+                  "Hat kimliği kaynak kimliği:yön biçimindedir (9576:1). Varış ve durak-hat kayıtlarında yön yoksa ortak hat kimliği null kalır.",),
     ),
 }

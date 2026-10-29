@@ -1,6 +1,6 @@
 # Büyükşehirlerde otobüs kapsamı
 
-Öncelik otobüsler ve büyükşehirlerdir (29 Ekim 2026). Destek listesine yalnız kaynak bağlantısı, veri lisansı ve gerçek içe aktarması doğrulanan şehirler alınır. Bir mobil uygulamada canlı harita bulunması, yeniden yayımlanabilir açık API bulunduğu anlamına gelmez.
+Öncelik otobüsler ve büyükşehirlerdir (29 Ekim 2026). Resmi açık veri ile topluluk köprüleri ayrı etiketlenir. Kaynak bağlantısı, mevcut veri ve erişim biçimi doğrulanır; veri lisansı belirsizse açıkça belirtilir. Bir mobil uygulamada canlı harita bulunması, yeniden yayımlanabilir açık API bulunduğu anlamına gelmez.
 
 ## Bu sürüm
 
@@ -9,6 +9,7 @@
 | İzmir | [ESHOT / İzmir açık veri](https://acikveri.bizizmir.com/dataset/toplu-ulasim-gtfs-verileri) | Otobüs GTFS + araç konumu + varış |
 | İstanbul | [İETT GTFS](https://data.ibb.gov.tr/dataset/iett-gtfs-verisi), [SOAP](https://api.ibb.gov.tr/iett/FiloDurum/SeferGerceklesme.asmx?WSDL) | Otobüs GTFS + güzergâh varyantına göre araç konumu; varış yok |
 | Konya | [GTFS](https://acikveri.konya.bel.tr/dataset/toplu-tasima-gtfs-verileri) | 162 otobüs hattı; dosyadaki üç tramvay hattı kapsam dışında. Kaynak Kasım 2025, canlı kaynak henüz doğrulanmadı. |
+| Kahramanmaraş | [Mevcut topluluk API'si](https://mithrixa.com/ulasim-api/docs) | Hat arama, durak, sıra, geometri, yakın durak, araç ve varış; resmi açık veri olarak etiketlenmez. GTFS/tam hat envanteri yok; veri lisansı belirtilmemiş. |
 
 ## Sıradaki araştırma
 
@@ -19,11 +20,11 @@
 | 3 | Antalya | Resmi açık veri kaynaklarında otobüs veri seti ve lisansı araştırılacak. |
 | 4 | Kocaeli | `veri.kocaeli.bel.tr/dataset/toplu-ulasim-verisi` ve CKAN uçları bu kontrolde HTTP 502 verdi. Ulaşılabilirlik, dosya ve lisans yeniden kontrol edilecek. |
 | 5 | Gaziantep | [Resmi GTFS katalog sayfası](https://acikveri.gaziantep.bel.tr/dataset/toplu-ulasim-gtfs-verileri) var; portal bu kontrolde web'den 502, yerel istemciden sertifika hatası verdi. Doğrulanmış dosya indirmesi bekleniyor. |
-| 6 | Kayseri, Sakarya, Kahramanmaraş | Resmi açık kaynak / yeniden kullanım koşulları doğrulanacak. Uygulamanın erişim bilgileri ortak depoya taşınmayacak. |
+| 6 | Kayseri, Sakarya | Resmi açık kaynak / yeniden kullanım koşulları doğrulanacak. Kayseri belediyesinin GTFS entegrasyon duyurusu var; dış geliştiriciye açık feed adresi ayrıca bulunmalı. Uygulamanın erişim bilgileri ortak depoya taşınmayacak. |
 
 Bu sıra büyüklüğe ve erişilebilirliğe göre çalışma sırasıdır; nüfus sıralaması değildir. Ulaşılamayan kaynaklar ülke çapındaki kapsam iddiasına dahil edilmez. Diğer büyükşehirlerin otobüs kaynakları sonraki turda incelenecek; metro, tramvay ve vapur bu işin ardından gelir.
 
-## Doğrulama · 29 Ekim 2026
+## 0.2.0 doğrulaması · 29 Ekim 2026
 
 28 çevrimdışı test geçti. Kurulu gerçek verilerle üç şehirde toplam 15 örnek uç `200` döndürdü; İstanbul'da canlı araç, İzmir'de canlı araç ve varış yanıtları doluydu. Bu kontroller bütün hatların güncel veya çalışır olduğunu kanıtlamaz.
 
@@ -34,3 +35,11 @@ Bu sıra büyüklüğe ve erişilebilirliğe göre çalışma sırasıdır; nüf
 | Konya | 162 | 162 | 4.117 |
 
 İstanbul'da 7 aday seferin durak sırası tutarsızdı; üç hat/yön için denenen üç aday da tutarsız olduğundan sıra yayımlanmadı. Ayrıca katalogdaki her varyantın sefer kaydı yoktur; toplam güzergâh sayısı kullanılabilir durak sırası veya aktif sefer sayısı değildir. İBB durak dosyasındaki dört bozuk kayıt ayrı resmi servisten doğrulandı.
+
+## 0.3.0 doğrulaması · 29 Ekim 2026
+
+48 çevrimdışı test geçti. Ortak API üzerinden dört şehirde toplam 14 gerçek veri sorgusu 200 döndü. Maraş H/1 gidişte 48, dönüşte 52 durak ve Demokrasi Meydanı'nda dolu varış yanıtı görüldü. Araç listesi bu son kontrolde boştu; daha önceki dolu gerçek araç yanıtı test örneğinde korunuyor. Boş veri yerine konum üretilmez.
+
+Kahramanmaraş köprüsü GTFS indirmeden çalışır, doğrudan Pallium erişim bilgisi kullanmaz. Kimlik `9576:1` gibi kaynak id:yön içerir. Arama tam envanter değildir; eksik varış yönleri tahmin edilmez. Tam envanter ve varıştan hatta bağlama işleri [ortak listede](../YAPILACAKLAR.md) açık kaldı.
+
+Sürekli ortak API sunucusu henüz kurulmadı; geliştirme 8010 portundadır. Mevcut Maraş servisi değiştirilmedi. Diğer şehirlerin kaynak ve test işleri de [YAPILACAKLAR.md](../YAPILACAKLAR.md) üzerinden devralınabilir.

@@ -2,15 +2,18 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**0.2.0: İzmir, İstanbul ve Konya.** Destek, resmi kaynağın sunduğu veriye göre değişir:
+**0.3.0: İzmir, İstanbul, Konya ve Kahramanmaraş.** Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
 | İzmir · ESHOT | Var | Var | Var | Var | İzmir BB Açık Veri Lisansı |
 | İstanbul · İETT | Var | Kaynakta yok | Var | Desteklenmiyor | İBB Açık Veri Lisansı |
 | Konya | Var | Var | Desteklenmiyor | Desteklenmiyor | CC BY 4.0 |
+| Kahramanmaraş · topluluk köprüsü | Arama / durak / yakın durak | Var | Var | Var | Kaynak veri lisansı belirtilmemiş |
 
-Şehirlerin kurulum durumu ve yetenekleri `/v1/cities` yanıtındaki `available` ve `capabilities` alanlarından okunur. Canlı verisi desteklenmeyen uç `501`, henüz veritabanı kurulmamış şehir `503` döner. Boş bir araç listesi başarılı bir canlı sorgunun sonucu olabilir; destek yokluğu anlamına gelmez.
+Kahramanmaraş, mevcut [Kahramankart API’mizin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. Diğer üç şehir `official_open_data` kaynaklarıdır.
+
+Şehirlerin kurulum durumu ve yetenekleri `/v1/cities` yanıtındaki `available` ve `capabilities` alanlarından okunur; `available` kaynağın yapılandırıldığını belirtir, anlık sağlık kontrolü değildir. `capabilities.line_catalog` tam hat listesini, `gtfs` statik GTFS desteğini belirtir. Canlı verisi desteklenmeyen uç `501`, henüz veritabanı kurulmamış şehir `503` döner. Boş bir araç listesi başarılı bir canlı sorgunun sonucu olabilir; destek yokluğu anlamına gelmez.
 
 **Ortak geliştirme:** [Yapılacaklar ve işi devralma](YAPILACAKLAR.md).
 
@@ -21,10 +24,10 @@ python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m tools.gtfs_guncelle         # tüm desteklenen şehirler
 # veya: .venv/bin/python -m tools.gtfs_guncelle istanbul konya
-.venv/bin/uvicorn turkiye_ulasim.main:app --port 8000 --workers 1
+.venv/bin/uvicorn turkiye_ulasim.main:app --port 8010 --workers 1
 ```
 
-Belgeler: `http://localhost:8000/docs`. Veriler `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Açık API süreci yeni veritabanını kullanmak için yeniden başlatılmalıdır. Sürekli sunucu veya otomatik güncelleme bu depoyu indirmekle kurulmaz.
+Belgeler: `http://localhost:8010/docs`. Pi’de mevcut Maraş servisi 8000 portunu kullandığından geliştirme örnekleri 8010 kullanır. GTFS verileri `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. Kahramanmaraş için içe aktarma veya erişim anahtarı gerekmez; uzak API kullanılır. Köprü `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. Varsayılan GTFS güncellemesi yalnız üç GTFS şehrini indirir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Açık API süreci yeni veritabanını kullanmak için yeniden başlatılmalıdır. Sürekli sunucu veya otomatik güncelleme bu depoyu indirmekle kurulmaz.
 
 ## Uçlar
 
@@ -43,20 +46,38 @@ Belgeler: `http://localhost:8000/docs`. Veriler `data/<şehir>.sqlite3` dosyalar
 İstanbul'da önce `/v1/istanbul/lines?q=15F` ile hat kimliğini seçin. GTFS `route_id`, görünen `15F` kodundan farklıdır; yönler ve güzergâh varyantları ayrı kimlik taşır. Canlı uç `source_route_code` ile tam varyantı eşleştirir, aynı kodun bütün araçlarını her varyanta kopyalamaz. Konya kimlikleri `1-A`, durakları `1000a` gibi alfasayısal olabilir.
 
 ```sh
-curl 'localhost:8000/v1/istanbul/lines?q=15F'
-curl 'localhost:8000/v1/konya/lines/1-A/stops?direction=0'
-curl 'localhost:8000/v1/izmir/stops/21050/arrivals'
+curl 'localhost:8010/v1/istanbul/lines?q=15F'
+curl 'localhost:8010/v1/konya/lines/1-A/stops?direction=0'
+curl 'localhost:8010/v1/izmir/stops/21050/arrivals'
 ```
 
 Her yanıtta `meta.city`, `source`, `license`, `source_url`, `live` ve `warnings` bulunur. Canlı yanıttaki `fetched_at`, kaynaktan alınma zamanıdır; önbellekte değişmez. `cached` önbellek kullanımını belirtir. İstanbul araçlarında ayrıca kaynağın konum zamanı `observed_at` ve beş dakikadan eski, gelecekte veya doğrulanamayan zamanlar için `stale` bulunur. Kaynak hatası `502`; İETT saatlik bütçesi dolduğunda `503` ve `Retry-After` döner.
 
+## Kahramanmaraş kullanımı
+
+```sh
+curl 'localhost:8010/v1/kahramanmaras/lines?q=H%2F1'
+curl 'localhost:8010/v1/kahramanmaras/lines/9576:1/stops?direction=0'
+curl 'localhost:8010/v1/kahramanmaras/lines/9576:1/vehicles'
+curl 'localhost:8010/v1/kahramanmaras/stops/6968/arrivals'
+```
+
+Hat kimliği **kaynak kimliği:yön** biçimindedir: `9576:1` ve `161:2` farklı kayıtlardır. Aramadan dönen kimliği aynen kullanın. Kaynak gidiş=1/dönüş=2, ortak durak/geometri sorgularında sırasıyla `direction=0/1` olur; `source_direction` özgün değeri korur. Kaynak yön=3 için 0/1 karşılığı henüz doğrulanmadığından sıra/geometri sorgusu `501` döner.
+
+Kaynak tam hat listesini yayımlamadığı için boş `q` ile `/lines` sorgusu `422` döner. Arama sonuçları sınırlıdır; `meta.pagination.source_limited=true`, dönen arama kümesinin şehir envanteri olmadığını belirtir. `has_more` yalnız dönen küme içindeki sayfalamaya aittir.
+
+Varış ve durak-hat kayıtlarında yön yoksa ortak `line_id` / `id` **null** kalır; özgün kimlik `source_line_id` / `source_id` içinde korunur. Varışlarda kaynak saniye tahmini `eta_seconds`, özgün yazı `source_remaining_time` alanındadır; `stops_away` bilinmiyorsa null kalır. `distanceToStop` alanının birimi doğrulanmadığından metre diye sunulmaz. Araç GPS ölçüm zamanı verilmez: `observed_at=null`; `fetched_at` veri alınma zamanıdır.
+
+Köprüde kısa süreli, en fazla 256 yanıtlık önbellek, eşzamanlı sorgu birleştirme ve süreç başına dakikada 60 kaynak isteği bütçesi vardır. İki canlı sorgu arasında en az 15 saniye bırakın. Aynı IP’de başka tüketiciler varsa kaynağın kendi sınırı daha erken uygulanabilir. Üst kaynak veya yerel bütçe sınırında `503` ve `Retry-After` döner.
+
 ## Kaynaklar ve sınırlar
 
-Yalnız resmi açık veri olarak yayımlanan kaynaklar kullanılır. Kodun MIT lisansı belediye verisinin lisansının yerini almaz; `meta` içindeki kaynak ve lisans bilgisini uygulamanızda koruyun.
+Resmi açık veri kaynakları ile topluluk köprüleri `source_kind` alanında ayrılır. Kahramanmaraş’ın kaynak veri lisansı doğrulanmış değildir; MIT ifadesi yalnız bağlayıcı koduna aittir. Kodun MIT lisansı belediye verisinin lisansının yerini almaz; `meta` içindeki kaynak ve lisans bilgisini uygulamanızda koruyun.
 
 - İzmir: [ESHOT GTFS](https://acikveri.bizizmir.com/dataset/toplu-ulasim-gtfs-verileri), [İZTEK servis belgesi](https://openfiles.izmir.bel.tr/471231/docs/iztek-WebServisKullanimDokumani_1.0.pdf).
 - İstanbul: [İETT GTFS kataloğu](https://data.ibb.gov.tr/dataset/iett-gtfs-verisi), [İETT servis belgesi v1.4](https://data.ibb.gov.tr/dataset/367a12a3-958c-4ecf-b7e8-41b5bf3b5580/resource/5c3e950f-61e5-4713-bd6d-46d1494c745e/download/en_iett-web-service-usage-document-v.1.4.pdf), [canlı konum WSDL](https://api.ibb.gov.tr/iett/FiloDurum/SeferGerceklesme.asmx?WSDL).
 - Konya: [GTFS kataloğu ve CC BY 4.0 lisansı](https://acikveri.konya.bel.tr/dataset/toplu-tasima-gtfs-verileri).
+- Kahramanmaraş: [topluluk API belgesi](https://mithrixa.com/ulasim-api/docs), [kaynak kodu](https://github.com/uzaylikafasi/kahramankart-ulasim-api). Ortak bağlayıcı doğrudan Pallium’a bağlanmaz; erişim bilgisi taşımaz.
 
 İstanbul CSV dosyaları CKAN kataloğundan bulunur; büyük `stop_times` ZIP'i akışla indirilir. Noktalı virgül ayracı, bozuk Türkçe metin ve binlik gruplamaya dönüşmüş koordinatlar düzeltilir. Sütunları kayan duraklar belgelenmiş `GetDurak_json` servisiyle doğrulanır; doğrulanamazsa içe aktarma başarısız olur. Kaynaktaki kimliksiz devam satırları atlanır; güzergâh kodu eksik hatlarda canlı eşleştirme `501` döner.
 
@@ -72,11 +93,13 @@ Büyükşehirlerin kaynak durumu ve devam sırası: [docs/BUYUKSEHIRLER.md](docs
 
 ## Yeni şehir ve test
 
-`turkiye_ulasim/cities.py` içine resmi kaynak/lisans ve canlı yetenekleri ekleyin. Statik şehir için GTFS kaynağı yeterlidir. Canlı bağlayıcı `LiveResult` döndürür; kaynak hataları `SourceError` olur. Şehri `default_sources()` içine bağlayın; gerçek yanıt örneğiyle çevrimdışı test ekleyin.
+`turkiye_ulasim/cities.py` içine kaynak türü, veri lisansı ve canlı yetenekleri ekleyin. Doğrulanmamış kaynağı resmi açık veri olarak etiketlemeyin. Statik şehir için GTFS kaynağı yeterlidir. Canlı bağlayıcı `LiveResult` döndürür; kaynak hataları `SourceError` olur. Şehri `default_sources()` içine bağlayın; gerçek yanıt örneğiyle çevrimdışı test ekleyin.
 
 ```sh
 .venv/bin/pip install -r requirements-dev.txt
 .venv/bin/python -m pytest -q
 ```
+
+GitHub Actions için [hazır test şablonu](docs/templates/github-tests.yml) vardır. Mevcut OAuth bağlantısında `workflow` yetkisi olmadığından henüz etkin değildir. GitHub web arayüzünden `.github/workflows/tests.yml` olarak eklenince her PR ve main push’unda Python 3.11 / 3.12 ile çevrimdışı testleri çalıştırır. Testler gerçek servisleri çağırmaz; canlı kontroller ayrı yapılır.
 
 Kod [MIT](LICENSE) lisanslıdır.

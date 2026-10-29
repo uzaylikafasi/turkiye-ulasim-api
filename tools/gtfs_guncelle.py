@@ -117,6 +117,9 @@ def catalog_archive(client: httpx.Client, catalog_url: str, folder: Path) -> Pat
 
 def update(city_id: str) -> None:
     city = CITIES[city_id]
+    if not city.gtfs:
+        print(f"{city.name}: GTFS kaynağı yok; uzak bağlayıcı kullanılır, içe aktarma gerekmiyor.")
+        return
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as folder, httpx.Client(timeout=120, follow_redirects=True) as client:
         folder = Path(folder)
@@ -137,7 +140,7 @@ def main() -> int:
     if unknown:
         parser.error(f"Bilinmeyen şehir: {', '.join(sorted(unknown))}")
     failed = False
-    for name in args.cities or CITIES:
+    for name in args.cities or [c.id for c in CITIES.values() if c.gtfs]:
         try:
             update(name)
         except (httpx.HTTPError, ValueError, KeyError, zipfile.BadZipFile, ET.ParseError, sqlite3.Error) as exc:

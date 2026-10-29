@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import inspect
 from contextlib import asynccontextmanager
 from dataclasses import asdict
 from pathlib import Path
@@ -9,21 +10,34 @@ from typing import Callable
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import JSONResponse
+from starlette.concurrency import run_in_threadpool
 
 from .cities import CITIES, City
 from .gtfs import GtfsStore
 from .sources.izmir import IzmirLive
 from .sources.istanbul import IstanbulLive
-from .sources.base import SourceError, SourceRateLimited
+from .sources.base import SourceError, SourceRateLimited, SourceNotFound, SourceUnsupported
+from .sources.kahramanmaras import Kahramanmaras
 
 DATA_DIR = Path(os.environ.get("ULASIM_DATA_DIR", Path(__file__).resolve().parent.parent / "data"))
 
 
 def default_sources() -> dict:
     factories = {"izmir": IzmirLive, "istanbul": IstanbulLive}
-    return {city_id: (GtfsStore(DATA_DIR / f"{city_id}.sqlite3"),
-                      factories[city_id]() if city_id in factories else None)
-            for city_id in CITIES if (DATA_DIR / f"{city_id}.sqlite3").is_file()}
+    sources = {city_id: (GtfsStore(DATA_DIR / f"{city_id}.sqlite3"),
+                         factories[city_id]() if city_id in factories else None)
+               for city_id, city in CITIES.items() if city.gtfs and (DATA_DIR / f"{city_id}.sqlite3").is_file()}
+    if os.getenv("ULASIM_KAHRAMANMARAS_ENABLED", "1") != "0":
+        bridge = Kahramanmaras()
+        sources["kahramanmaras"] = (bridge, bridge)
+    return sources
+
+
+async def store_call(store, method, *args):
+    call = getattr(store, method)
+    if inspect.iscoroutinefunction(call):
+        return await call(*args)
+    return await run_in_threadpool(call, *args)
 
 
 def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI:
@@ -36,17 +50,18 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
             yield
         finally:
             for store, live in state["sources"].values():
-                store.db.close()
+                if isinstance(store, GtfsStore):
+                    store.db.close()
                 if live is not None:
                     await live.client.aclose()
 
-    app = FastAPI(title="Türkiye Ulaşım API", version="0.2.0", lifespan=lifespan)
+    app = FastAPI(title="Türkiye Ulaşım API", version="0.3.0", lifespan=lifespan)
 
     def city_of(city_id: str):
         if city_id not in CITIES:
             raise HTTPException(404, f"Şehir desteklenmiyor: {city_id}")
         if city_id not in state["sources"]:
-            raise HTTPException(503, f"Şehrin GTFS verisi henüz kurulmadı: {city_id}")
+            raise HTTPException(503, f"Şehrin veri kaynağı henüz kurulmadı veya kapalı: {city_id}")
         return (CITIES[city_id], *state["sources"][city_id])
 
     def envelope(city: City, store: GtfsStore, data, result=None, warnings=()):
@@ -56,7 +71,7 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         if store.calendar_expired():
             warnings.append("Kaynağın GTFS takvimi süresi dolmuş; hat ve durak bilgisi eski olabilir.")
         meta = {"city": city.id, "source": city.operator, "license": city.license, "source_url": city.source_url,
-                "live": result is not None, "warnings": warnings}
+                "live": result is not None, "warnings": warnings, "source_kind": city.source_kind}
         if result is not None:
             meta["fetched_at"] = result.fetched_at
             meta["cached"] = result.cached
@@ -67,51 +82,56 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         if isinstance(exc, SourceRateLimited):
             return JSONResponse(status_code=503, content={"error": str(exc)},
                                 headers={"Retry-After": str(exc.retry_after)})
-        return JSONResponse(status_code=502, content={"error": str(exc)})
+        status = 404 if isinstance(exc, SourceNotFound) else 501 if isinstance(exc, SourceUnsupported) else 502
+        return JSONResponse(status_code=status, content={"error": str(exc)})
 
     @app.get("/v1/cities")
     def cities():
         return {"data": [asdict(c) | {"modes": list(c.modes), "available": c.id in state["sources"],
-                        "capabilities": {"static": True, "vehicles": c.live_vehicles, "arrivals": c.live_arrivals}}
+                        "capabilities": {"static": True, "vehicles": c.live_vehicles, "arrivals": c.live_arrivals,
+                                         "line_catalog": c.line_catalog, "gtfs": c.gtfs}}
                          for c in CITIES.values()],
                 "meta": {}}
 
     @app.get("/v1/{city_id}/lines")
-    def lines(city_id: str, q: str = Query("", max_length=80),
+    async def lines(city_id: str, q: str = Query("", max_length=80),
               limit: int = Query(200, ge=1, le=500), offset: int = Query(0, ge=0)):
         city, store, _ = city_of(city_id)
-        data = store.lines(q.strip(), limit + 1, offset)
+        if not city.line_catalog and not q.strip():
+            raise HTTPException(422, "Bu şehirde tam hat kataloğu yok; q ile hat arayın (örnek: H/1)")
+        data = await store_call(store, "lines", q.strip(), limit + 1, offset)
         response = envelope(city, store, data[:limit])
-        response["meta"]["pagination"] = {"limit": limit, "offset": offset, "has_more": len(data) > limit}
+        response["meta"]["pagination"] = {"limit": limit, "offset": offset, "has_more": len(data) > limit,
+                                             "source_limited": not city.line_catalog}
         return response
 
     @app.get("/v1/{city_id}/lines/{line_id}")
-    def line(city_id: str, line_id: str):
+    async def line(city_id: str, line_id: str):
         city, store, _ = city_of(city_id)
-        found = store.line(line_id)
+        found = await store_call(store, "line", line_id)
         if found is None:
             raise HTTPException(404, "Hat bulunamadı")
         return envelope(city, store, found)
 
     @app.get("/v1/{city_id}/lines/{line_id}/stops")
-    def line_stops(city_id: str, line_id: str, direction: int = Query(0, ge=0, le=1)):
+    async def line_stops(city_id: str, line_id: str, direction: int = Query(0, ge=0, le=1)):
         city, store, _ = city_of(city_id)
-        if store.line(line_id) is None:
+        if await store_call(store, "line", line_id) is None:
             raise HTTPException(404, "Hat bulunamadı")
-        return envelope(city, store, store.line_stops(line_id, direction))
+        return envelope(city, store, await store_call(store, "line_stops", line_id, direction))
 
     @app.get("/v1/{city_id}/lines/{line_id}/shape")
-    def line_shape(city_id: str, line_id: str, direction: int = Query(0, ge=0, le=1)):
+    async def line_shape(city_id: str, line_id: str, direction: int = Query(0, ge=0, le=1)):
         city, store, _ = city_of(city_id)
-        if store.line(line_id) is None:
+        if await store_call(store, "line", line_id) is None:
             raise HTTPException(404, "Hat bulunamadı")
-        data = store.line_shape(line_id, direction)
+        data = await store_call(store, "line_shape", line_id, direction)
         return envelope(city, store, data, warnings=[] if data else ["Kaynak bu hat/yön için güzergâh geometrisi içermiyor."])
 
     @app.get("/v1/{city_id}/lines/{line_id}/vehicles")
     async def vehicles(city_id: str, line_id: str):
         city, store, live = city_of(city_id)
-        found = store.line(line_id)
+        found = await store_call(store, "line", line_id)
         if found is None:
             raise HTTPException(404, "Hat bulunamadı")
         if not city.live_vehicles or live is None:
@@ -122,15 +142,15 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         return envelope(city, store, result.data, result=result)
 
     @app.get("/v1/{city_id}/stops/nearby")
-    def nearby(city_id: str, latitude: float = Query(ge=-90, le=90), longitude: float = Query(ge=-180, le=180),
+    async def nearby(city_id: str, latitude: float = Query(ge=-90, le=90), longitude: float = Query(ge=-180, le=180),
                radius: float = Query(500, gt=0, le=3000)):
         city, store, _ = city_of(city_id)
-        return envelope(city, store, store.nearby(latitude, longitude, radius))
+        return envelope(city, store, await store_call(store, "nearby", latitude, longitude, radius))
 
     @app.get("/v1/{city_id}/stops/{stop_id}")
-    def stop(city_id: str, stop_id: str):
+    async def stop(city_id: str, stop_id: str):
         city, store, _ = city_of(city_id)
-        found = store.stop(stop_id)
+        found = await store_call(store, "stop", stop_id)
         if found is None:
             raise HTTPException(404, "Durak bulunamadı")
         return envelope(city, store, found)
@@ -138,7 +158,7 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
     @app.get("/v1/{city_id}/stops/{stop_id}/arrivals")
     async def arrivals(city_id: str, stop_id: str):
         city, store, live = city_of(city_id)
-        if store.stop(stop_id) is None:
+        if await store_call(store, "stop", stop_id) is None:
             raise HTTPException(404, "Durak bulunamadı")
         if not city.live_arrivals or live is None:
             raise HTTPException(501, "Bu şehirde açık canlı varış kaynağı desteklenmiyor")

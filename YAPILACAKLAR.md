@@ -35,11 +35,11 @@ python3 -m venv .venv
 
 ## Önce yapılacaklar
 
-- [ ] **KMR-01 — Kahramanmaraş ortak bağlayıcı** · Ada, devam ediyor. Çalışan [Kahramankart API'sini](https://github.com/uzaylikafasi/kahramankart-ulasim-api) ortak şemaya bağla: hat arama, detay, sıra, geometri, yakın durak, araç ve varış. Kaynağı topluluk olarak belirt; yön/kimlik ve kaynak zamanını koru. Test ve gerçek kaynak kontrolüyle tamamlanır.
+- [x] **KMR-01 — Kahramanmaraş ortak bağlayıcı** · Ada tamamladı. Mevcut Kahramankart API'si ortak şemaya bağlandı: arama, detay, sıra, geometri, yakın durak, araç ve varış. Kaynak topluluk olarak etiketli; id:yön kimliği, alınma zamanı, kota ve önbellek var. 48 test ve dört şehirde 14 gerçek veri sorgusu geçti. Tam envanter ve eksik varış yönü KMR-02/03'te açık.
 - [ ] **KMR-02 — Tam hat envanteri:** Arama sonuçları sınırlı. Kaynak bütün şehri veriyor gibi davranmadan tam hat/yön listesini elde et; güncelleme tarihi ve kapsama ölçütü ekle.
 - [ ] **KMR-03 — Varıştan hatta bağlantı:** Varış yanıtında kaynak hat kimliği var, yön her kayıtta yok. Yönü tahmin etmeden ortak hat/yön kimliğine güvenilir eşleme ekle.
-- [ ] **CI-01 — GitHub Actions:** Her PR'da çevrimdışı pytest. Ağdan gerçek kaynak sorguları ayrı ve isteğe bağlı olsun; test için erişim bilgisi gerektirmesin.
-- [ ] **API-01 — Yetenek sözleşmesi:** Şehir başına tam liste / arama, GTFS, canlı araç, varış ve kaynak türünü belge ve testlerle sabitle. Veri yokluğu, destek yokluğu ve kaynak hatası ayrımını koru.
+- [ ] **CI-01 — GitHub Actions:** [Hazır şablon](docs/templates/github-tests.yml) Python 3.11/3.12 için çevrimdışı pytest çalıştırır. **Henüz etkin değil:** mevcut OAuth bağlantısı `workflow` yetkisi olmadığı için GitHub yüklemeyi reddetti. Samet veya Ömer GitHub web arayüzünden şablonu `.github/workflows/tests.yml` olarak ekleyebilir; ilk başarılı Actions koşumundan sonra kutuyu işaretle. API kodu ve liste bu eksikten bağımsız yayımlandı.
+- [x] **API-01 — Yetenek sözleşmesi:** `line_catalog`, `gtfs`, canlı araç/varış ve `source_kind` belge ve testlerle sabitlendi. Tam liste olmayan kaynak boş sorguda 422; destek olmayan uç 501; kapalı/kurulmamış kaynak 503; kaynak hatası 502.
 
 ## Yeni büyükşehirler: sırayla araştır ve bağla
 
@@ -77,3 +77,5 @@ Her şehirde bitiş ölçütü: erişilebilir kaynak + kullanım/lisans bilgisi 
 ## Mevcut doğrulama
 
 0.2.0 (`57f7cf9`): 28 test geçti; İzmir, İstanbul ve Konya'da gerçek kaynaklarla 15 örnek uç `200` döndürdü. Bu sonuç her hattın güncel veya çalışır olduğunu kanıtlamaz. Yeni işler tamamlanınca bu bölüme tarih, commit ve test sonucu ekleyin.
+
+0.3.0: Kahramanmaraş topluluk köprüsü eklendi; 48 çevrimdışı test geçti. Dört şehirde 14 gerçek veri sorgusu 200 döndü; Maraş H/1 gidiş 48, dönüş 52 durak; Demokrasi Meydanı varışı dolu. H/1 araç listesi son kontrolde boştu; dolu araç yanıtı önceki kaynak incelemesinde ve test örneğinde doğrulandı. Sürekli ortak API yayını hâlâ açık iş.
