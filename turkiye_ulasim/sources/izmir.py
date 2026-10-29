@@ -13,13 +13,11 @@ import time
 
 import httpx
 
+from .base import LiveResult, SourceError
+
 BASE_URL = "https://openapi.izmir.bel.tr/api/iztek"
 # Önceki konumlar bu süreden eskiyse karşılaştırmada kullanılmaz.
 MEMORY_SECONDS = 300
-
-
-class SourceError(Exception):
-    pass
 
 
 def _coordinate(value) -> float | None:
@@ -57,7 +55,7 @@ class IzmirLive:
         except ValueError as exc:
             raise SourceError("İzmir kaynağı JSON dışı yanıt döndü") from exc
 
-    async def vehicles(self, line_id: str) -> tuple[list[dict], list[str]]:
+    async def vehicles(self, line_id: str, *, line: dict | None = None) -> LiveResult:
         body = await self._get(f"/hatotobuskonumlari/{int(line_id)}") or {}
         if body.get("HataMesaj"):
             raise SourceError(f"İzmir kaynağı: {body['HataMesaj']}")
@@ -92,9 +90,9 @@ class IzmirLive:
         if ambiguous:
             warnings.append(f"{ambiguous} araç için kaynak birden fazla konum verdi; canlı olanı ayırt etmek "
                             "için ikinci bir sorgu gerekiyor (position_confidence=ambiguous).")
-        return vehicles, warnings
+        return LiveResult(vehicles, warnings)
 
-    async def arrivals(self, stop_id: str) -> tuple[list[dict], list[str]]:
+    async def arrivals(self, stop_id: str) -> LiveResult:
         body = await self._get(f"/duragayaklasanotobusler/{int(stop_id)}") or []
         arrivals = []
         for item in body:
@@ -111,4 +109,4 @@ class IzmirLive:
                 "bike_rack": item.get("BisikletAparatliMi"),
             })
         arrivals.sort(key=lambda a: a["stops_away"] if isinstance(a["stops_away"], int) else 10**6)
-        return arrivals, []
+        return LiveResult(arrivals)

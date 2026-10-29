@@ -117,3 +117,13 @@ def test_bad_input_never_reaches_source(gtfs_db):
                      "/v1/izmir/stops/99999/arrivals", "/v1/izmir/lines/446/stops?direction=2",
                      "/v1/izmir/stops/nearby?latitude=91&longitude=27"):
             assert client.get(path).status_code in (404, 422), path
+
+
+def test_line_pagination_exposes_remaining_results(gtfs_db):
+    with make_client(gtfs_db, no_upstream) as client:
+        first = client.get('/v1/izmir/lines?limit=1').json()
+        second = client.get('/v1/izmir/lines?limit=1&offset=1').json()
+        assert first['meta']['pagination']['has_more'] is True
+        assert second['meta']['pagination']['has_more'] is False
+        assert first['data'][0]['id'] != second['data'][0]['id']
+        assert client.get('/v1/izmir/lines?limit=501').status_code == 422
