@@ -1,0 +1,10 @@
+[Unit]
+Description=Türkiye ulaşım verilerini her gün yenile
+
+[Timer]
+OnCalendar=*-*-* 04:10:00 Europe/Istanbul
+RandomizedDelaySec=300
+Persistent=true
+
+[Install]
+WantedBy=timers.target

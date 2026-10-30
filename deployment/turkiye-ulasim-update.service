@@ -1,0 +1,14 @@
+[Unit]
+Description=Türkiye ulaşım günlük GTFS güncellemesi
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/kod/turkiye-ulasim
+ExecStart=%h/kod/turkiye-ulasim/.venv/bin/python -u -m tools.yenile
+MemoryMax=750M
+CPUQuota=50%
+TimeoutStartSec=30min
+NoNewPrivileges=true
+UMask=0077

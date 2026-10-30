@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import os
 import inspect
+import asyncio
+import json
 import sqlite3
 from datetime import datetime, timezone
 from contextlib import asynccontextmanager
@@ -39,6 +41,12 @@ async def store_call(store, method, *args):
     call = getattr(store, method)
     if inspect.iscoroutinefunction(call):
         return await call(*args)
+    if isinstance(store, GtfsStore):
+        if not hasattr(store, "query_lock"):
+            store.query_lock = asyncio.Lock()
+        async with store.query_lock:
+            store.refresh()
+            return await run_in_threadpool(call, *args)
     return await run_in_threadpool(call, *args)
 
 
@@ -81,7 +89,7 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
 
     @app.exception_handler(SourceError)
     async def source_error(_request, exc):
-        parts = _request.url.path.split("/")
+        parts = _request.url.path.removeprefix(_request.scope.get("root_path", "")).split("/")
         if len(parts) > 2 and parts[2] in CITIES:
             observation = state["observations"].setdefault(parts[2], {})
             observation.update(last_outcome="error", last_error_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -119,12 +127,16 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         return {"status": "ok", "version": app.version, "upstream_checked": False}
 
     @app.get("/v1/status")
-    def source_status():
-        return {"data": diagnostics(), "meta": {"upstream_checked": False,
+    async def source_status():
+        try:
+            update = json.loads((DATA_DIR / "update-status.json").read_text())
+        except (OSError, ValueError):
+            update = None
+        return {"data": diagnostics(), "meta": {"upstream_checked": False, "last_update": update,
                 "note": "Yerel dosya durumu ve bu süreçte gözlenen canlı sorgular; kaynaklara yeni istek yapılmaz."}}
 
     @app.get("/readyz")
-    def readiness():
+    async def readiness():
         rows = diagnostics()
         # Hazır olma, yapılandırılmış kaynaklar ve yerel veri içindir; canlı sağlayıcı garantisi değildir.
         ready = all(r["local_status"] == "readable" for r in rows if r["storage"] == "gtfs")

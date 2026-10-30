@@ -185,8 +185,16 @@ def _distance_m(lat1, lon1, lat2, lon2) -> float:
 
 class GtfsStore:
     def __init__(self, db_path: Path):
+        self.path = db_path
+        self.file_id = db_path.stat().st_ino
         self.db = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True, check_same_thread=False)
         self.db.row_factory = sqlite3.Row
+
+    def refresh(self):
+        if self.path.stat().st_ino != self.file_id:
+            replacement = GtfsStore(self.path)
+            self.db.close()
+            self.db, self.file_id = replacement.db, replacement.file_id
 
     def warnings(self) -> list[str]:
         row = self.db.execute("SELECT value FROM meta WHERE key='warnings'").fetchone()

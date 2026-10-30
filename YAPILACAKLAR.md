@@ -1,6 +1,8 @@
 # Yapılacaklar
 
-Ortak çalışma listesi · son güncelleme: 29 Ekim 2026.
+Ortak çalışma listesi · son güncelleme: 30 Ekim 2026.
+
+**Canlı API:** https://mithrixa.com/turkiye-ulasim-api · [Belgeler](https://mithrixa.com/turkiye-ulasim-api/docs). Günlük güncelleme ve sürekli servis kuruldu.
 
 **Öncelik: otobüsler, önce büyükşehirler.** Metro, tramvay, vapur ve şehirlerarası ulaşım sonraki aşama. Yeni kaynak bulunması ile çalışır şehir desteği farklı aşamalardır.
 
@@ -63,8 +65,8 @@ Her şehirde bitiş ölçütü: erişilebilir kaynak + kullanım/lisans bilgisi 
 
 ## Yayın ve bakım
 
-- [ ] **YAYIN-01:** Ayrı port + systemd/hosting yapılandırması, alan adı/tünel ve kaynak kotasıyla sürekli API yayını. Mevcut Maraş servisine dokunma.
-- [ ] **BAKIM-01:** Otomatik veri güncelleme, başarısız indirmede eski veriyi koruma, güncelleme/sağlık raporu. Yeni dosyayı açan süreç yönetimini belirle.
+- [x] **YAYIN-01:** 30 Ekim: ayrı 8010 portunda systemd servisi; https://mithrixa.com/turkiye-ulasim-api üzerinden sınırlı GET köprüsüyle yayın. Maraş servisi 8000’de korundu. [İşletim ve geri alma](deployment/README.md).
+- [x] **BAKIM-01:** Günlük 04:10 (+0–5 dk) systemd timer, tek yazar kilidi, atomik ithalat, şehir bazında hata raporu ve yeniden başlatmadan SQLite yenileme eklendi. Kaynak eski veri yayımlarsa güncelleme bunu kendiliğinden güncel hale getiremez.
 - [ ] **KOTA-01:** İETT tek worker'da 90 istek/saat bütçesi kullanır. Birden fazla süreç/sunucu öncesinde paylaşılan kota ve önbellek kur; aynı IP'deki diğer tüketicileri hesaba kat.
 - [x] **IZLEME-01:** 30 Ekim: `/healthz`, `/readyz`, `/v1/status` eklendi. Yerel GTFS okunabilirliği, kaydedilmiş içe aktarma/takvim bilgisi ve süreçte gözlenen canlı başarı/hata durumu sunulur. Ağ sorgusu ve gizli bilgi yok; sürekli izleme kurulumu YAYIN/BAKIM işlerinde açık.
 - [ ] **BELGE-01:** Çalışır küçük Python/JavaScript istemci örnekleri; boş veri ve desteklenmeyen yetenekleri nasıl ele alacağını göster.
@@ -81,3 +83,5 @@ Her şehirde bitiş ölçütü: erişilebilir kaynak + kullanım/lisans bilgisi 
 0.3.0: Kahramanmaraş topluluk köprüsü eklendi; 48 çevrimdışı test geçti. Dört şehirde 14 gerçek veri sorgusu 200 döndü; Maraş H/1 gidiş 48, dönüş 52 durak; Demokrasi Meydanı varışı dolu. H/1 araç listesi son kontrolde boştu; dolu araç yanıtı önceki kaynak incelemesinde ve test örneğinde doğrulandı. Sürekli ortak API yayını hâlâ açık iş.
 
 30 Ekim: sağlık ve veri durumu uçları eklendi; 52 çevrimdışı test geçti. Kaynaklara otomatik sağlık sorgusu yapılmaz. Sürekli yayın ve otomatik güncelleme henüz kurulmadı.
+
+30 Ekim yayın: 55 test geçti; dış adreste sağlık, veri durumu, dört şehirden veri, belgeler ve OpenAPI dahil 11 ortak API sorgusu 200 döndü. Eski Maraş API ve ana site de 200. İlk otomatik güncelleme üç GTFS şehrinde başarılı; API aynı süreçte yeni dosyaları yükledi.

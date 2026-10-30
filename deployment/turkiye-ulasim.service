@@ -1,0 +1,17 @@
+[Unit]
+Description=Türkiye ortak ulaşım API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=%h/kod/turkiye-ulasim
+ExecStart=%h/kod/turkiye-ulasim/.venv/bin/uvicorn turkiye_ulasim.main:app --host 127.0.0.1 --port 8010 --workers 1 --root-path /turkiye-ulasim-api
+Restart=on-failure
+RestartSec=5
+MemoryMax=300M
+CPUQuota=100%
+NoNewPrivileges=true
+UMask=0077
+
+[Install]
+WantedBy=default.target

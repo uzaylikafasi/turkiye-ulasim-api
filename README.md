@@ -27,7 +27,9 @@ python3 -m venv .venv
 .venv/bin/uvicorn turkiye_ulasim.main:app --port 8010 --workers 1
 ```
 
-Belgeler: `http://localhost:8010/docs`. Pi’de mevcut Maraş servisi 8000 portunu kullandığından geliştirme örnekleri 8010 kullanır. GTFS verileri `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. Kahramanmaraş için içe aktarma veya erişim anahtarı gerekmez; uzak API kullanılır. Köprü `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. Varsayılan GTFS güncellemesi yalnız üç GTFS şehrini indirir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Açık API süreci yeni veritabanını kullanmak için yeniden başlatılmalıdır. Sürekli sunucu veya otomatik güncelleme bu depoyu indirmekle kurulmaz.
+Canlı API: **https://mithrixa.com/turkiye-ulasim-api** · [Canlı belgeler](https://mithrixa.com/turkiye-ulasim-api/docs) · [Yayın ve bakım](deployment/README.md).
+
+Yerel belgeler: `http://localhost:8010/docs`. Pi’de mevcut Maraş servisi 8000 portunu kullandığından geliştirme örnekleri 8010 kullanır. GTFS verileri `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. Kahramanmaraş için içe aktarma veya erişim anahtarı gerekmez; uzak API kullanılır. Köprü `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. Varsayılan GTFS güncellemesi yalnız üç GTFS şehrini indirir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Çalışan API sonraki veri sorgusunda yeni dosyayı sunucuyu yeniden başlatmadan yükler. Pi’de sürekli servis ve günlük 04:10 güncelleme zamanlayıcısı kuruldu; yalnız depoyu indirmek bu servisleri başka makinede kurmaz.
 
 ## Uçlar
 
@@ -110,4 +112,4 @@ Kod [MIT](LICENSE) lisanslıdır.
 - `/readyz`: üç GTFS şehrinin dosyaları ve temel tabloları okunabiliyorsa 200; eksik/bozuksa 503. İsteğe bağlı Maraş köprüsü bu yerel koşula dahil değildir.
 - `/v1/status`: şehir başına yapılandırma, dosya okunabilirliği, `imported_at`, takvim bitişi/süresi ve bu süreçte gözlenen son canlı başarı/hata bilgisi.
 
-Bu uçlar kaynağa ağ isteği yapmaz ve kota tüketmez; `upstream_checked=false` kalır. Konya gibi uzun takvimli eski kaynakların güncel olduğunu kanıtlamaz. Eski veritabanında içe aktarma zamanı yoksa null gösterilir. Canlı gözlemler yeniden başlatmada sıfırlanır; hata mesajı, anahtar ve yerel dosya yolu yayımlanmaz. Sürekli izleme servisi ve otomatik güncelleme ayrıca kurulmalıdır.
+Bu uçlar kaynağa ağ isteği yapmaz ve kota tüketmez; `upstream_checked=false` kalır. Konya gibi uzun takvimli eski kaynakların güncel olduğunu kanıtlamaz. Eski veritabanında içe aktarma zamanı yoksa null gösterilir. Canlı gözlemler yeniden başlatmada sıfırlanır; hata mesajı, anahtar ve yerel dosya yolu yayımlanmaz. Pi’de sürekli API servisi ve günlük güncelleme kuruldu; kurulum ve sınırlar [yayın belgesindedir](deployment/README.md). Sağlık uçları dış sağlayıcının erişilebilirliğini kendiliğinden test etmez.
