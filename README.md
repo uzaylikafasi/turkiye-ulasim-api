@@ -103,3 +103,11 @@ Büyükşehirlerin kaynak durumu ve devam sırası: [docs/BUYUKSEHIRLER.md](docs
 GitHub Actions için [hazır test şablonu](docs/templates/github-tests.yml) vardır. Mevcut OAuth bağlantısında `workflow` yetkisi olmadığından henüz etkin değildir. GitHub web arayüzünden `.github/workflows/tests.yml` olarak eklenince her PR ve main push’unda Python 3.11 / 3.12 ile çevrimdışı testleri çalıştırır. Testler gerçek servisleri çağırmaz; canlı kontroller ayrı yapılır.
 
 Kod [MIT](LICENSE) lisanslıdır.
+
+## Sağlık ve veri durumu
+
+- `/healthz`: uygulama ayakta mı? Verinin tam veya canlı kaynağın erişilebilir olduğunu söylemez.
+- `/readyz`: üç GTFS şehrinin dosyaları ve temel tabloları okunabiliyorsa 200; eksik/bozuksa 503. İsteğe bağlı Maraş köprüsü bu yerel koşula dahil değildir.
+- `/v1/status`: şehir başına yapılandırma, dosya okunabilirliği, `imported_at`, takvim bitişi/süresi ve bu süreçte gözlenen son canlı başarı/hata bilgisi.
+
+Bu uçlar kaynağa ağ isteği yapmaz ve kota tüketmez; `upstream_checked=false` kalır. Konya gibi uzun takvimli eski kaynakların güncel olduğunu kanıtlamaz. Eski veritabanında içe aktarma zamanı yoksa null gösterilir. Canlı gözlemler yeniden başlatmada sıfırlanır; hata mesajı, anahtar ve yerel dosya yolu yayımlanmaz. Sürekli izleme servisi ve otomatik güncelleme ayrıca kurulmalıdır.

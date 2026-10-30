@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import os
 import inspect
+import sqlite3
+from datetime import datetime, timezone
 from contextlib import asynccontextmanager
 from dataclasses import asdict
 from pathlib import Path
@@ -41,7 +43,7 @@ async def store_call(store, method, *args):
 
 
 def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI:
-    state: dict = {}
+    state: dict = {"observations": {}}
 
     @asynccontextmanager
     async def lifespan(_app):
@@ -79,11 +81,55 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
 
     @app.exception_handler(SourceError)
     async def source_error(_request, exc):
+        parts = _request.url.path.split("/")
+        if len(parts) > 2 and parts[2] in CITIES:
+            observation = state["observations"].setdefault(parts[2], {})
+            observation.update(last_outcome="error", last_error_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                               last_error_type=type(exc).__name__)
         if isinstance(exc, SourceRateLimited):
             return JSONResponse(status_code=503, content={"error": str(exc)},
                                 headers={"Retry-After": str(exc.retry_after)})
         status = 404 if isinstance(exc, SourceNotFound) else 501 if isinstance(exc, SourceUnsupported) else 502
         return JSONResponse(status_code=status, content={"error": str(exc)})
+
+    def diagnostics():
+        rows = []
+        for city in CITIES.values():
+            source = state["sources"].get(city.id)
+            row = {"city": city.id, "configured": source is not None, "storage": "gtfs" if city.gtfs else "remote",
+                   "local_status": "missing" if source is None else "configured",
+                   "imported_at": None, "calendar_end": None, "calendar_expired": None,
+                   "upstream_checked": False, "live_observation": dict(state["observations"].get(city.id, {}))}
+            if source is not None and city.gtfs:
+                try:
+                    db = source[0].db
+                    values = dict(db.execute("SELECT key,value FROM meta"))
+                    # Temel tabloların okunabildiğini doğrula; dosya yollarını veya hata ayrıntılarını açma.
+                    row.update(lines=db.execute("SELECT count(*) FROM lines").fetchone()[0],
+                               stops=db.execute("SELECT count(*) FROM stops").fetchone()[0],
+                               imported_at=values.get("imported_at"), calendar_end=values.get("calendar_end") or None,
+                               calendar_expired=source[0].calendar_expired(), local_status="readable")
+                except sqlite3.Error:
+                    row["local_status"] = "error"
+            rows.append(row)
+        return rows
+
+    @app.get("/healthz")
+    def health():
+        return {"status": "ok", "version": app.version, "upstream_checked": False}
+
+    @app.get("/v1/status")
+    def source_status():
+        return {"data": diagnostics(), "meta": {"upstream_checked": False,
+                "note": "Yerel dosya durumu ve bu süreçte gözlenen canlı sorgular; kaynaklara yeni istek yapılmaz."}}
+
+    @app.get("/readyz")
+    def readiness():
+        rows = diagnostics()
+        # Hazır olma, yapılandırılmış kaynaklar ve yerel veri içindir; canlı sağlayıcı garantisi değildir.
+        ready = all(r["local_status"] == "readable" for r in rows if r["storage"] == "gtfs")
+        return JSONResponse(status_code=200 if ready else 503,
+                            content={"status": "ready" if ready else "not_ready", "upstream_checked": False})
 
     @app.get("/v1/cities")
     def cities():
@@ -139,6 +185,7 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         if city.id == "istanbul" and not found.get("source_route_code"):
             raise HTTPException(501, "Kaynak bu hat için canlı eşleştirmede kullanılan güzergâh kodunu içermiyor")
         result = await live.vehicles(line_id, line=found)
+        state["observations"].setdefault(city.id, {}).update(last_outcome="success", last_success_at=result.fetched_at)
         return envelope(city, store, result.data, result=result)
 
     @app.get("/v1/{city_id}/stops/nearby")
@@ -163,6 +210,7 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         if not city.live_arrivals or live is None:
             raise HTTPException(501, "Bu şehirde açık canlı varış kaynağı desteklenmiyor")
         result = await live.arrivals(stop_id)
+        state["observations"].setdefault(city.id, {}).update(last_outcome="success", last_success_at=result.fetched_at)
         return envelope(city, store, result.data, result=result)
 
     return app

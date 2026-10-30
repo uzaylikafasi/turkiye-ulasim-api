@@ -66,7 +66,7 @@ Her şehirde bitiş ölçütü: erişilebilir kaynak + kullanım/lisans bilgisi 
 - [ ] **YAYIN-01:** Ayrı port + systemd/hosting yapılandırması, alan adı/tünel ve kaynak kotasıyla sürekli API yayını. Mevcut Maraş servisine dokunma.
 - [ ] **BAKIM-01:** Otomatik veri güncelleme, başarısız indirmede eski veriyi koruma, güncelleme/sağlık raporu. Yeni dosyayı açan süreç yönetimini belirle.
 - [ ] **KOTA-01:** İETT tek worker'da 90 istek/saat bütçesi kullanır. Birden fazla süreç/sunucu öncesinde paylaşılan kota ve önbellek kur; aynı IP'deki diğer tüketicileri hesaba kat.
-- [ ] **IZLEME-01:** `/healthz` ve şehir başına son başarılı statik güncelleme / kaynak hata durumu; anahtar veya özel veri açığa çıkarma.
+- [x] **IZLEME-01:** 30 Ekim: `/healthz`, `/readyz`, `/v1/status` eklendi. Yerel GTFS okunabilirliği, kaydedilmiş içe aktarma/takvim bilgisi ve süreçte gözlenen canlı başarı/hata durumu sunulur. Ağ sorgusu ve gizli bilgi yok; sürekli izleme kurulumu YAYIN/BAKIM işlerinde açık.
 - [ ] **BELGE-01:** Çalışır küçük Python/JavaScript istemci örnekleri; boş veri ve desteklenmeyen yetenekleri nasıl ele alacağını göster.
 
 ## Sonraya bırakılanlar
@@ -79,3 +79,5 @@ Her şehirde bitiş ölçütü: erişilebilir kaynak + kullanım/lisans bilgisi 
 0.2.0 (`57f7cf9`): 28 test geçti; İzmir, İstanbul ve Konya'da gerçek kaynaklarla 15 örnek uç `200` döndürdü. Bu sonuç her hattın güncel veya çalışır olduğunu kanıtlamaz. Yeni işler tamamlanınca bu bölüme tarih, commit ve test sonucu ekleyin.
 
 0.3.0: Kahramanmaraş topluluk köprüsü eklendi; 48 çevrimdışı test geçti. Dört şehirde 14 gerçek veri sorgusu 200 döndü; Maraş H/1 gidiş 48, dönüş 52 durak; Demokrasi Meydanı varışı dolu. H/1 araç listesi son kontrolde boştu; dolu araç yanıtı önceki kaynak incelemesinde ve test örneğinde doğrulandı. Sürekli ortak API yayını hâlâ açık iş.
+
+30 Ekim: sağlık ve veri durumu uçları eklendi; 52 çevrimdışı test geçti. Kaynaklara otomatik sağlık sorgusu yapılmaz. Sürekli yayın ve otomatik güncelleme henüz kurulmadı.
