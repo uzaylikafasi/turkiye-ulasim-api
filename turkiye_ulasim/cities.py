@@ -73,7 +73,23 @@ CITIES = {
 }
 
 # Kentkart verisinden topluluğun ürettiği GTFS: resmi belediye feed'i değildir.
-for slug, name in (("antalya", "Antalya"), ("kocaeli", "Kocaeli"), ("adana", "Adana"), ("gaziantep", "Gaziantep")):
+for slug, name in (
+    ('antalya', 'Antalya'),
+    ('kocaeli', 'Kocaeli'),
+    ('adana', 'Adana'),
+    ('gaziantep', 'Gaziantep'),
+    ('erzurum', 'Erzurum'),
+    ('mardin', 'Mardin'),
+    ('mugla', 'Muğla'),
+    ('ordu', 'Ordu'),
+    ('canakkale', 'Çanakkale'),
+    ('duzce', 'Düzce'),
+    ('burdur', 'Burdur'),
+    ('nigde', 'Niğde'),
+    ('kirklareli', 'Kırklareli'),
+    ('osmaniye', 'Osmaniye'),
+    ('tokat', 'Tokat'),
+):
     CITIES[slug] = City(
         id=slug, name=name, operator=f"{name} · Kentkart / Egezenn GTFS",
         gtfs_url=f"https://raw.githubusercontent.com/Egezenn/kk-gtfs/main/data/{slug}.zip",
@@ -82,5 +98,6 @@ for slug, name in (("antalya", "Antalya"), ("kocaeli", "Kocaeli"), ("adana", "Ad
         source_kind="community_gtfs",
         warnings=("Resmi belediye GTFS yayını değildir; Kentkart verisinden Egezenn/kk-gtfs topluluk derlemesi kullanılır.",
                   "Kaynak takvimi üretim tarihinden itibaren 60 gün olarak türetilir; takvim, kaynağın güncelliğini veya bugün çalıştığını kanıtlamaz.",
+                  "Katalogdaki her hattın sıralı durak ve geometri kaydı bulunmayabilir; kaynak kapsamı kısmi olabilir.",
                   "Yalnız otobüs hatları sunulur; canlı araç/varış desteği eklenmedi. Kaynak tarife zamanları varsayımlar içerir; bu API tarife sorgusu sunmaz."),
     )

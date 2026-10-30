@@ -56,3 +56,5 @@ Kahramanmaraş köprüsü GTFS indirmeden çalışır, doğrudan Pallium erişim
 | Gaziantep | 162 | 3.110 |
 
 Toplam şehir desteği sekize çıktı. Otobüs dışındaki hatlar içe alınmadı. Her şehirde hat arama/detay, sıralı durak, geometri, durak detayı ve yakın durak uçları bulunur. Yeni şehirler günlük GTFS güncelleyicisine dahildir. Yukarıdaki resmi kaynak araştırmaları, bu topluluk desteğinden ayrı açık işlerdir.
+
+31 Ekim ikinci tur: Erzurum, Mardin, Muğla ve Ordu dahil 11 yeni il eklendi; toplam 19 il. Kapsam ve dışarıda bırakılan kaynaklar [yeni il tablosunda](YENI_ILLER.md).

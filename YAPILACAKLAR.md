@@ -92,3 +92,14 @@ Her şehirde bitiş ölçütü: erişilebilir kaynak + kullanım/lisans bilgisi 
 - [ ] **YENI-02:** Sonraki şehir: Ankara/Bursa için erişilebilir kaynak; Kentkart topluluk kapsamındaki diğer büyükşehirleri de doğrulayarak ekle.
 
 ANT-01/KOC-01/GAZ-01 maddelerindeki resmi kaynak araştırması ayrı iş olarak açık; topluluk GTFS desteği tamamlandı. Adana için DIGER-01 kapsamında ilk statik destek tamamlandı.
+
+## 31 Ekim · İkinci genişleme turu
+
+- [x] **YENI-03:** Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye ve Tokat: gerçek dosyalar içe alındı; topluluk kaynağı ve eksik kapsam açık. [Sayısal kapsam](docs/YENI_ILLER.md).
+- [ ] **KAYNAK-01:** Sivas/Edirne eksik sefer dosyaları için güncel kaynak bul; sefer uydurma.
+- [ ] **KAYNAK-02:** Kastamonu çakışan geometri kayıtlarını incele; rastgele nokta seçme.
+- [ ] **BUR-02:** Güncel acikyesil.bursa.bel.tr portalında GTFS araması boş; diğer otobüs hat/durak veri setlerini araştır.
+
+Toplam 19 il; günlük güncelleme 18 GTFS kaynağını kapsar. İlçe verileri il kapsamı diye sayılmadı. Öncelik hâlâ yeni iller ve otobüs kapsamı.
+
+Bu tur doğrulama: 70 çevrimdışı test, yeni 11 ilde 44 dış veri sorgusu başarılı. Canlı listede 19 il; tümü yapılandırılmış. Ana site ve eski Maraş API sağlık kontrolü 200.

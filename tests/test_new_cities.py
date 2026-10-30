@@ -6,7 +6,7 @@ from turkiye_ulasim.main import create_app
 from deployment.public_proxy import PATH
 
 
-@pytest.mark.parametrize('city',['antalya','kocaeli','adana','gaziantep'])
+@pytest.mark.parametrize('city',[c.id for c in CITIES.values() if c.source_kind=='community_gtfs'])
 def test_community_bus_cities_have_honest_capabilities_and_public_routes(city,gtfs_db):
     with TestClient(create_app(lambda:{city:(GtfsStore(gtfs_db),None)})) as client:
         listing=client.get('/v1/cities').json()['data']
