@@ -39,7 +39,7 @@ def test_status_tracks_observed_live_error_then_success(gtfs_db):
     def handler(request):
         calls.append(request)
         return httpx.Response(500) if len(calls)==1 else httpx.Response(200,json={'HatOtobusKonumlari':[]})
-    live=IzmirLive(httpx.AsyncClient(transport=httpx.MockTransport(handler)))
+    live=IzmirLive(httpx.AsyncClient(base_url="https://openapi.izmir.bel.tr/api/iztek", transport=httpx.MockTransport(handler)))
     with TestClient(create_app(lambda:{'izmir':(GtfsStore(gtfs_db),live)})) as client:
         assert client.get('/v1/izmir/lines/446/vehicles').status_code==502
         row=client.get('/v1/status').json()['data'][0]['live_observation']
