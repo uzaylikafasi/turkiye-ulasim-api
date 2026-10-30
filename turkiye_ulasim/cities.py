@@ -71,3 +71,16 @@ CITIES = {
                   "Hat kimliği kaynak kimliği:yön biçimindedir (9576:1). Varış ve durak-hat kayıtlarında yön yoksa ortak hat kimliği null kalır.",),
     ),
 }
+
+# Kentkart verisinden topluluğun ürettiği GTFS: resmi belediye feed'i değildir.
+for slug, name in (("antalya", "Antalya"), ("kocaeli", "Kocaeli"), ("adana", "Adana"), ("gaziantep", "Gaziantep")):
+    CITIES[slug] = City(
+        id=slug, name=name, operator=f"{name} · Kentkart / Egezenn GTFS",
+        gtfs_url=f"https://raw.githubusercontent.com/Egezenn/kk-gtfs/main/data/{slug}.zip",
+        license="Derleme/biçimlendirme CC0 1.0; alt verinin hakları Kentkart/belediyeye aittir",
+        source_url="https://github.com/Egezenn/kk-gtfs",
+        source_kind="community_gtfs",
+        warnings=("Resmi belediye GTFS yayını değildir; Kentkart verisinden Egezenn/kk-gtfs topluluk derlemesi kullanılır.",
+                  "Kaynak takvimi üretim tarihinden itibaren 60 gün olarak türetilir; takvim, kaynağın güncelliğini veya bugün çalıştığını kanıtlamaz.",
+                  "Yalnız otobüs hatları sunulur; canlı araç/varış desteği eklenmedi. Kaynak tarife zamanları varsayımlar içerir; bu API tarife sorgusu sunmaz."),
+    )

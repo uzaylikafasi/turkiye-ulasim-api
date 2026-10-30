@@ -1,6 +1,7 @@
 import httpx
 from fastapi.testclient import TestClient
 from turkiye_ulasim.gtfs import GtfsStore
+from turkiye_ulasim.cities import CITIES
 from turkiye_ulasim.main import create_app
 from turkiye_ulasim.sources.izmir import IzmirLive
 
@@ -15,7 +16,7 @@ def test_health_does_not_claim_readiness_or_call_upstream():
 
 
 def test_status_reports_import_time_calendar_and_local_readability(gtfs_db):
-    with TestClient(create_app(lambda:{c:(GtfsStore(gtfs_db),None) for c in ('izmir','istanbul','konya')})) as client:
+    with TestClient(create_app(lambda:{c:(GtfsStore(gtfs_db),None) for c, city in CITIES.items() if city.gtfs})) as client:
         assert client.get('/readyz').status_code==200
         row=client.get('/v1/status').json()['data'][0]
         assert row['local_status']=='readable' and row['imported_at']

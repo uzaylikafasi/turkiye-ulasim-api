@@ -32,7 +32,7 @@ def test_update_failure_is_recorded_and_other_cities_continue(tmp_path,monkeypat
     monkeypatch.setattr(yenile,'update',update)
     assert yenile.run()==1
     report=json.loads((tmp_path/'update-status.json').read_text())
-    assert calls==['izmir','istanbul','konya']
+    assert calls==[city.id for city in yenile.CITIES.values() if city.gtfs]
     assert report['status']=='partial_failure'
     assert report['cities']['konya']['status']=='success'
     assert 'private' not in str(report)

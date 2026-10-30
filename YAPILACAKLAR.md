@@ -1,10 +1,10 @@
 # Yapılacaklar
 
-Ortak çalışma listesi · son güncelleme: 30 Ekim 2026.
+Ortak çalışma listesi · son güncelleme: 31 Ekim 2026.
 
 **Canlı API:** https://mithrixa.com/turkiye-ulasim-api · [Belgeler](https://mithrixa.com/turkiye-ulasim-api/docs). Günlük güncelleme ve sürekli servis kuruldu.
 
-**Öncelik: otobüsler, önce büyükşehirler.** Metro, tramvay, vapur ve şehirlerarası ulaşım sonraki aşama. Yeni kaynak bulunması ile çalışır şehir desteği farklı aşamalardır.
+**Öncelik: yeni şehirler ve otobüs kapsamı.** Altyapı işleri şehir eklemeyi sürekli ertelememeli (Ömer, 31 Ekim). Metro, tramvay, vapur ve şehirlerarası ulaşım sonraki aşama. Yeni kaynak bulunması ile çalışır şehir desteği farklı aşamalardır.
 
 ## Bir işi devralmak
 
@@ -85,3 +85,10 @@ Her şehirde bitiş ölçütü: erişilebilir kaynak + kullanım/lisans bilgisi 
 30 Ekim: sağlık ve veri durumu uçları eklendi; 52 çevrimdışı test geçti. Kaynaklara otomatik sağlık sorgusu yapılmaz. Sürekli yayın ve otomatik güncelleme henüz kurulmadı.
 
 30 Ekim yayın: 55 test geçti; dış adreste sağlık, veri durumu, dört şehirden veri, belgeler ve OpenAPI dahil 11 ortak API sorgusu 200 döndü. Eski Maraş API ve ana site de 200. İlk otomatik güncelleme üç GTFS şehrinde başarılı; API aynı süreçte yeni dosyaları yükledi.
+
+## 31 Ekim: dört yeni şehir
+
+- [x] **YENI-01:** Antalya (162 hat, 4.503 durak), Kocaeli (409, 8.597), Adana (291, 3.618), Gaziantep (162, 3.110) otobüs GTFS desteği. Egezenn/kk-gtfs topluluk derlemesi; resmi veri olarak etiketlenmez. Canlı araç/varış yok; takvim/zamanlar türetilmiş olabilir. Günlük güncelleyiciye dahil.
+- [ ] **YENI-02:** Sonraki şehir: Ankara/Bursa için erişilebilir kaynak; Kentkart topluluk kapsamındaki diğer büyükşehirleri de doğrulayarak ekle.
+
+ANT-01/KOC-01/GAZ-01 maddelerindeki resmi kaynak araştırması ayrı iş olarak açık; topluluk GTFS desteği tamamlandı. Adana için DIGER-01 kapsamında ilk statik destek tamamlandı.

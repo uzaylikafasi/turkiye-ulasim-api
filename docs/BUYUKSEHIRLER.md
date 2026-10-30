@@ -43,3 +43,16 @@ Bu sıra büyüklüğe ve erişilebilirliğe göre çalışma sırasıdır; nüf
 Kahramanmaraş köprüsü GTFS indirmeden çalışır, doğrudan Pallium erişim bilgisi kullanmaz. Kimlik `9576:1` gibi kaynak id:yön içerir. Arama tam envanter değildir; eksik varış yönleri tahmin edilmez. Tam envanter ve varıştan hatta bağlama işleri [ortak listede](../YAPILACAKLAR.md) açık kaldı.
 
 30 Ekim: sürekli ortak API [mithrixa.com/turkiye-ulasim-api](https://mithrixa.com/turkiye-ulasim-api/docs) adresinde yayımlandı; yerel servis 8010 portundadır. Günlük 04:10 güncelleme kuruldu ve ilk tur üç GTFS şehrinde başarıyla tamamlandı. Mevcut Maraş servisi değiştirilmedi. Diğer şehirlerin kaynak ve test işleri de [YAPILACAKLAR.md](../YAPILACAKLAR.md) üzerinden devralınabilir.
+
+## 31 Ekim · Yeni şehirler
+
+[Kaynak depo](https://github.com/Egezenn/kk-gtfs) üzerinden Antalya, Kocaeli, Adana ve Gaziantep eklendi. Belediye portallarının erişim sorunları sürerken erişilebilir topluluk GTFS verisi kullanıldı; kaynak türü `community_gtfs`, belediyenin resmi açık verisi olduğu iddia edilmez. Derleme/biçimlendirme CC0, temel verinin hakları Kentkart/belediyeye aittir. Takvim üretim tarihinden +60 gün olarak türetilir; bugün çalışma/güncellik garantisi değildir. Canlı araç/varış desteklenmiyor.
+
+| Yeni şehir | Otobüs hat kaydı | Otobüslerin kullandığı durak |
+|---|---|---|
+| Antalya | 162 | 4.503 |
+| Kocaeli | 409 | 8.597 |
+| Adana | 291 | 3.618 |
+| Gaziantep | 162 | 3.110 |
+
+Toplam şehir desteği sekize çıktı. Otobüs dışındaki hatlar içe alınmadı. Her şehirde hat arama/detay, sıralı durak, geometri, durak detayı ve yakın durak uçları bulunur. Yeni şehirler günlük GTFS güncelleyicisine dahildir. Yukarıdaki resmi kaynak araştırmaları, bu topluluk desteğinden ayrı açık işlerdir.
