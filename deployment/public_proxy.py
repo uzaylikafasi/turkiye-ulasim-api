@@ -7,7 +7,7 @@ import time
 from collections import deque
 
 PREFIX = '/turkiye-ulasim-api'
-PATH = re.compile(r'/(?:healthz|readyz|docs|openapi\.json|v1/(?:cities|status|(?:izmir|istanbul|konya|kahramanmaras|antalya|kocaeli|adana|gaziantep|erzurum|mardin|mugla|ordu|canakkale|duzce|burdur|nigde|kirklareli|osmaniye|tokat)/(?:lines(?:/[A-Za-z0-9:_-]{1,80}(?:/(?:stops|shape|vehicles))?)?|stops/(?:nearby|[0-9A-Za-z_-]{1,40}(?:/arrivals)?))))\Z')
+PATH = re.compile(r'/(?:healthz|readyz|docs|openapi\.json|v1/(?:cities|status|(?:izmir|istanbul|konya|kahramanmaras|antalya|kocaeli|adana|gaziantep|erzurum|mardin|mugla|ordu|canakkale|duzce|burdur|nigde|kirklareli|osmaniye|tokat|kastamonu)/(?:lines(?:/[A-Za-z0-9:_-]{1,80}(?:/(?:stops|shape|vehicles))?)?|stops/(?:nearby|[0-9A-Za-z_-]{1,40}(?:/arrivals)?))))\Z')
 _lock = threading.Lock()
 _slots = threading.BoundedSemaphore(8)
 _ips = {}

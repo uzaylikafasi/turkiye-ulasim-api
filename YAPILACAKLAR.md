@@ -97,9 +97,16 @@ ANT-01/KOC-01/GAZ-01 maddelerindeki resmi kaynak araştırması ayrı iş olarak
 
 - [x] **YENI-03:** Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye ve Tokat: gerçek dosyalar içe alındı; topluluk kaynağı ve eksik kapsam açık. [Sayısal kapsam](docs/YENI_ILLER.md).
 - [ ] **KAYNAK-01:** Sivas/Edirne eksik sefer dosyaları için güncel kaynak bul; sefer uydurma.
-- [ ] **KAYNAK-02:** Kastamonu çakışan geometri kayıtlarını incele; rastgele nokta seçme.
+- [x] **KAYNAK-02:** Kastamonu nokta tekrarları incelendi; 1.429 birebir tekrar güvenle tekilleştirildi, farklı koordinatlar hâlâ reddedilir. İl desteği eklendi.
 - [ ] **BUR-02:** Güncel acikyesil.bursa.bel.tr portalında GTFS araması boş; diğer otobüs hat/durak veri setlerini araştır.
 
 Toplam 19 il; günlük güncelleme 18 GTFS kaynağını kapsar. İlçe verileri il kapsamı diye sayılmadı. Öncelik hâlâ yeni iller ve otobüs kapsamı.
 
 Bu tur doğrulama: 70 çevrimdışı test, yeni 11 ilde 44 dış veri sorgusu başarılı. Canlı listede 19 il; tümü yapılandırılmış. Ana site ve eski Maraş API sağlık kontrolü 200.
+
+## GitHub düzeni ve Kastamonu
+
+- [x] **BELGE-02:** README canlı bağlantılar, yetenek tablosu, hızlı deneme ve kurulumla yeniden düzenlendi; teknik ayrıntılar docs/API.md, katkı CONTRIBUTING.md içinde.
+- Kastamonu doğrulaması: 1.429 nokta birebir aynı koordinat tekrarı; güvenle tekilleştirildi. Farklı koordinat çakışması hâlâ reddedilir. 27 hat / 23 sıralı hat / 91 durak ile toplam 20 il. Önceki kaynak hata notu bu incelemeyle düzeltildi.
+
+Güncel toplam: 20 il, 19 GTFS kaynağı + Maraş köprüsü. Sivas/Edirne ve diğer yeni il araştırmaları açık.

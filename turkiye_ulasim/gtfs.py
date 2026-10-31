@@ -149,9 +149,28 @@ def build(zip_path: Path, db_path: Path, *, bus_only: bool = True, ibb_csv: bool
                 if trips[trip_id][2]:
                     shapes.setdefault(trips[trip_id][2], []).append(key)
             if shapes and _member(archive, "shapes.txt"):
-                db.executemany("INSERT INTO line_shapes VALUES (?,?,?,?,?)", (
-                    (*key, int(r["shape_pt_sequence"]), float(r["shape_pt_lat"]), float(r["shape_pt_lon"]))
-                    for r in _rows(archive, "shapes.txt") for key in shapes.get(r["shape_id"], ())))
+                seen_points = {}
+                duplicate_points = 0
+                def shape_records():
+                    nonlocal duplicate_points
+                    for r in _rows(archive, "shapes.txt"):
+                        keys = shapes.get(r["shape_id"], ())
+                        if not keys:
+                            continue
+                        sequence = int(r["shape_pt_sequence"])
+                        identity = (r["shape_id"], sequence)
+                        position = (float(r["shape_pt_lat"]), float(r["shape_pt_lon"]))
+                        if identity in seen_points:
+                            if seen_points[identity] != position:
+                                raise ValueError("GTFS aynı güzergâh/nokta sırasında farklı koordinatlar içeriyor")
+                            duplicate_points += 1
+                            continue
+                        seen_points[identity] = position
+                        for key in keys:
+                            yield (*key, sequence, *position)
+                db.executemany("INSERT INTO line_shapes VALUES (?,?,?,?,?)", shape_records())
+                if duplicate_points:
+                    import_warnings.append(f"{duplicate_points} birebir aynı güzergâh noktası tekrarı tekilleştirildi.")
             ends = [r["end_date"] for r in _rows(archive, "calendar.txt")] if _member(archive, "calendar.txt") else []
             if _member(archive, "calendar_dates.txt"):
                 ends.extend(r["date"] for r in _rows(archive, "calendar_dates.txt") if r["exception_type"] == "1")

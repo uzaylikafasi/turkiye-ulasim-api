@@ -89,6 +89,7 @@ for slug, name in (
     ('kirklareli', 'Kırklareli'),
     ('osmaniye', 'Osmaniye'),
     ('tokat', 'Tokat'),
+    ('kastamonu', 'Kastamonu'),
 ):
     CITIES[slug] = City(
         id=slug, name=name, operator=f"{name} · Kentkart / Egezenn GTFS",

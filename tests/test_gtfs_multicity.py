@@ -105,3 +105,26 @@ def test_all_conflicting_candidates_omit_route_order_with_warning(tmp_path):
     assert store.line_shape('446',0) == []
     assert any('üç aday sefer de tutarsız' in w for w in store.warnings())
     store.db.close()
+
+
+def test_identical_shape_points_are_deduplicated(tmp_path):
+    files=copy.deepcopy(FILES)
+    files['shapes.txt'].append(files['shapes.txt'][1][:])
+    archive,db=tmp_path/'feed.zip',tmp_path/'feed.sqlite3'
+    write_feed(archive,files)
+    gtfs.build(archive,db)
+    store=gtfs.GtfsStore(db)
+    assert len(store.line_shape('446',0))==2
+    assert any('birebir aynı güzergâh' in w for w in store.warnings())
+    store.db.close()
+
+
+def test_conflicting_shape_coordinates_preserve_existing_database(tmp_path,gtfs_db):
+    files=copy.deepcopy(FILES)
+    files['shapes.txt'].append(['s1','39.0','27.0534','1'])
+    archive=tmp_path/'conflict.zip'
+    write_feed(archive,files)
+    before=gtfs_db.read_bytes()
+    with pytest.raises(ValueError,match='farklı koordinatlar'):
+        gtfs.build(archive,gtfs_db)
+    assert gtfs_db.read_bytes()==before
