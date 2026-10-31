@@ -1,0 +1,60 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261031131432",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "KÜMBET ÜNİVERSİTE",
+      "displayRouteCode": "1-A",
+      "direction": "1",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "100101",
+      "pointList": [
+        {
+          "seq": "1",
+          "lat": "39.731759",
+          "lng": "36.969922"
+        },
+        {
+          "seq": "2",
+          "lat": "39.732498",
+          "lng": "36.970895"
+        },
+        {
+          "seq": "3",
+          "lat": "39.732761",
+          "lng": "36.971188"
+        }
+      ],
+      "busStopList": [
+        {
+          "seq": "1",
+          "lat": "39.7317162",
+          "lng": "36.9699132",
+          "stopId": "30",
+          "stopName": "ATAKENT"
+        },
+        {
+          "seq": "2",
+          "lat": "39.732535",
+          "lng": "36.971514",
+          "stopId": "31",
+          "stopName": "MİMAR SİNAN SAĞLIK OCAĞI"
+        },
+        {
+          "seq": "3",
+          "lat": "39.7306934",
+          "lng": "36.9733576",
+          "stopId": "550",
+          "stopName": "YURDAGÜL EVLER"
+        }
+      ]
+    }
+  ]
+}

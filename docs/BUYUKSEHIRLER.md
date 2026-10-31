@@ -60,3 +60,5 @@ Toplam şehir desteği sekize çıktı. Otobüs dışındaki hatlar içe alınma
 31 Ekim ikinci tur: Erzurum, Mardin, Muğla ve Ordu dahil 11 yeni il eklendi; toplam 19 il. Kapsam ve dışarıda bırakılan kaynaklar [yeni il tablosunda](YENI_ILLER.md).
 
 Kastamonu eklemesiyle toplam 20 il: geometri anahtar çakışmasının birebir aynı nokta tekrarından kaynaklandığı doğrulandı; tekilleştirme sonrası içe aktarma başarılı.
+
+Sivas ve Edirne’nin eksik sefer dosyalarına rağmen, gerçek Kentkart servisinden 268 hat/yön ilişkisi doğrulandı. Toplam destek 22 il; bu iki il için geçerli GTFS/sefer takvimi iddiası kurulmaz.

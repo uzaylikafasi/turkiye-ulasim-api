@@ -4,7 +4,7 @@
 
 Türkiye’nin otobüs verileri için tek API, ortak yanıt biçimi.
 
-**20 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
+**22 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](turkiye_ulasim/main.py)
@@ -41,6 +41,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
 | Konya ve diğer 16 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
+| Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Yok | Yok |
 
 **Diğer 16 il:** Adana, Antalya, Burdur, Çanakkale, Düzce, Erzurum, Gaziantep, Kastamonu, Kırklareli, Kocaeli, Mardin, Muğla, Niğde, Ordu, Osmaniye ve Tokat.
 
@@ -83,12 +84,15 @@ python3 -m venv .venv
 
 Belgeler: `http://localhost:8010/docs`. Veriler `data/` altında tutulur. Kurmadığınız GTFS şehirleri kullanılamaz; `/readyz` bütün GTFS kaynakları hazır olmadan `503` döner. Uçların tamamını kurmak için `.venv/bin/python -m tools.gtfs_guncelle` çalıştırın.
 
+Sivas ve Edirne kurulumu, eksik durak ilişkilerini Kentkart servisinden sırayla doğruladığı için diğer statik kaynaklardan daha uzun sürebilir. Geçerli veri ancak doğrulama tamamlandıktan sonra atomik değiştirilir.
+
 Kahramanmaraş uzak topluluk API’sini kullanır; GTFS indirmez. `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. İETT kotası süreç içinde tutulduğu için **tek worker** kullanın.
 
 ## Kaynak ve veri ilkesi
 
 - **Resmi açık veri:** İzmir, İstanbul, Konya.
 - **Topluluk GTFS’i:** Diğer 16 il için [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs). Belediye tarafından yayımlanmış resmi feed olarak gösterilmez. Takvim ve zamanlar türetilmiş olabilir.
+- **Servisle tamamlanan katalog:** Sivas ve Edirne’de sefer dosyaları eksiktir. Hat/durak kataloğu dosyadan, doğrulanan durak sırası ve geometri Kentkart servisinden alınır; sefer/takvim üretilmez.
 - **Topluluk köprüsü:** Kahramanmaraş için [Kahramankart Ulaşım API](https://github.com/uzaylikafasi/kahramankart-ulasim-api). Kaynak veri lisansı belirtilmemiştir.
 
 Kod **[MIT](LICENSE)** lisanslıdır. Veri lisansları kaynaklara göre değişir; topluluk derlemesinin CC0 beyanı, temel verinin hak sahipliğini değiştirmez. Uygulamanızda `meta.source`, `source_url`, `license` ve `warnings` alanlarını koruyun.

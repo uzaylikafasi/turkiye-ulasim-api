@@ -20,6 +20,8 @@ class City:
     source_kind: str = "official_open_data"
     line_catalog: bool = True
     gtfs: bool = True
+    partial_feed: bool = False
+    topology_region: str | None = None
 
 
 CITIES = {
@@ -90,13 +92,17 @@ for slug, name in (
     ('osmaniye', 'Osmaniye'),
     ('tokat', 'Tokat'),
     ('kastamonu', 'Kastamonu'),
+    ('sivas', 'Sivas'),
+    ('edirne', 'Edirne'),
 ):
     CITIES[slug] = City(
         id=slug, name=name, operator=f"{name} · Kentkart / Egezenn GTFS",
         gtfs_url=f"https://raw.githubusercontent.com/Egezenn/kk-gtfs/main/data/{slug}.zip",
         license="Derleme/biçimlendirme CC0 1.0; alt verinin hakları Kentkart/belediyeye aittir",
         source_url="https://github.com/Egezenn/kk-gtfs",
-        source_kind="community_gtfs",
+        source_kind="community_catalog" if slug in ("sivas", "edirne") else "community_gtfs",
+        partial_feed=slug in ("sivas", "edirne"),
+        topology_region={"sivas": "005", "edirne": "013"}.get(slug),
         warnings=("Resmi belediye GTFS yayını değildir; Kentkart verisinden Egezenn/kk-gtfs topluluk derlemesi kullanılır.",
                   "Kaynak takvimi üretim tarihinden itibaren 60 gün olarak türetilir; takvim, kaynağın güncelliğini veya bugün çalıştığını kanıtlamaz.",
                   "Katalogdaki her hattın sıralı durak ve geometri kaydı bulunmayabilir; kaynak kapsamı kısmi olabilir.",

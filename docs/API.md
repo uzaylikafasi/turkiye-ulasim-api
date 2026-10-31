@@ -2,7 +2,7 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**20 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat ve Kastamonu. Destek, kaynağın sunduğu veriye göre değişir:
+**22 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas ve Edirne. Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
@@ -30,7 +30,7 @@ python3 -m venv .venv
 
 Canlı API: **https://mithrixa.com/turkiye-ulasim-api** · [Canlı belgeler](https://mithrixa.com/turkiye-ulasim-api/docs) · [Yayın ve bakım](../deployment/README.md).
 
-Yerel belgeler: `http://localhost:8010/docs`. Örneklerde yerel sunucu için 8010 portu kullanılır. GTFS verileri `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. Kahramanmaraş için içe aktarma veya erişim anahtarı gerekmez; uzak API kullanılır. Köprü `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. Varsayılan GTFS güncellemesi 19 GTFS ilini indirir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Çalışan API sonraki veri sorgusunda yeni dosyayı sunucuyu yeniden başlatmadan yükler. Canlı kurulumda sürekli servis ve günlük 04:10 güncellemesi bulunur; yalnız depoyu indirmek bu servisleri başka makinede kurmaz.
+Yerel belgeler: `http://localhost:8010/docs`. Örneklerde yerel sunucu için 8010 portu kullanılır. GTFS verileri `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. Kahramanmaraş için içe aktarma veya erişim anahtarı gerekmez; uzak API kullanılır. Köprü `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. Varsayılan GTFS güncellemesi 21 statik ZIP kaynağını indirir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Çalışan API sonraki veri sorgusunda yeni dosyayı sunucuyu yeniden başlatmadan yükler. Canlı kurulumda sürekli servis ve günlük 04:10 güncellemesi bulunur; yalnız depoyu indirmek bu servisleri başka makinede kurmaz.
 
 ## Uçlar
 
@@ -110,7 +110,7 @@ Kod [MIT](../LICENSE) lisanslıdır.
 ## Sağlık ve veri durumu
 
 - `/healthz`: uygulama ayakta mı? Verinin tam veya canlı kaynağın erişilebilir olduğunu söylemez.
-- `/readyz`: 19 GTFS ilinin dosyaları ve temel tabloları okunabiliyorsa 200; eksik/bozuksa 503. İsteğe bağlı Maraş köprüsü bu yerel koşula dahil değildir.
+- `/readyz`: 21 statik ZIP kaynağının dosyaları ve temel tabloları okunabiliyorsa 200; eksik/bozuksa 503. İsteğe bağlı Maraş köprüsü bu yerel koşula dahil değildir.
 - `/v1/status`: şehir başına yapılandırma, dosya okunabilirliği, `imported_at`, takvim bitişi/süresi ve bu süreçte gözlenen son canlı başarı/hata bilgisi.
 
 Bu uçlar kaynağa ağ isteği yapmaz ve kota tüketmez; `upstream_checked=false` kalır. Konya gibi uzun takvimli eski kaynakların güncel olduğunu kanıtlamaz. Eski veritabanında içe aktarma zamanı yoksa null gösterilir. Canlı gözlemler yeniden başlatmada sıfırlanır; hata mesajı, anahtar ve yerel dosya yolu yayımlanmaz. Canlı kurulumda sürekli API servisi ve günlük güncelleme bulunur; kurulum ve sınırlar [yayın belgesindedir](../deployment/README.md). Sağlık uçları dış sağlayıcının erişilebilirliğini kendiliğinden test etmez.
@@ -118,3 +118,11 @@ Bu uçlar kaynağa ağ isteği yapmaz ve kota tüketmez; `upstream_checked=false
 31 Ekim yeni otobüs kapsamı: Antalya 162 hat/4.503 durak; Kocaeli 409/8.597; Adana 291/3.618; Gaziantep 162/3.110. Bunlar kaynak dosyasından alınan katalog sayılarıdır, bugün aktif sefer sayısı değildir. Kaynak: [topluluk veri deposu](https://github.com/Egezenn/kk-gtfs).
 
 Yeni 11 ilin hat/durak sayıları ve kısmi kapsamı: [il kapsam tablosu](YENI_ILLER.md). Eksik kaynaklar çalışır destek olarak sayılmadı.
+
+## Sivas ve Edirne: eksik dosyayı gerçek servisle tamamlama
+
+Bu iki kaynağın ZIP dosyasında `trips.txt` ve `stop_times.txt` yoktur. Hat ve durak katalogları doğrulanır; ardından Kentkart `pathInfo` servisinden aynı hat kimliği, görünen kod ve yönle eşleşen durak sırası / geometri alınır. Farklı hat veya yön yanıtı kullanılmaz. Sefer, saat veya hizmet takvimi üretilmez.
+
+Bu yüzden `partial_feed=true`, `source_kind=community_catalog`, `capabilities.gtfs=false` kalır. Doğrulanmış hat/yönde durak ve geometri uçları çalışır; bulunmayan ilişkide 501 döner. `directions` yalnız kaydedilmiş yönleri gösterir. `meta.topology_source` ve `topology_updated_at`, ilişkilerin kaynağını ve doğrulama zamanını belirtir. Kaynakta olmayan durak-hat bağlantısı tahmin edilmez.
+
+Güncelleyici çağrılar arasında en az bir saniye bırakır. Servis/doğrulama başarısız olursa önceki dosya korunur; yarım sonuç canlıya geçirilmez. Yerel dosya ve sağlayıcı verisi farklı tarihlerden gelebilir; bu veri bugün çalışma veya tam kapsam garantisi değildir.

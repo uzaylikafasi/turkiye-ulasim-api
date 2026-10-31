@@ -81,7 +81,9 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         if store.calendar_expired():
             warnings.append("Kaynağın GTFS takvimi süresi dolmuş; hat ve durak bilgisi eski olabilir.")
         meta = {"city": city.id, "source": city.operator, "license": city.license, "source_url": city.source_url,
-                "live": result is not None, "warnings": warnings, "source_kind": city.source_kind}
+                "live": result is not None, "warnings": warnings, "source_kind": city.source_kind, "partial_feed": city.partial_feed}
+        if city.partial_feed:
+            meta.update(dict(store.db.execute("SELECT key,value FROM meta WHERE key IN ('topology_source','topology_updated_at')")))
         if result is not None:
             meta["fetched_at"] = result.fetched_at
             meta["cached"] = result.cached
@@ -104,7 +106,7 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         rows = []
         for city in CITIES.values():
             source = state["sources"].get(city.id)
-            row = {"city": city.id, "configured": source is not None, "storage": "gtfs" if city.gtfs else "remote",
+            row = {"city": city.id, "configured": source is not None, "storage": "catalog" if city.partial_feed else "gtfs" if city.gtfs else "remote",
                    "local_status": "missing" if source is None else "configured",
                    "imported_at": None, "calendar_end": None, "calendar_expired": None,
                    "upstream_checked": False, "live_observation": dict(state["observations"].get(city.id, {}))}
@@ -139,15 +141,15 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
     async def readiness():
         rows = diagnostics()
         # Hazır olma, yapılandırılmış kaynaklar ve yerel veri içindir; canlı sağlayıcı garantisi değildir.
-        ready = all(r["local_status"] == "readable" for r in rows if r["storage"] == "gtfs")
+        ready = all(r["local_status"] == "readable" for r in rows if r["storage"] != "remote")
         return JSONResponse(status_code=200 if ready else 503,
                             content={"status": "ready" if ready else "not_ready", "upstream_checked": False})
 
     @app.get("/v1/cities")
     def cities():
-        return {"data": [asdict(c) | {"modes": list(c.modes), "available": c.id in state["sources"],
+        return {"data": [asdict(c) | {"modes": list(c.modes), "available": c.id in state["sources"], "gtfs": c.gtfs and not c.partial_feed,
                         "capabilities": {"static": True, "vehicles": c.live_vehicles, "arrivals": c.live_arrivals,
-                                         "line_catalog": c.line_catalog, "gtfs": c.gtfs}}
+                                         "line_catalog": c.line_catalog, "gtfs": c.gtfs and not c.partial_feed}}
                          for c in CITIES.values()],
                 "meta": {}}
 
@@ -176,7 +178,10 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         city, store, _ = city_of(city_id)
         if await store_call(store, "line", line_id) is None:
             raise HTTPException(404, "Hat bulunamadı")
-        return envelope(city, store, await store_call(store, "line_stops", line_id, direction))
+        data = await store_call(store, "line_stops", line_id, direction)
+        if city.partial_feed and not data:
+            raise HTTPException(501, "Bu hat/yön için doğrulanmış durak sırası bulunmuyor")
+        return envelope(city, store, data)
 
     @app.get("/v1/{city_id}/lines/{line_id}/shape")
     async def line_shape(city_id: str, line_id: str, direction: int = Query(0, ge=0, le=1)):
@@ -184,6 +189,8 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
         if await store_call(store, "line", line_id) is None:
             raise HTTPException(404, "Hat bulunamadı")
         data = await store_call(store, "line_shape", line_id, direction)
+        if city.partial_feed and not data:
+            raise HTTPException(501, "Bu hat/yön için doğrulanmış geometri bulunmuyor")
         return envelope(city, store, data, warnings=[] if data else ["Kaynak bu hat/yön için güzergâh geometrisi içermiyor."])
 
     @app.get("/v1/{city_id}/lines/{line_id}/vehicles")

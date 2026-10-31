@@ -96,7 +96,7 @@ ANT-01/KOC-01/GAZ-01 maddelerindeki resmi kaynak araştırması ayrı iş olarak
 ## 31 Ekim · İkinci genişleme turu
 
 - [x] **YENI-03:** Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye ve Tokat: gerçek dosyalar içe alındı; topluluk kaynağı ve eksik kapsam açık. [Sayısal kapsam](docs/YENI_ILLER.md).
-- [ ] **KAYNAK-01:** Sivas/Edirne eksik sefer dosyaları için güncel kaynak bul; sefer uydurma.
+- [x] **KAYNAK-01:** Sivas/Edirne ZIP’lerinin gerçek hat/durak katalogları alındı; durak sırası ve geometri Kentkart servisinden doğrulanarak tamamlanıyor. Bu aşamada doğrulanmış sefer/takvim bilgisi sunulmaz ve üretilmez.
 - [x] **KAYNAK-02:** Kastamonu nokta tekrarları incelendi; 1.429 birebir tekrar güvenle tekilleştirildi, farklı koordinatlar hâlâ reddedilir. İl desteği eklendi.
 - [ ] **BUR-02:** Güncel acikyesil.bursa.bel.tr portalında GTFS araması boş; diğer otobüs hat/durak veri setlerini araştır.
 
@@ -110,3 +110,12 @@ Bu tur doğrulama: 70 çevrimdışı test, yeni 11 ilde 44 dış veri sorgusu ba
 - Kastamonu doğrulaması: 1.429 nokta birebir aynı koordinat tekrarı; güvenle tekilleştirildi. Farklı koordinat çakışması hâlâ reddedilir. 27 hat / 23 sıralı hat / 91 durak ile toplam 20 il. Önceki kaynak hata notu bu incelemeyle düzeltildi.
 
 Güncel toplam: 20 il, 19 GTFS kaynağı + Maraş köprüsü. Sivas/Edirne ve diğer yeni il araştırmaları açık.
+
+## Servis üzerinden eksik veri
+
+- [x] **KENT-01:** Sivas/Edirne için Kentkart pathInfo ilişkileri; katı hat/yön eşlemesi, sıralı çağrı, kaynak zamanı ve atomik güncelleme.
+- [ ] **KENT-02:** Aynı doğrulama yöntemini diğer eksik şehir/katalog ilişkilerine uygula; her sağlayıcının şeması ayrı doğrulanacak. Canlı konum ve varış için ayrıca gerçek yanıt örneği gerekir.
+
+Genel durum ve iş listesinde kişiye özel açıklamalar kullanılmaz.
+
+Güncel toplam 22 il: Sivas 111 hat / 222 doğrulanmış yön / 624 durak; Edirne 23 / 46 / 392. 82 test ve 14 dış veri sorgusu geçti.

@@ -1,6 +1,6 @@
 # İl kapsamı
 
-31 Ekim 2026 · **20 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
+31 Ekim 2026 · **22 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
 
 | İl | Hat / güzergâh kaydı | Sıralı durağı olan hat | Durak | Canlı araç / varış | Kaynak |
 |---|---:|---:|---:|---|---|
@@ -24,6 +24,8 @@
 | Osmaniye | 17 | 15 | 221 | Yok / Yok | Topluluk GTFS |
 | Tokat | 23 | 2 | 63 | Yok / Yok | Topluluk GTFS |
 | Kastamonu | 27 | 23 | 91 | Yok / Yok | Topluluk GTFS |
+| Sivas | 111 | 111 | 624 | Yok / Yok | Katalog + Kentkart servisi |
+| Edirne | 23 | 23 | 392 | Yok / Yok | Katalog + Kentkart servisi |
 
 ## Sınırlar
 
@@ -39,7 +41,7 @@
 
 ## Henüz eklenmeyen kaynaklar
 
-- Sivas ve Edirne: kaynak dosyalarında `trips.txt` eksik.
+- Sivas/Edirne ZIP dosyalarında sefer dosyaları hâlâ eksik; iki il artık katalog ve gerçek Kentkart hat-durak/geometri ilişkileriyle destekleniyor. Sefer/takvim üretilmiyor. Sivas 222, Edirne 46 yön doğrulandı.
 - Yozgat: indirilebilir dosya çok küçük/boş görünüyor; doğrulanmış destek sayılmadı.
 - İlçeler, il kapsamı gibi sayılmadı.
 - Bursa'nın güncel resmi portalında GTFS araması sıfır sonuç verdi. Bu, tüm Bursa kaynaklarında veri olmadığını kanıtlamaz; diğer hat/durak veri setleri araştırılacak.
@@ -47,3 +49,7 @@
 ## Doğrulama
 
 Önceki 11 il turunda 70 test ve 44 dış sorgu geçmişti. Kastamonu ve nokta tekilleştirme testleriyle güncel yerel test sayısı 73. Örnek uç kontrolleri bütün hatların eksiksiz veya bugün çalışır olduğunu kanıtlamaz.
+
+Güncel test sonucu: 82 test geçti. Sivas ve Edirne gerçek servis doğrulamasıyla eklendi; kaynak alınma zamanı API yanıtındaki topology_updated_at alanında bulunur.
+
+Servis tamamlama turu: 82 test ve Sivas/Edirne üzerinde 14 dış veri sorgusu başarılı. İki ilin doğrulanan yön toplamı 268; eksik tarife veya canlı araç verisi varmış gibi sunulmadı.

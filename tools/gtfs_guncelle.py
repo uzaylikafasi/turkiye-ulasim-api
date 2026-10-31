@@ -128,7 +128,17 @@ def update(city_id: str) -> None:
         else:
             archive = folder / "gtfs.zip"
             download(client, city.gtfs_url, archive)
-        gtfs.build(archive, DATA_DIR / f"{city_id}.sqlite3", ibb_csv=city_id == "istanbul")
+        destination = DATA_DIR / f"{city_id}.sqlite3"
+        if city.partial_feed and city.topology_region:
+            from .kentkart_topology import enrich
+            # Son değişim her zaman hedefle aynı dosya sisteminde atomik olsun.
+            with tempfile.TemporaryDirectory(dir=DATA_DIR, prefix=".topology-") as stage_dir:
+                staged = Path(stage_dir) / "staged.sqlite3"
+                gtfs.build(archive, staged, allow_partial=True)
+                enrich(staged, city.topology_region, client)
+                staged.replace(destination)
+        else:
+            gtfs.build(archive, destination, ibb_csv=city_id == "istanbul", allow_partial=city.partial_feed)
     print(f"{city.name}: {DATA_DIR / f'{city_id}.sqlite3'}")
 
 

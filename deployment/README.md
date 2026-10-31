@@ -4,7 +4,7 @@ Canlı temel adres: **https://mithrixa.com/turkiye-ulasim-api**; [belgeler](http
 
 - `turkiye-ulasim.service`: 127.0.0.1:8010, tek worker, 300 MB bellek sınırı; oturum açılmadan çalışması için user linger gerekir.
 - `turkiye-ulasim-update.timer`: her gün 04:10 Europe/Istanbul, 0–5 dakika rastgele gecikme. Makine kapalıysa sonraki açılışta kaçırılan iş çalışır.
-- `turkiye-ulasim-update.service`: sırayla 19 GTFS kaynağını günceller; 750 MB, %50 CPU, 30 dakika sınırı. Anahtar veya ücretli model çağrısı yok.
+- `turkiye-ulasim-update.service`: sırayla 21 statik ZIP kaynağını günceller; 750 MB, %50 CPU, 30 dakika sınırı. Anahtar veya ücretli model çağrısı yok.
 
 ```sh
 mkdir -p ~/.config/systemd/user
@@ -31,3 +31,5 @@ Servis ve zamanlayıcı `~/merkez/sistemler.yaml` içinde kayıtlıdır. Bu maki
 ## Geri alma
 
 Ortak API'yi kapatmak için `systemctl --user disable --now turkiye-ulasim.service turkiye-ulasim-update.timer` kullanın. Çalışan güncelleme varsa ayrıca `systemctl --user stop turkiye-ulasim-update.service`. Bu işlem Maraş servisini durdurmaz. Web işleyicisindeki `proxy_ulasim` bağlantısı ayrıca kaldırılabilir; sadece ortak API kapalıysa köprü 502 döner.
+
+Sivas/Edirne ZIP’lerinde sefer dosyaları eksiktir; güncelleyici gerçek Kentkart hat/yön ilişkilerini kontrollü, sıralı çağrılarla tamamlar. Dosya hedefiyle aynı dosya sisteminde staging kullanılır; servis başarısız olursa eski dosya korunur. Bu kaynaklar için sefer/takvim üretilmez ve durum uçları storage=catalog gösterir.

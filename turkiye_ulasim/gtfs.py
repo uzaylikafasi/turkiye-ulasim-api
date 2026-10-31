@@ -70,7 +70,7 @@ def _coordinate(value: str, *, ibb_csv: bool) -> float:
     return float(value)
 
 
-def build(zip_path: Path, db_path: Path, *, bus_only: bool = True, ibb_csv: bool = False) -> None:
+def build(zip_path: Path, db_path: Path, *, bus_only: bool = True, ibb_csv: bool = False, allow_partial: bool = False) -> None:
     """Atomik kurulum; hat/yön başına temsilci sefer. Yalnız otobüsler içe alınır."""
     import tempfile
     db_path.parent.mkdir(parents=True, exist_ok=True)
@@ -81,11 +81,13 @@ def build(zip_path: Path, db_path: Path, *, bus_only: bool = True, ibb_csv: bool
         db.executescript(SCHEMA)
         with zipfile.ZipFile(zip_path) as archive:
             routes = []
+            excluded_routes = 0
             for r in _rows(archive, "routes.txt"):
                 if not r.get("route_id"):
                     continue  # İBB CSV boş ve kimliksiz devam satırları içeriyor.
                 kind = int(r.get("route_type") or 3)
                 if bus_only and kind != 3 and not 700 <= kind < 800:
+                    excluded_routes += 1
                     continue
                 routes.append((r["route_id"], r.get("route_short_name", ""),
                                _repair_text(r.get("route_long_name", "")) if ibb_csv else r.get("route_long_name", ""),
@@ -94,6 +96,26 @@ def build(zip_path: Path, db_path: Path, *, bus_only: bool = True, ibb_csv: bool
                 raise ValueError("GTFS içinde desteklenen otobüs hattı yok")
             db.executemany("INSERT INTO lines VALUES (?,?,?,?,?)", routes)
             route_ids = {r[0] for r in routes}
+            if allow_partial and not _member(archive, "trips.txt") and not _member(archive, "stop_times.txt"):
+                if excluded_routes:
+                    raise ValueError("Kısmi kaynakta otobüs durakları diğer modlardan ayrılamıyor")
+                count = 0
+                for r in _rows(archive, "stops.txt"):
+                    lat, lon = float(r["stop_lat"]), float(r["stop_lon"])
+                    if not (35 < lat < 43 and 25 < lon < 45):
+                        raise ValueError("Kısmi kaynakta geçersiz durak koordinatı")
+                    db.execute("INSERT INTO stops VALUES (?,?,?,?)", (r["stop_id"], r["stop_name"], lat, lon))
+                    count += 1
+                if not count:
+                    raise ValueError("Kısmi kaynakta durak yok")
+                warnings = ["Kısmi kaynak: sefer dosyaları yok; hat-durak eşlemesi, sıralı durak ve geometri sunulmaz."]
+                db.executemany("INSERT INTO meta VALUES (?,?)", [
+                    ("calendar_end", ""), ("imported_at", datetime.now(timezone.utc).isoformat(timespec="seconds")),
+                    ("warnings", json.dumps(warnings, ensure_ascii=False))])
+                db.commit()
+                db.close()
+                temporary.replace(db_path)
+                return
             trips = {r["trip_id"]: (r["route_id"], int(r.get("direction_id") or 0), r.get("shape_id", ""))
                      for r in _rows(archive, "trips.txt") if r["route_id"] in route_ids}
             counts = Counter()
