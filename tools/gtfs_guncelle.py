@@ -123,6 +123,10 @@ def update(city_id: str) -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as folder, httpx.Client(timeout=120, follow_redirects=True) as client:
         folder = Path(folder)
+        if city_id == "sakarya":
+            from .sakus_guncelle import update as update_sakus
+            update_sakus(DATA_DIR / "sakarya.sqlite3", client)
+            return
         if city.catalog_url:
             archive = catalog_archive(client, city.catalog_url, folder)
         else:

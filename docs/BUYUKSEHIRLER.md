@@ -70,3 +70,7 @@ Sivas ve Edirne’nin eksik sefer dosyalarına rağmen, gerçek Kentkart servisi
 `route-and-busstops/2` örneğinde iki güzergâh, her birinde 39 sıralı durak ve MultiLineString geometri doğrulandı. Kaynak yönleri 220/221; ortak 0/1 yönüne karşılıkları henüz doğrulanmadı. Servis Origin/Referer başlıkları bekler. Yeniden kullanım lisansı doğrulanmadı; erişilebilir servis olması açık veri lisansı anlamına gelmez.
 
 Tekrarlanabilir kontrol: `python -m tools.sakus_kontrol`. Bu araç yalnız katalog ve örnek güzergâhı denetler. Sakarya henüz ortak API'ye eklenmedi; yayımlanan kapsam 22 il. Sonraki iş tam katalog aktarımı, kaynak yönlerinin doğrulanması, atomik güncelleme ve uç testleridir.
+
+## 1 Kasım · Sakarya entegrasyonu
+
+SAKUS için atomik SQLite aktarımı ve günlük yenileme bağlandı. Kaynak güzergâh kimliği korunur; `hatId:routeId` ayrı API kaydıdır. Kaynağın 219/220/221 kodları için gidiş/dönüş anlamı tahmin edilmez. Bütün güzergâhların kendi durak sırası `direction=0` ile sunulur. Hatalı kimlik, koordinat, tekrarlı sıra veya çelişen durak güncellemeyi durdurur; eski dosya korunur. Kopuk MultiLineString parçaları sahte hatla bağlanmaz.

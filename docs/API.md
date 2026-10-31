@@ -2,7 +2,7 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**22 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas ve Edirne. Destek, kaynağın sunduğu veriye göre değişir:
+**23 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne ve Sakarya. Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
@@ -126,3 +126,9 @@ Bu iki kaynağın ZIP dosyasında `trips.txt` ve `stop_times.txt` yoktur. Hat ve
 Bu yüzden `partial_feed=true`, `source_kind=community_catalog`, `capabilities.gtfs=false` kalır. Doğrulanmış hat/yönde durak ve geometri uçları çalışır; bulunmayan ilişkide 501 döner. `directions` yalnız kaydedilmiş yönleri gösterir. `meta.topology_source` ve `topology_updated_at`, ilişkilerin kaynağını ve doğrulama zamanını belirtir. Kaynakta olmayan durak-hat bağlantısı tahmin edilmez.
 
 Güncelleyici çağrılar arasında en az bir saniye bırakır. Servis/doğrulama başarısız olursa önceki dosya korunur; yarım sonuç canlıya geçirilmez. Yerel dosya ve sağlayıcı verisi farklı tarihlerden gelebilir; bu veri bugün çalışma veya tam kapsam garantisi değildir.
+
+## Sakarya: resmî servis kataloğu
+
+Kaynak türü `official_service`, `partial_feed=true`, `gtfs=false`. Günlük aktarım SAKUS hat/durak/güzergâh servisinden yapılır; takvim veya sefer üretilmez. Yeniden kullanım lisansı belirtilmemiştir.
+
+`/v1/sakarya/lines?q=1` ile arayın; `/v1/sakarya/lines/2:157/stops?direction=0` ve `/v1/sakarya/lines/2:157/shape?direction=0` örneklerdir. Her `hatId:routeId` ayrı güzergâhtır. Tek `direction=0` o güzergâhın kaynak sırasını ifade eder; kaynak 219/220/221 yön kodları gidiş/dönüş diye tahmin edilmez. Güzergâhı olmayan katalog kayıtlarında yalnız hat kimliği bulunur. Kopuk çok parçalı şekiller birleştirilerek sahte bağlantı üretilmez; geometri yoksa 501 dönülür. Canlı araç/varış 501 döner.

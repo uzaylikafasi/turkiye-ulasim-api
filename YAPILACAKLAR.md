@@ -123,5 +123,9 @@ Güncel toplam 22 il: Sivas 111 hat / 222 doğrulanmış yön / 624 durak; Edirn
 ### Sakarya · doğrulanan yeni kaynak
 - [x] Resmî SAKUS kataloğu: 160 otobüs/metrobüs kaydı; raylı kayıtlar ayrıldı.
 - [x] Örnek hattın iki güzergâhında 39'ar durak ve geometri doğrulandı.
-- [ ] Bütün hatları doğrula, yön anlamlarını eşleştir, atomik aktarımı ve günlük güncellemeyi bağla.
-- [ ] Ortak API testleri ve yayın; henüz 22 il kapsamına dahil değil.
+- [x] 160 hat tarandı; 301 kaynak güzergâhı, 206 sıralı güzergâh ve 2.581 durak aktarıldı. Atomik aktarım ve günlük güncelleme bağlı. Gidiş/dönüş tahmini yerine kaynak güzergâh kimliği korundu.
+- [x] Ortak API testleri: 92 test geçti; Sakarya ile kapsam 23 il.
+- [ ] Kaynakta boş olan 95 güzergâhın duraklarını ve kopuk `74:305` geometrisini tamamlayacak doğrulanmış kaynak araştır.
+- [ ] Sakarya canlı araç/varış bağlantısı.
+
+1 Kasım yayın kontrolü: şehir listesi 23 ve tümü kullanılabilir; Sakarya hat/durak/geometri/yakın durak uçları, ana site ve eski Maraş sağlığı doğrulandı. Canlı araç desteklenmediği için 501 döner.

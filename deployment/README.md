@@ -4,7 +4,7 @@ Canlı temel adres: **https://mithrixa.com/turkiye-ulasim-api**; [belgeler](http
 
 - `turkiye-ulasim.service`: 127.0.0.1:8010, tek worker, 300 MB bellek sınırı; oturum açılmadan çalışması için user linger gerekir.
 - `turkiye-ulasim-update.timer`: her gün 04:10 Europe/Istanbul, 0–5 dakika rastgele gecikme. Makine kapalıysa sonraki açılışta kaçırılan iş çalışır.
-- `turkiye-ulasim-update.service`: sırayla 21 statik ZIP kaynağını günceller; 750 MB, %50 CPU, 30 dakika sınırı. Anahtar veya ücretli model çağrısı yok.
+- `turkiye-ulasim-update.service`: sırayla 21 ZIP kaynağını ve Sakarya SAKUS kataloğunu günceller; 750 MB, %50 CPU, 30 dakika sınırı. Anahtar veya ücretli model çağrısı yok.
 
 ```sh
 mkdir -p ~/.config/systemd/user

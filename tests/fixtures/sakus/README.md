@@ -1,0 +1,1 @@
+SAKUS resmî servisinin `/api/v1/Ulasim/route-and-busstops/2` yanıtından 31 Ekim 2026 tarihinde alınan küçük örnek. Her güzergâhın yalnız ilk iki durağı ve ilk üç geometri noktası tutuldu. Kaynak: https://sakus.sakarya.bel.tr/harita . Verinin yeniden kullanım lisansı belirtilmemiştir.

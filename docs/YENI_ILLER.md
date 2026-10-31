@@ -1,6 +1,6 @@
 # İl kapsamı
 
-31 Ekim 2026 · **22 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
+1 Kasım 2026 · **23 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
 
 | İl | Hat / güzergâh kaydı | Sıralı durağı olan hat | Durak | Canlı araç / varış | Kaynak |
 |---|---:|---:|---:|---|---|
@@ -26,6 +26,7 @@
 | Kastamonu | 27 | 23 | 91 | Yok / Yok | Topluluk GTFS |
 | Sivas | 111 | 111 | 624 | Yok / Yok | Katalog + Kentkart servisi |
 | Edirne | 23 | 23 | 392 | Yok / Yok | Katalog + Kentkart servisi |
+| Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Yok / Yok | Resmî SAKUS servisi |
 
 ## Sınırlar
 
@@ -53,3 +54,5 @@
 Güncel test sonucu: 82 test geçti. Sivas ve Edirne gerçek servis doğrulamasıyla eklendi; kaynak alınma zamanı API yanıtındaki topology_updated_at alanında bulunur.
 
 Servis tamamlama turu: 82 test ve Sivas/Edirne üzerinde 14 dış veri sorgusu başarılı. İki ilin doğrulanan yön toplamı 268; eksik tarife veya canlı araç verisi varmış gibi sunulmadı.
+
+1 Kasım: Sakarya için 160 hat tarandı, 301 kaynak güzergâhı ve 2.581 durak alındı. 206 güzergâhta sıralı durak var; 95 güzergâhın kaynak durak listesi boş. Kopuk geometri içeren `74:305` için şekil yayımlanmadı. 92 çevrimdışı test geçti.

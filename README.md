@@ -4,7 +4,7 @@
 
 Türkiye’nin otobüs verileri için tek API, ortak yanıt biçimi.
 
-**22 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
+**23 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](turkiye_ulasim/main.py)
@@ -41,6 +41,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
 | Konya ve diğer 16 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
+| Sakarya | Var | SAKUS kaynak güzergâhlarında | Yok | Yok |
 | Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Yok | Yok |
 
 **Diğer 16 il:** Adana, Antalya, Burdur, Çanakkale, Düzce, Erzurum, Gaziantep, Kastamonu, Kırklareli, Kocaeli, Mardin, Muğla, Niğde, Ordu, Osmaniye ve Tokat.
@@ -111,3 +112,5 @@ Katkıda bulunmak isteyenler, [ortak yapılacaklar listesinden](YAPILACAKLAR.md)
 - [Yayın, güncelleme ve geri alma](deployment/README.md)
 
 Otomatik GitHub CI henüz etkin değil; hazır şablon [katkı rehberinde](CONTRIBUTING.md) belirtilmiştir. Testler yerelde çalıştırılır; sonuçları bütün canlı hatların doğrulandığı anlamına gelmez.
+
+Sakarya, resmî SAKUS servisinden günlük katalog aktarımıyla desteklenir. Hat kimliği `2:157` gibi kaynak hat ve güzergâh kimliğini taşır. `direction=0` bu güzergâhın kendi sırasıdır; gidiş/dönüş anlamı yüklenmez. Kaynak yeniden kullanım lisansı belirtilmemiştir.
