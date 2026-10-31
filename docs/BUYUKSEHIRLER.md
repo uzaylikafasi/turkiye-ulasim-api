@@ -62,3 +62,11 @@ Toplam şehir desteği sekize çıktı. Otobüs dışındaki hatlar içe alınma
 Kastamonu eklemesiyle toplam 20 il: geometri anahtar çakışmasının birebir aynı nokta tekrarından kaynaklandığı doğrulandı; tekilleştirme sonrası içe aktarma başarılı.
 
 Sivas ve Edirne’nin eksik sefer dosyalarına rağmen, gerçek Kentkart servisinden 268 hat/yön ilişkisi doğrulandı. Toplam destek 22 il; bu iki il için geçerli GTFS/sefer takvimi iddiası kurulmaz.
+
+## 31 Ekim · Sakarya servis doğrulaması
+
+[Resmî SAKUS haritasının](https://sakus.sakarya.bel.tr/harita) kullandığı `sbbpublicapi.sakarya.bel.tr/api/v1/Ulasim` servisi doğrulandı. `busType=3869` ve `5731` katalogları toplam 162 kayıt döndürdü; ikisi Adaray olduğundan otobüs kapsamı 160 kayıt (159 otobüs, 1 metrobüs). Sorgu parametresi tek başına otobüs filtresi değildir; kaynak `busTypeId` alanı ayrıca filtrelenmelidir.
+
+`route-and-busstops/2` örneğinde iki güzergâh, her birinde 39 sıralı durak ve MultiLineString geometri doğrulandı. Kaynak yönleri 220/221; ortak 0/1 yönüne karşılıkları henüz doğrulanmadı. Servis Origin/Referer başlıkları bekler. Yeniden kullanım lisansı doğrulanmadı; erişilebilir servis olması açık veri lisansı anlamına gelmez.
+
+Tekrarlanabilir kontrol: `python -m tools.sakus_kontrol`. Bu araç yalnız katalog ve örnek güzergâhı denetler. Sakarya henüz ortak API'ye eklenmedi; yayımlanan kapsam 22 il. Sonraki iş tam katalog aktarımı, kaynak yönlerinin doğrulanması, atomik güncelleme ve uç testleridir.

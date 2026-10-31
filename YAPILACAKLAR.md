@@ -119,3 +119,9 @@ Güncel toplam: 20 il, 19 GTFS kaynağı + Maraş köprüsü. Sivas/Edirne ve di
 Genel durum ve iş listesinde kişiye özel açıklamalar kullanılmaz.
 
 Güncel toplam 22 il: Sivas 111 hat / 222 doğrulanmış yön / 624 durak; Edirne 23 / 46 / 392. 82 test ve 14 dış veri sorgusu geçti.
+
+### Sakarya · doğrulanan yeni kaynak
+- [x] Resmî SAKUS kataloğu: 160 otobüs/metrobüs kaydı; raylı kayıtlar ayrıldı.
+- [x] Örnek hattın iki güzergâhında 39'ar durak ve geometri doğrulandı.
+- [ ] Bütün hatları doğrula, yön anlamlarını eşleştir, atomik aktarımı ve günlük güncellemeyi bağla.
+- [ ] Ortak API testleri ve yayın; henüz 22 il kapsamına dahil değil.
