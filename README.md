@@ -83,7 +83,7 @@ python3 -m venv .venv
 
 Belgeler: `http://localhost:8010/docs`. Veriler `data/` altında tutulur. Kurmadığınız GTFS şehirleri kullanılamaz; `/readyz` bütün GTFS kaynakları hazır olmadan `503` döner. Uçların tamamını kurmak için `.venv/bin/python -m tools.gtfs_guncelle` çalıştırın.
 
-Kahramanmaraş mevcut uzak topluluk API’sini kullanır; GTFS indirmez. `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. İETT kotası süreç içinde tutulduğu için **tek worker** kullanın.
+Kahramanmaraş uzak topluluk API’sini kullanır; GTFS indirmez. `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. İETT kotası süreç içinde tutulduğu için **tek worker** kullanın.
 
 ## Kaynak ve veri ilkesi
 
@@ -99,11 +99,11 @@ Canlı kurulumda sürekli servis ve **günlük 04:10–04:15** veri güncellemes
 
 [Sağlık](https://mithrixa.com/turkiye-ulasim-api/healthz) · [Hazır olma](https://mithrixa.com/turkiye-ulasim-api/readyz) · [Veri durumu](https://mithrixa.com/turkiye-ulasim-api/v1/status)
 
-Samet veya başka bir katkıcı, [ortak yapılacaklar listesinden](YAPILACAKLAR.md) bir iş seçip [katkı adımlarını](CONTRIBUTING.md) izleyebilir. Öncelik **yeni iller ve otobüs kapsamı**.
+Katkıda bulunmak isteyenler, [ortak yapılacaklar listesinden](YAPILACAKLAR.md) bir iş seçip [katkı adımlarını](CONTRIBUTING.md) izleyebilir. Öncelik **yeni iller ve otobüs kapsamı**.
 
 - [API kullanımı ve veri sınırları](docs/API.md)
 - [İl kapsamı ve eksik kaynaklar](docs/YENI_ILLER.md)
 - [Büyükşehir araştırmaları](docs/BUYUKSEHIRLER.md)
 - [Yayın, güncelleme ve geri alma](deployment/README.md)
 
-Otomatik GitHub CI henüz etkin değil; hazır şablon ve kalan yetki işi listede belirtilmiştir. Testler yerelde çalıştırılır; sonuçları bütün canlı hatların doğrulandığı anlamına gelmez.
+Otomatik GitHub CI henüz etkin değil; hazır şablon [katkı rehberinde](CONTRIBUTING.md) belirtilmiştir. Testler yerelde çalıştırılır; sonuçları bütün canlı hatların doğrulandığı anlamına gelmez.

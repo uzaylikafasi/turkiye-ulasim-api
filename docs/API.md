@@ -12,7 +12,7 @@
 | Kahramanmaraş · topluluk köprüsü | Arama / durak / yakın durak | Var | Var | Var | Kaynak veri lisansı belirtilmemiş |
 | Antalya, Kocaeli, Adana, Gaziantep · topluluk GTFS | Var | Var | Desteklenmiyor | Desteklenmiyor | Derleme CC0; alt veri hakları Kentkart/belediyede |
 
-Kahramanmaraş, mevcut [Kahramankart API’mizin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır, canlı araç/varış sunulmaz.
+Kahramanmaraş, [Kahramankart Ulaşım API’sinin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır, canlı araç/varış sunulmaz.
 
 Şehirlerin kurulum durumu ve yetenekleri `/v1/cities` yanıtındaki `available` ve `capabilities` alanlarından okunur; `available` kaynağın yapılandırıldığını belirtir, anlık sağlık kontrolü değildir. `capabilities.line_catalog` tam hat listesini, `gtfs` statik GTFS desteğini belirtir. Canlı verisi desteklenmeyen uç `501`, henüz veritabanı kurulmamış şehir `503` döner. Boş bir araç listesi başarılı bir canlı sorgunun sonucu olabilir; destek yokluğu anlamına gelmez.
 
@@ -30,7 +30,7 @@ python3 -m venv .venv
 
 Canlı API: **https://mithrixa.com/turkiye-ulasim-api** · [Canlı belgeler](https://mithrixa.com/turkiye-ulasim-api/docs) · [Yayın ve bakım](../deployment/README.md).
 
-Yerel belgeler: `http://localhost:8010/docs`. Pi’de mevcut Maraş servisi 8000 portunu kullandığından geliştirme örnekleri 8010 kullanır. GTFS verileri `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. Kahramanmaraş için içe aktarma veya erişim anahtarı gerekmez; uzak API kullanılır. Köprü `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. Varsayılan GTFS güncellemesi 19 GTFS ilini indirir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Çalışan API sonraki veri sorgusunda yeni dosyayı sunucuyu yeniden başlatmadan yükler. Pi’de sürekli servis ve günlük 04:10 güncelleme zamanlayıcısı kuruldu; yalnız depoyu indirmek bu servisleri başka makinede kurmaz.
+Yerel belgeler: `http://localhost:8010/docs`. Örneklerde yerel sunucu için 8010 portu kullanılır. GTFS verileri `data/<şehir>.sqlite3` dosyalarındadır; dizin `ULASIM_DATA_DIR` ile değiştirilebilir. Kahramanmaraş için içe aktarma veya erişim anahtarı gerekmez; uzak API kullanılır. Köprü `ULASIM_KAHRAMANMARAS_ENABLED=0` ile kapatılabilir. Varsayılan GTFS güncellemesi 19 GTFS ilini indirir. İçe aktarma geçici dosyada tamamlanır, başarıdan sonra eski veritabanının yerini alır. Bir şehir güncellenemezse diğerleri denenir; komut hata koduyla biter ve o şehrin eski verisi korunur. Çalışan API sonraki veri sorgusunda yeni dosyayı sunucuyu yeniden başlatmadan yükler. Canlı kurulumda sürekli servis ve günlük 04:10 güncellemesi bulunur; yalnız depoyu indirmek bu servisleri başka makinede kurmaz.
 
 ## Uçlar
 
@@ -103,7 +103,7 @@ Büyükşehirlerin kaynak durumu ve devam sırası: [docs/BUYUKSEHIRLER.md](BUYU
 .venv/bin/python -m pytest -q
 ```
 
-GitHub Actions için [hazır test şablonu](templates/github-tests.yml) vardır. Mevcut OAuth bağlantısında `workflow` yetkisi olmadığından henüz etkin değildir. GitHub web arayüzünden `.github/workflows/tests.yml` olarak eklenince her PR ve main push’unda Python 3.11 / 3.12 ile çevrimdışı testleri çalıştırır. Testler gerçek servisleri çağırmaz; canlı kontroller ayrı yapılır.
+GitHub Actions için [hazır test şablonu](templates/github-tests.yml) vardır. Henüz etkin değildir. GitHub web arayüzünden `.github/workflows/tests.yml` olarak eklenince her PR ve main push’unda Python 3.11 / 3.12 ile çevrimdışı testleri çalıştırır. Testler gerçek servisleri çağırmaz; canlı kontroller ayrı yapılır.
 
 Kod [MIT](../LICENSE) lisanslıdır.
 
@@ -113,7 +113,7 @@ Kod [MIT](../LICENSE) lisanslıdır.
 - `/readyz`: 19 GTFS ilinin dosyaları ve temel tabloları okunabiliyorsa 200; eksik/bozuksa 503. İsteğe bağlı Maraş köprüsü bu yerel koşula dahil değildir.
 - `/v1/status`: şehir başına yapılandırma, dosya okunabilirliği, `imported_at`, takvim bitişi/süresi ve bu süreçte gözlenen son canlı başarı/hata bilgisi.
 
-Bu uçlar kaynağa ağ isteği yapmaz ve kota tüketmez; `upstream_checked=false` kalır. Konya gibi uzun takvimli eski kaynakların güncel olduğunu kanıtlamaz. Eski veritabanında içe aktarma zamanı yoksa null gösterilir. Canlı gözlemler yeniden başlatmada sıfırlanır; hata mesajı, anahtar ve yerel dosya yolu yayımlanmaz. Pi’de sürekli API servisi ve günlük güncelleme kuruldu; kurulum ve sınırlar [yayın belgesindedir](../deployment/README.md). Sağlık uçları dış sağlayıcının erişilebilirliğini kendiliğinden test etmez.
+Bu uçlar kaynağa ağ isteği yapmaz ve kota tüketmez; `upstream_checked=false` kalır. Konya gibi uzun takvimli eski kaynakların güncel olduğunu kanıtlamaz. Eski veritabanında içe aktarma zamanı yoksa null gösterilir. Canlı gözlemler yeniden başlatmada sıfırlanır; hata mesajı, anahtar ve yerel dosya yolu yayımlanmaz. Canlı kurulumda sürekli API servisi ve günlük güncelleme bulunur; kurulum ve sınırlar [yayın belgesindedir](../deployment/README.md). Sağlık uçları dış sağlayıcının erişilebilirliğini kendiliğinden test etmez.
 
 31 Ekim yeni otobüs kapsamı: Antalya 162 hat/4.503 durak; Kocaeli 409/8.597; Adana 291/3.618; Gaziantep 162/3.110. Bunlar kaynak dosyasından alınan katalog sayılarıdır, bugün aktif sefer sayısı değildir. Kaynak: [topluluk veri deposu](https://github.com/Egezenn/kk-gtfs).
 
