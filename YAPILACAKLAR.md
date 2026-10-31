@@ -4,11 +4,11 @@ Ortak çalışma listesi · son güncelleme: 31 Ekim 2026.
 
 **Canlı API:** https://mithrixa.com/turkiye-ulasim-api · [Belgeler](https://mithrixa.com/turkiye-ulasim-api/docs). Günlük güncelleme ve sürekli servis kuruldu.
 
-**Öncelik: yeni şehirler ve otobüs kapsamı.** Altyapı işleri şehir eklemeyi sürekli ertelememeli (Ömer, 31 Ekim). Metro, tramvay, vapur ve şehirlerarası ulaşım sonraki aşama. Yeni kaynak bulunması ile çalışır şehir desteği farklı aşamalardır.
+**Öncelik: yeni şehirler ve otobüs kapsamı.** Altyapı işleri şehir eklemeyi sürekli ertelememeli. Metro, tramvay, vapur ve şehirlerarası ulaşım sonraki aşama. Yeni kaynak bulunması ile çalışır şehir desteği farklı aşamalardır.
 
 ## Bir işi devralmak
 
-1. Aşağıdaki iş kimliğini seç; bu dosyadaki maddenin yanına adını ve `devam ediyor` yazıp dalında paylaş. Böylece aynı iş iki kez yapılmaz. Adı yazılmamış işler alınabilir; Samet'e otomatik görev atanmadı.
+1. Aşağıdaki iş kimliğini seç; bu dosyadaki maddenin yanına adını ve `devam ediyor` yazıp dalında paylaş. Böylece aynı iş iki kez yapılmaz. Adı yazılmamış işler alınabilir.
 2. `git pull` sonrası `git switch -c feat/is-kimligi` ile dal aç. PR başlığında iş kimliğini kullan; değişikliği, doğrulamayı ve kalan sınırları yaz.
 3. Testleri çalıştır. Çalışan kaynak örneğini ve lisans/kaynak bağlantısını ekle; erişim anahtarlarını, `.env`, ham trafik veya kullanıcı verisini gönderme.
 4. PR birleşince kutuyu işaretle, gerekiyorsa README ve [şehir tablosunu](docs/BUYUKSEHIRLER.md) güncelle. Bekleyen işin hangi dosyadan ve komuttan devam edeceğini yaz.
@@ -37,10 +37,10 @@ python3 -m venv .venv
 
 ## Önce yapılacaklar
 
-- [x] **KMR-01 — Kahramanmaraş ortak bağlayıcı** · Ada tamamladı. Mevcut Kahramankart API'si ortak şemaya bağlandı: arama, detay, sıra, geometri, yakın durak, araç ve varış. Kaynak topluluk olarak etiketli; id:yön kimliği, alınma zamanı, kota ve önbellek var. 48 test ve dört şehirde 14 gerçek veri sorgusu geçti. Tam envanter ve eksik varış yönü KMR-02/03'te açık.
+- [x] **KMR-01 — Kahramanmaraş ortak bağlayıcı**. Mevcut Kahramankart API'si ortak şemaya bağlandı: arama, detay, sıra, geometri, yakın durak, araç ve varış. Kaynak topluluk olarak etiketli; id:yön kimliği, alınma zamanı, kota ve önbellek var. 48 test ve dört şehirde 14 gerçek veri sorgusu geçti. Tam envanter ve eksik varış yönü KMR-02/03'te açık.
 - [ ] **KMR-02 — Tam hat envanteri:** Arama sonuçları sınırlı. Kaynak bütün şehri veriyor gibi davranmadan tam hat/yön listesini elde et; güncelleme tarihi ve kapsama ölçütü ekle.
 - [ ] **KMR-03 — Varıştan hatta bağlantı:** Varış yanıtında kaynak hat kimliği var, yön her kayıtta yok. Yönü tahmin etmeden ortak hat/yön kimliğine güvenilir eşleme ekle.
-- [ ] **CI-01 — GitHub Actions:** [Hazır şablon](docs/templates/github-tests.yml) Python 3.11/3.12 için çevrimdışı pytest çalıştırır. **Henüz etkin değil:** mevcut OAuth bağlantısı `workflow` yetkisi olmadığı için GitHub yüklemeyi reddetti. Samet veya Ömer GitHub web arayüzünden şablonu `.github/workflows/tests.yml` olarak ekleyebilir; ilk başarılı Actions koşumundan sonra kutuyu işaretle. API kodu ve liste bu eksikten bağımsız yayımlandı.
+- [ ] **CI-01 — GitHub Actions:** [Hazır şablon](docs/templates/github-tests.yml) Python 3.11/3.12 için çevrimdışı pytest çalıştırır. **Henüz etkin değil:** şablonun workflow olarak yüklenmesi ve ilk başarılı koşumun doğrulanması gerekiyor. Depoya yazma yetkisi olan katkıcılar GitHub web arayüzünden şablonu `.github/workflows/tests.yml` olarak ekleyebilir; ilk başarılı Actions koşumundan sonra kutuyu işaretle. API kodu ve liste bu eksikten bağımsız yayımlandı.
 - [x] **API-01 — Yetenek sözleşmesi:** `line_catalog`, `gtfs`, canlı araç/varış ve `source_kind` belge ve testlerle sabitlendi. Tam liste olmayan kaynak boş sorguda 422; destek olmayan uç 501; kapalı/kurulmamış kaynak 503; kaynak hatası 502.
 
 ## Yeni büyükşehirler: sırayla araştır ve bağla
