@@ -11,9 +11,9 @@
 | Konya | Var | Var | Desteklenmiyor | Desteklenmiyor | CC BY 4.0 |
 | Kahramanmaraş · topluluk köprüsü | Arama / durak / yakın durak | Var | Var | Var | Kaynak veri lisansı belirtilmemiş |
 | Antalya, Adana · topluluk GTFS | Var | Var | Desteklenmiyor | Desteklenmiyor | Derleme CC0; alt veri hakları Kentkart/belediyede |
-| Kocaeli, Gaziantep · topluluk GTFS + Kentkart canlı | Var | Kaynakta bulunan hatlarda | Var | Desteklenmiyor | Statik derleme CC0; canlı lisansı belirtilmemiş |
+| Kocaeli, Gaziantep · topluluk GTFS + Kentkart canlı | Var | Kaynakta bulunan hatlarda | Var | Var | Statik derleme CC0; canlı lisansı belirtilmemiş |
 
-Kahramanmaraş, [Kahramankart Ulaşım API’sinin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır. Bu 16 ilin Kocaeli ve Gaziantep kaynaklarında ayrıca Kentkart canlı araç desteği vardır; varış desteği yoktur.
+Kahramanmaraş, [Kahramankart Ulaşım API’sinin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır. Bu 16 ilin Kocaeli ve Gaziantep kaynaklarında ayrıca Kentkart canlı araç ve durak varış desteği vardır.
 
 Şehirlerin kurulum durumu ve yetenekleri `/v1/cities` yanıtındaki `available` ve `capabilities` alanlarından okunur; `available` kaynağın yapılandırıldığını belirtir, anlık sağlık kontrolü değildir. `capabilities.line_catalog` tam hat listesini, `gtfs` statik GTFS desteğini belirtir. Canlı verisi desteklenmeyen uç `501`, henüz veritabanı kurulmamış şehir `503` döner. Boş bir araç listesi başarılı bir canlı sorgunun sonucu olabilir; destek yokluğu anlamına gelmez.
 
@@ -205,6 +205,19 @@ Hat kimliklerini arama sonucundan baştaki sıfırları koruyarak alın. Her sor
 
 Önbellek 15 saniye, şehir başına kaynak bütçesi dakikada 30 istektir; önbellek dışındaki hat sorgusu iki kaynak isteği tüketir. Kaynak sınırı 503 ve `Retry-After` döndürür. Tek süreç kullanın; birden çok süreçte ortak kota gerekir.
 
-Kaynak GPS ölçüm zamanı doğrulanmadığından `observed_at`, `age_seconds`, `stale` null döner; `fetched_at` yalnız sorgu zamanıdır. Pusula açısı hat yönünden ayrıdır. Erişilebilirlik ve bisiklet taşıma alanları yalnız kaynak 0/1 verdiğinde doldurulur. Durak varış tahmini üretilmez.
+Kaynak GPS ölçüm zamanı doğrulanmadığından `observed_at`, `age_seconds`, `stale` null döner; `fetched_at` yalnız sorgu zamanıdır. Pusula açısı hat yönünden ayrıdır. Erişilebilirlik ve bisiklet taşıma alanları yalnız kaynak 0/1 verdiğinde doldurulur. Durak varış tahmini ayrı kaynak uçtan alınır; araç konumundan hesaplanmaz.
 
 Yanıttaki `source_kind`, `source` ve `license` statik şehir kaynağını tanımlar; canlı kaynağın adresi ve lisans belirsizliği uyarılarda ayrıca belirtilir. Statik derlemenin CC0 lisansı canlı Kentkart verisini kapsamaz. Antalya’da yerel/kaynak hat kimliği uyuşmadığı için canlı yetenek açılmadı. Diğer Kentkart şehirlerine destek otomatik yayılmaz.
+
+### Kentkart durak varışları
+
+Aynı dört ilde [web/nearest/bus](https://service.kentkart.com/rl1/web/nearest/bus) kaynağı kullanılır. Çağrıya yerel durağın kimliği ve koordinatları gider; dönen `stopInfo.busStopid` tam eşleşmelidir. Koordinatsız durak 501, kaynak/kimlik hatası 502, bilinmeyen yerel durak 404 döner.
+
+- `/v1/kocaeli/stops/80671/arrivals`
+- `/v1/gaziantep/stops/11734/arrivals`
+- `/v1/sivas/stops/475/arrivals`
+- `/v1/edirne/stops/20041/arrivals`
+
+`busList.timeDiff` dakika birimindedir; web uygulaması da dakika olarak gösterir. `eta_seconds` saniyeye çevrilir, `stopDiff` → `stops_away` olur. Bilinmeyen/negatif/geçersiz değerler null kalır. `routeList.nextTripArrivalTime` tarife bilgisidir; canlı araç olarak sunulmaz. Yalnız `routeType=3` otobüs kayıtları alınır. Kaynak `routeCode`, `shapeId` ve 0/1 yönü birlikte doğrulanır; yerel durak-hat ilişkisinde kimlik ve kod eşleşirse `line_id` doldurulur, aksi halde null ve `source_line_id`/`source_line_code` korunur.
+
+Varış önbelleği 15 saniyedir; tek varış sorgusu bir kaynak isteği tüketir. Araç ve varışlar şehir başına ortak 30 kaynak isteği/dakika bütçesini paylaşır; önbellek istek tüketmez. Varış cache anahtarı durak kimliği/koordinatları ve yerel hat ilişkilerini içerir. GPS ölçüm zamanı hâlâ doğrulanmadığından varışlarda da `observed_at`, `age_seconds`, `stale` null kalır. Tahminin bulunması bütün hatların kapsandığını veya GPS ölçümünün yeni olduğunu kanıtlamaz.

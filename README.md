@@ -41,14 +41,14 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
 | Konya ve diğer 14 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
-| Kocaeli ve Gaziantep | Var | Kaynakta bulunan hatlarda | Var | Yok |
+| Kocaeli ve Gaziantep | Var | Kaynakta bulunan hatlarda | Var | Var |
 | Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Var | Yok |
 | Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Var | Var |
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
 | Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Var | Var |
 | Sakarya | Var | SAKUS kaynak güzergâhlarında | Yok | Yok |
-| Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Var | Yok |
+| Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Var | Var |
 
 **Diğer 14 il:** Adana, Antalya, Burdur, Çanakkale, Düzce, Erzurum, Kastamonu, Kırklareli, Mardin, Muğla, Niğde, Ordu, Osmaniye ve Tokat.
 
@@ -139,4 +139,4 @@ Trabzon canlı araçları da desteklenir: `/v1/trabzon/lines/59:94/vehicles`. Ge
 
 Ankara hat araçları: `/v1/ankara/lines/263/vehicles`. Araç ve durak varışlarında GPS zamanı, `age_seconds` ve `stale` sunulur. Varış önbelleği 20, araç önbelleği 15 saniyedir; ikisi 30 kaynak isteği/dakika bütçesini paylaşır.
 
-Kocaeli, Gaziantep, Sivas ve Edirne’de Kentkart canlı araç desteği açıldı. Örnek: `/v1/kocaeli/lines/41010/vehicles`. Kaynak GPS ölçüm zamanı doğrulanmadığından `observed_at`, `age_seconds` ve `stale` boş döner; varış desteği henüz yok. Statik derlemenin CC0 lisansı canlı kaynağı kapsamaz. [Ayrıntılar](docs/API.md#kentkart-canlı-araçlar).
+Kocaeli, Gaziantep, Sivas ve Edirne’de Kentkart canlı araç ve durak varış desteği var. Örnek: `/v1/kocaeli/lines/41010/vehicles`. Kaynak GPS ölçüm zamanı doğrulanmadığından `observed_at`, `age_seconds` ve `stale` boş döner. Varış örneği: `/v1/kocaeli/stops/80671/arrivals`; kaynak dakika tahmini saniyeye çevrilir. Statik derlemenin CC0 lisansı canlı kaynağı kapsamaz. [Ayrıntılar](docs/API.md#kentkart-canlı-araçlar).

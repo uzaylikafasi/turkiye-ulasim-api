@@ -1,0 +1,41 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101193056",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "80671",
+    "busStopName": "YEŞEREN PARK 1",
+    "lat": "40.7987834",
+    "lng": "29.9770923"
+  },
+  "busList": [
+    {
+      "busId": "44239",
+      "disabledPerson": "0",
+      "displayRouteCode": "24",
+      "displayName": "VİNSAN  - UMUTTEPE",
+      "routeCode": "41024",
+      "shapeId": "410240",
+      "stopDiff": "11",
+      "routeType": "3",
+      "direction": "0",
+      "vehicleType": "3",
+      "bike": "0",
+      "timeDiff": "11",
+      "lat": "40.784683",
+      "lng": "29.969757"
+    }
+  ],
+  "routeList": [
+    {
+      "routeCode": "41010",
+      "displayRouteCode": "10",
+      "nextTripArrivalTime": "19:39"
+    }
+  ]
+}

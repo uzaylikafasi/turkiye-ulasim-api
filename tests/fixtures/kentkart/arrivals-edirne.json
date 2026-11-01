@@ -1,0 +1,41 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101193056",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "20041",
+    "busStopName": "Tarım ve Orman Md.",
+    "lat": "41.6599146",
+    "lng": "26.5815055"
+  },
+  "busList": [
+    {
+      "busId": "23132",
+      "disabledPerson": "1",
+      "displayRouteCode": "3A",
+      "displayName": "SARAY İÇİ YERLEŞKE - OTOGAR",
+      "routeCode": "22013",
+      "shapeId": "220130",
+      "stopDiff": "9",
+      "routeType": "3",
+      "direction": "0",
+      "vehicleType": "3",
+      "bike": "0",
+      "timeDiff": "7",
+      "lat": "41.676632",
+      "lng": "26.556309"
+    }
+  ],
+  "routeList": [
+    {
+      "routeCode": "22001",
+      "displayRouteCode": "1T",
+      "nextTripArrivalTime": ""
+    }
+  ]
+}

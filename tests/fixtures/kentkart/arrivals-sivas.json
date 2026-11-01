@@ -1,0 +1,41 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101193056",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "475",
+    "busStopName": "MALİA HOTEL AĞIZ VE DİŞ SAĞLIĞI HASTANESİ KARŞISI",
+    "lat": "39.736817",
+    "lng": "37.0333862"
+  },
+  "busList": [
+    {
+      "busId": "58218",
+      "disabledPerson": "0",
+      "displayRouteCode": "1-A",
+      "displayName": "KÜMBET",
+      "routeCode": "10010",
+      "shapeId": "100100",
+      "stopDiff": "5",
+      "routeType": "3",
+      "direction": "0",
+      "vehicleType": "3",
+      "bike": "0",
+      "timeDiff": "4",
+      "lat": "39.7244",
+      "lng": "37.043457"
+    }
+  ],
+  "routeList": [
+    {
+      "routeCode": "10020",
+      "displayRouteCode": "2-A",
+      "nextTripArrivalTime": ""
+    }
+  ]
+}

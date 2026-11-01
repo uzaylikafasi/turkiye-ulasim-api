@@ -175,5 +175,5 @@ CITIES["diyarbakir"] = City(
 KENTKART_LIVE_REGIONS = {"kocaeli":"004", "gaziantep":"028", "sivas":"005", "edirne":"013"}
 for city_id in KENTKART_LIVE_REGIONS:
     city=CITIES[city_id]
-    CITIES[city_id]=replace(city,live_vehicles=True,warnings=tuple(
-        w.replace("canlı araç/varış desteği eklenmedi", "canlı araç desteği var; varış desteği eklenmedi") for w in city.warnings))
+    CITIES[city_id]=replace(city,live_vehicles=True,live_arrivals=True,warnings=tuple(
+        w.replace("canlı araç/varış desteği eklenmedi", "canlı araç ve varış desteği var") for w in city.warnings))

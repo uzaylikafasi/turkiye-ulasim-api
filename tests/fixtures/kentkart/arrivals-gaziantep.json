@@ -1,0 +1,73 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101193056",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "11734",
+    "busStopName": "26 NOLU CAD. ÜZERİ 2",
+    "lat": "37.09636",
+    "lng": "37.42742"
+  },
+  "busList": [
+    {
+      "busId": "27189",
+      "disabledPerson": "1",
+      "displayRouteCode": "B57",
+      "displayName": "GAZİKENT-BALIKLI",
+      "routeCode": "00570",
+      "shapeId": "005700",
+      "stopDiff": "2",
+      "routeType": "3",
+      "direction": "0",
+      "vehicleType": "3",
+      "bike": "0",
+      "timeDiff": "1",
+      "lat": "37.095966",
+      "lng": "37.424896"
+    },
+    {
+      "busId": "27238",
+      "disabledPerson": "1",
+      "displayRouteCode": "B01",
+      "displayName": "GAZİKENT-İBRAHİMLİ-ENSAR SİTESİ",
+      "routeCode": "00010",
+      "shapeId": "000100",
+      "stopDiff": "9",
+      "routeType": "3",
+      "direction": "0",
+      "vehicleType": "3",
+      "bike": "0",
+      "timeDiff": "10",
+      "lat": "37.10078",
+      "lng": "37.4331"
+    },
+    {
+      "busId": "29146",
+      "disabledPerson": "0",
+      "displayRouteCode": "M04",
+      "displayName": "GAZİKENT-60.YIL-YEDİTEPE",
+      "routeCode": "20040",
+      "shapeId": "200401",
+      "stopDiff": "10",
+      "routeType": "3",
+      "direction": "1",
+      "vehicleType": "3",
+      "bike": "0",
+      "timeDiff": "10",
+      "lat": "37.099915",
+      "lng": "37.436264"
+    }
+  ],
+  "routeList": [
+    {
+      "routeCode": "00300",
+      "displayRouteCode": "B30",
+      "nextTripArrivalTime": ""
+    }
+  ]
+}

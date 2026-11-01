@@ -126,3 +126,9 @@ EGO Cep’te `FNC=Otobus&HAT=263` çağrısı DURAK parametresi olmadan gerçek 
 ## 1 Kasım · Kentkart canlı araç tamamlama
 
 Kocaeli 004, Gaziantep 028, Sivas 005 ve Edirne 013 bölgeleri anonim pathInfo kaynağıyla doğrulandı. Örnek hatlarda sırasıyla 2, 8, 6 ve 1 araç gözlendi; bunlar anlık örneklerdir, tüm hatların kapsamını kanıtlamaz. Yerel hat kimliği + kaynak yönü tam eşleştirilir. GPS ölçüm zamanı doğrulanmadığı için güncellik iddiası kurulmaz. Canlı lisansı belirtilmemiştir; statik derleme CC0 kapsamı ayrı tutulur. 179 test geçti. Antalya kimlik uyuşmazlığı nedeniyle etkinleştirilmedi; il sayısı 28 kaldı.
+
+## 1 Kasım · Kentkart durak varışları
+
+Aynı dört ilde web uygulamasının web/nearest/bus çağrısı gerçek araçlı varış döndürdü. timeDiff web arayüzünde dakika olarak gösterilir, API saniyeye çevirir. stopDiff kalan durak sayısıdır. Tarife routeList alanı ayrı tutulur. Kaynak durak/hat/yön kimliği doğrulanır; yerel ilişki yoksa line_id null kalır. GPS ölçüm zamanı ve canlı lisansı belirsizliği sürer. İl sayısı 28.
+
+Varış tamamlama doğrulaması: 192 çevrimdışı test geçti; kapsam 28 il.

@@ -229,7 +229,19 @@ Ankara dış kontrolü: 263 hattında dolu araç yanıtı ve cache; varış serv
 - [x] Kocaeli, Gaziantep, Sivas ve Edirne: canlı araç bağlayıcısı; tam kaynak hat/yön kimliği doğrulaması.
 - [x] İki yön, çelişen araç kayıtları, 15 saniye önbellek, şehir başına 30 kaynak isteği/dakika bütçesi ve API sözleşmesi; 179 test geçti.
 - [x] Canlı/statik kaynak ve lisans ayrımı; bilinmeyen GPS zamanı/güncelliği null.
-- [ ] Bu dört ilde gerçek durak varış kaynağını ve GPS ölçüm zamanını doğrula.
+- [x] Bu dört ilde gerçek durak varış kaynağını doğrula ve bağla; kaynak dakika tahminini saniyeye çevir, tarife kayıtlarını ayır.
+- [ ] Kentkart GPS ölçüm zamanını doğrula.
 - [ ] Antalya yerel/kaynak hat kimliği farkını çöz; Adana için doğrulanmış canlı hat eşlemesi bul.
 
 İl sayısı 28; yeni il eklenmedi. Önceki tarihli tamamlanma kayıtları o aşamadaki kapsamı anlatır.
+
+## Kentkart durak varış tamamlama
+
+- [x] Kocaeli, Gaziantep, Sivas, Edirne: gerçek nearest/bus kaynağı; durak kimliği, kaynak hat/yönü, otobüs filtresi.
+- [x] Yerel hat ilişkisi yoksa kaynak kimliğini koru; bilinmeyen süre/konumları null bırak.
+- [x] Araç ve varış ortak kotası, ayrı cache anahtarları; dört gerçek yanıt fixture’ı ve API/hata testleri.
+- [ ] Antalya/Adana canlı hat eşlemesi ve diğer mevcut şehirlerin canlı/eksik verileri.
+
+Varış tamamlama doğrulaması: 192 çevrimdışı test geçti; kapsam 28 il.
+
+Dış yayın kontrolü: örnek duraklarda Kocaeli 2, Gaziantep 2, Sivas 2, Edirne 1 gerçek araçlı varış; tekrar cache ve bilinmeyen durak 404 doğrulandı. Dört ilin araç uçları, Ankara/Trabzon/Diyarbakır araçları, ana site ve eski Maraş API sağlığı 200. Sayılar anlık gözlemdir.
