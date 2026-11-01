@@ -312,3 +312,17 @@ Konya ATUS örnek URL’i 404 sayfasına yönlendi; canlı yetenek açılmadı. 
 Mersin tamamlama turu: 238 çevrimdışı test geçti.
 
 Mersin dış kontrolü: 10M-G, 10M-D ve 26M-G ikişer araç; cache, 404, varış501 ve mevcut Sakarya/Antalya uçları/site/eski Maraş sağlığı doğrulandı. Sayılar anlık. Genel 28 il, 26 araç/22 varış yeteneği.
+
+## Konya ATUS mevcut il canlı tamamlama
+
+- [x] Çalışan Hattaki Araçlar sayfası, anonim oturum/form GET+POST ve resmî seçenek etiketiyle kaynak kimliği.
+- [x] Kaynak/yerel hat ve araç açıklaması kimlik kontrolü; yalnız JSON ayrıştırma, JS çalıştırılmaz.
+- [x] Pusula açısı/yön ayrımı, bilinmeyen GPS zamanı, cache, ortak kaynak bütçesi ve API testleri.
+- [ ] Konya durak varışları ve GPS ölçüm zamanı.
+- [ ] Samsun canlı kaynakları ve diğer mevcut il veri eksikleri.
+
+Önceki otobusum-nerede 404 örneği tüm ATUS hizmetinin kapalı olduğu sonucuna taşınmadı. İl sayısı 28 kaldı.
+
+Konya tamamlama turu: 246 çevrimdışı test geçti.
+
+Konya dış kontrolü: 1-A iki araç, 1-B beş araç, 2-A iki araç. Anlık sayılardır. Cache, bilinmeyen hat404, varış501 ve mevcut Mersin/Sakarya/site/eski Maraş sağlığı doğrulandı. Genel 28 il, 27 araç/22 varış yeteneği; Samsun araç bağlantısı açık.

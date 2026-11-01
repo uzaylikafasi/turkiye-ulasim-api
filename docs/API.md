@@ -8,7 +8,7 @@
 |---|---|---|---|---|---|
 | İzmir · ESHOT | Var | Var | Var | Var | İzmir BB Açık Veri Lisansı |
 | İstanbul · İETT | Var | Kaynakta yok | Var | Desteklenmiyor | İBB Açık Veri Lisansı |
-| Konya | Var | Var | Desteklenmiyor | Desteklenmiyor | CC BY 4.0 |
+| Konya | Var | Var | Var | Desteklenmiyor | Statik GTFS CC BY 4.0; canlı lisansı belirtilmemiş |
 | Kahramanmaraş · topluluk köprüsü | Arama / durak / yakın durak | Var | Var | Var | Kaynak veri lisansı belirtilmemiş |
 | Topluluk GTFS kullanan 16 il + Kentkart canlı | Var | Kaynakta bulunan hatlarda | Var | Var | Statik derleme CC0; canlı lisansı belirtilmemiş |
 
@@ -283,3 +283,13 @@ XML dönüşümlü alanlar `{ "0": "değer" }` biçimindedir. Konumlar Türkiye 
 `sefer_saat` hareket saatidir, GPS ölçüm zamanı değildir. `observed_at`, `age_seconds`, `stale` null kalır; `fetched_at` sorgu zamanıdır. `source_direction` özgün G/D değerini korur; `direction=null`, `source_route_id` sorgulanan tam kaynak kaydıdır. Araç konumundan ETA hesaplanmaz, varış 501 kalır.
 
 Kaynak portalı `0` yanıtını hem araç yokluğu hem servis veri getirememesi için kullanır; bunlar güvenle ayrılamadığından API 502 döndürür. Açık bir liste yanıtı normalleştirilir, `[]` başarılı boş liste olabilir. Şema/HTTP hataları da 502; kaynak bütçesi veya 429 için 503 + Retry-After. 15 saniye hat/yön başına cache ve şehir başına 30 kaynak isteği/dakika; tek süreçte uygulanır. Kaynak yeniden kullanım lisansı belirtilmemiştir.
+
+## Konya ATUS canlı araçlar
+
+`/v1/konya/lines/1-A/vehicles`, [resmî ATUS Hattaki Araçlar](https://atus.konya.bel.tr/atus/hattaki-araclar) sayfasının anonim formunu kullanır. Kaynak GET yanıtından CSRF ve `hatIsmi` seçenekleri alınır; yerel hat koduyla tam etiket eşleştirilir. 1-A etiketi kaynakta 1-0 değerini verir; A→0 gibi dönüşüm varsayılmaz. Aynı anonim oturumla form POST edilir. Oturum/CSRF verileri kullanıcıya veya kalıcı kayda aktarılmaz.
+
+JavaScript çalıştırılmaz. Sayfadaki `data`, `hatBilgi`, `hatAraclar` JSON değerleri ayrıştırılır; kaynak kodu, yerel hat etiketi ve araç açıklamasındaki kaynak kodu birlikte doğrulanır. Bilinmeyen yerel hat 404; kaynak formunda eşleşmeyen yerel kod 501; değişen şema, kimlik uyuşmazlığı veya erişim sorunu 502 döner. Hata/yönlendirme sayfası boş araç başarısı sayılmaz. Aynı araçta çelişen konumlar çıkarılır, Türkiye dışı koordinatlar yayımlanmaz.
+
+`source_route_id` ATUS form kodudur (1-0); yerel `line_id` 1-A kalır. Kaynak `yon` pusula açısıdır ve `heading_degrees` olur; `direction`/`source_direction` null kalır. Araç kimliği açıklamadaki Araç No alanıdır. GPS ölçüm saati verilmediğinden `observed_at`, `age_seconds`, `stale` null; `fetched_at` sorgu zamanıdır. Varış desteği açılmadı; araç konumundan ETA üretilmez.
+
+Önbellek hat başına 15 saniye; süreçte 30 kaynak çağrısı/dakika. Her cache dışı sorgu form GET + POST olmak üzere iki çağrı tüketir. Kaynak veya yerel bütçe sınırı 503 + Retry-After döndürür. Tek süreç kullanın; birden çok süreç için ortak kota gerekir. ATUS canlı kaynak lisansı belirtilmemiştir; statik GTFS’in CC BY 4.0 lisansı canlı veriye uygulanmaz. Yanıttaki eski GTFS uyarısı statik veriye aittir ve korunur.

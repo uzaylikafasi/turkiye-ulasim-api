@@ -40,7 +40,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İzmir | Var | Var | Var | Var |
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
-| Konya | Var | Kaynakta bulunan hatlarda | Yok | Yok |
+| Konya | Var | Kaynakta bulunan hatlarda | Var | Yok |
 | Topluluk GTFS kullanan 16 il | Var | Kaynakta bulunan hatlarda | Var | Var |
 | Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Var | Yok |
 | Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Var | Var |
@@ -150,3 +150,5 @@ Mevcut 18 Kentkart şehrinin tamamında canlı araç ve durak varış bağlantı
 Sakarya canlı araçları desteklenir: `/v1/sakarya/lines/50:802/vehicles` (M1). Kaynak hat ve güzergâh kimliği birlikte doğrulanır; GPS ölçüm saati bilinmediğinden güncellik alanları null kalır. [Ayrıntılar](docs/API.md#sakarya-canlı-araçlar).
 
 Mersin canlı araçları: `/v1/mersin/lines/10M-G/vehicles`. Tam G/D kodu korunur; GPS ölçüm saati bilinmiyor. Kaynağın belirsiz `0` yanıtı boş başarı sayılmaz, 502 döner. [Ayrıntılar](docs/API.md#mersin-canlı-araçlar).
+
+Konya canlı araçları: `/v1/konya/lines/1-A/vehicles`. ATUS formundaki 1-A etiketi kaynak 1-0 koduna eşleştirilir; bu bir harf/sayı tahmini değildir. GPS ölçüm zamanı bilinmiyor; statik GTFS’in eski kaynak uyarısı korunur. [Ayrıntılar](docs/API.md#konya-atus-canlı-araçlar).

@@ -49,7 +49,7 @@ CITIES = {
                   "Kaynağın bozuk Türkçe kodlaması içe aktarımda onarılır; GTFS şekil verisi yayımlanmıyor."),
     ),
     "konya": City(
-        id="konya",
+        id="konya", live_vehicles=True,
         name="Konya",
         operator="Konya Büyükşehir Belediyesi",
         gtfs_url="https://acikveri.konya.bel.tr/dataset/c2e034e6-e015-49c6-8eec-6e2f7de9c105/resource/ec944ecd-1c1f-4687-a7f6-fcf2dc5bb5db/download/gtfs_11_2025.zip",

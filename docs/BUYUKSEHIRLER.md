@@ -176,3 +176,15 @@ Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.
 Konya ATUS örnek URL’i 404 sayfasına yönlendi; canlı yetenek açılmadı. Konya/Samsun kaynakları ve mevcut il veri eksikleri açık. İl sayısı 28 kaldı.
 
 Mersin tamamlama turu: 238 çevrimdışı test geçti.
+
+## Konya ATUS mevcut il canlı tamamlama
+
+- [x] Çalışan Hattaki Araçlar sayfası, anonim oturum/form GET+POST ve resmî seçenek etiketiyle kaynak kimliği.
+- [x] Kaynak/yerel hat ve araç açıklaması kimlik kontrolü; yalnız JSON ayrıştırma, JS çalıştırılmaz.
+- [x] Pusula açısı/yön ayrımı, bilinmeyen GPS zamanı, cache, ortak kaynak bütçesi ve API testleri.
+- [ ] Konya durak varışları ve GPS ölçüm zamanı.
+- [ ] Samsun canlı kaynakları ve diğer mevcut il veri eksikleri.
+
+Önceki otobusum-nerede 404 örneği tüm ATUS hizmetinin kapalı olduğu sonucuna taşınmadı. İl sayısı 28 kaldı.
+
+Konya tamamlama turu: 246 çevrimdışı test geçti.

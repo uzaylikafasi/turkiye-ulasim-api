@@ -6,7 +6,7 @@
 |---|---:|---:|---:|---|---|
 | İzmir | 421 | 421 | 11739 | Var / Var | Resmi açık veri |
 | İstanbul | 9274 | 2877 | 14040 | Var / Yok | Resmi açık veri |
-| Konya | 162 | 154 | 4117 | Yok / Yok | Resmi açık veri |
+| Konya | 162 | 154 | 4117 | Var / Yok | Resmi açık veri |
 | Kahramanmaraş | Arama | Uzak API | Uzak API | Var / Var | Topluluk köprüsü |
 | Antalya | 162 | 162 | 4503 | Var / Var | Topluluk GTFS |
 | Kocaeli | 409 | 405 | 8597 | Var / Var | Topluluk GTFS |
@@ -101,3 +101,7 @@ Sakarya canlı araç tamamlama: resmî VehicleTracking LineId sorgusu, tam hatId
 Mersin araç tamamlama: tam 10M-G/D kaydıyla gerçek konumlar bağlandı. Sefer saati GPS zamanı sayılmaz. Kaynak 0 belirsizliği 502; varış açılmadı.
 
 Mersin tamamlama turu: 238 çevrimdışı test geçti.
+
+Konya canlı tamamlama: çalışan ATUS Hattaki Araçlar formundan 1-A → 1-0 etiket eşlemesi, gerçek araçlar ve pusula açısı doğrulandı. GPS zamanı/varış yok; statik eski veri uyarısı korunur.
+
+Konya tamamlama turu: 246 çevrimdışı test geçti.
