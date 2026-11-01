@@ -2,7 +2,7 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**26 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya, Ankara, Samsun ve Mersin. Destek, kaynağın sunduğu veriye göre değişir:
+**27 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya, Ankara, Samsun, Mersin ve Trabzon. Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
@@ -152,3 +152,9 @@ Hat kimliği SAMULAŞ `line_no` alanıdır; hat kodu görünen metnin başındak
 Resmî portal: https://ulasim.mersin.bel.tr/hatveguzergahlar . `source_kind=official_service`, `partial_feed=true`, `gtfs=false`; yeniden kullanım lisansı belirtilmemiştir. Örnekler: `/v1/mersin/lines?q=10M`, `/v1/mersin/lines/10M-G/stops`, `/v1/mersin/lines/10M-G/shape`, `/v1/mersin/stops/54397`.
 
 Kaynak `hat_no` ve `hat_yon` birlikte kimliktir. `direction=0` bu kaydın kendi sırasını korur; ayrı kayıttaki dönüş listesiyle birleştirilmez. Durak sırası kaynağın yanıt sırasıdır, sefer dosyasıyla doğrulanmadı. Katalog adları durak listesinin başlangıç/bitişiyle tam örtüşmeyebilir. Yanıt hat kimliğini tekrar etmez; ilişki katalogdaki kod/yönün sorgulanmasına dayanır. Kaynak 0 döndürürse veri yoktur; eksik durak/geometri 501 döner. Canlı araç/varış sunulmaz.
+
+## Trabzon: AKUS GeoJSON
+
+Kaynak https://ulasim.trabzon.bel.tr/ ; `source_kind=official_service`, `partial_feed=true`, `gtfs=false`. Yeniden kullanım lisansı belirtilmemiştir. `/v1/trabzon/lines?q=103`, `/v1/trabzon/lines/1:36/stops`, `/v1/trabzon/lines/1:39/shape` örneklerdir.
+
+Her hat/güzergâh ayrı kimlik taşır. G/D yön alanları ve 1/2 kaynak yön numaraları birlikte doğrulanır; farklı varyantlar birleştirilmez. `direction=0` yalnız seçilen güzergâhın kendi sırasıdır. Duraklarda `durak_id` iç kimliği kullanılır. Sıra kaynağın `sira` alanıdır. Kaynağın EPSG:3857 koordinatları WGS84 enlem/boylama çevrilir; beklenmeyen koordinat sistemi aktarımı durdurur. Canlı araç/varış ve sefer takvimi desteklenmez.

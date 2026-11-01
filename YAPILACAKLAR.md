@@ -165,3 +165,13 @@ Güncel kapsam 25 il. Denizli portal API'si 403 otomatik erişim reddi veriyor; 
 Güncel kapsam: 26 il. Mersin'de G/D kaydı ayrı tutulur; yanıtların kendi hat kimliğini tekrar etmediği ve sıraların sefer dosyasıyla doğrulanmadığı açıkça belirtilir.
 
 Mersin dış yayın kontrolü: 26 il kullanılabilir; hat/durak/geometri/yakın durak, eksik veri için 501 ve eski servis sağlığı doğrulandı.
+
+## Trabzon · 1 Kasım
+
+- [x] Resmî AKUS kataloğundaki 121 hattı ve 242 güzergâhı doğrula.
+- [x] 4.914 durak ve 13.104 sıralı ilişki; 242 güzergâhta geometri.
+- [x] Hat/güzergâh/yön eşlemesi, EPSG:3857 dönüşümü ve atomik günlük aktarım.
+- [x] 130 test ve canlı API kontrolleri; kapsam 27 il.
+- [ ] Trabzon canlı araç/varış kaynağını ayrıca doğrula ve bağla.
+
+Güncel kapsam: 27 il. Her hatId:güzergâhId ayrı tutulur; direction=0 seçilen güzergâhın kendi sırasıdır.

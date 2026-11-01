@@ -94,3 +94,7 @@ Denizli portalı anonim otomatik isteğe `403 browser_check_failed` döndürdü;
 [Resmî hat sayfasının](https://ulasim.mersin.bel.tr/hatveguzergahlar) anonim `ajax/bilgi.php` servisi kullanılır. `tipi=hatbilgisi, aranan=TUM` 251 hat/yön kaydı döndürdü; `hatdurak` ve `hatguzergah` çağrılarında `hatno=10M-G` gibi kaynak kimliği kullanılır. Alanlar `{"0":"değer"}` sarmalayıcısından okunur; şema değişirse aktarım durur. Geçersiz hat sorgusu kaynakta 0 döndürdü.
 
 Örnek 10M-G katalog adı ÇARŞI–TECE iken durak listesi KARACA İLYAS BAŞLANGIÇ’tan başlıyor; bu tutarsızlık gizlenmez ve adlar tahminle düzeltilmez. Durak/geometri yanıtları hat kimliğini tekrar etmez; ilişki sorgulanan katalog kodu/yönüne dayanır. Durak listesinin kaynak sırası korunur, sefer dosyasıyla doğrulanmış sıra iddiası yoktur. Canlı araç/varış henüz bağlı değildir. Kaynak veri için yeniden kullanım lisansı belirtilmemiştir.
+
+## 1 Kasım · Trabzon
+
+[Resmî AKUS portalı](https://ulasim.trabzon.bel.tr/) 121 otobüs hattı yayımlıyor. `Web/GetHatGeoJson` ve `Web/GetHatDurakGeoJson` kaynaklarında hat/güzergâh kimliği ve G/D, 1/2 yön alanları birlikte doğrulandı. 242 güzergâh, 4.914 durak, 13.104 sıralı ilişki alındı; her güzergâhta geometri var. Koordinatlar kaynakta EPSG:3857; enlem/boylam dönüşümünden sonra Türkiye sınırları kontrol edilir. Kaynak veri için yeniden kullanım lisansı belirtilmemiştir; canlı veri henüz eklenmedi.

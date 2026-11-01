@@ -150,3 +150,13 @@ CITIES["mersin"] = City(
               "Hat adı ve durak listesinin başlangıç/bitişi farklı olabilir; kaynak adları korunur.",
               "direction=0 kaynak hat/yön kaydının kendi sırasıdır; sefer dosyasıyla doğrulanmadı. Canlı araç/varış desteklenmez."),
 )
+
+CITIES["trabzon"] = City(
+    id="trabzon", name="Trabzon", operator="Trabzon Büyükşehir Belediyesi / AKUS",
+    gtfs_url="", source_url="https://ulasim.trabzon.bel.tr/",
+    license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
+    source_kind="official_service", partial_feed=True,
+    warnings=("Resmî AKUS hat/durak GeoJSON servisi kullanılır; GTFS değildir.",
+              "Her hatId:güzergâhId ayrı kayıttır; direction=0 seçilen güzergâhın kendi sırasıdır.",
+              "Koordinatlar EPSG:3857'den enlem/boylama çevrilir. Canlı araç/varış ve sefer takvimi sunulmaz."),
+)
