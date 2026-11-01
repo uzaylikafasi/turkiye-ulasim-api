@@ -1,0 +1,44 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194328",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "10148",
+    "busStopName": "AZİZİYE 134 NOLU DURAĞI",
+    "lat": "39.9171784",
+    "lng": "41.2007648"
+  },
+  "busList": [
+    {
+      "busId": "25103",
+      "disabledPerson": "1",
+      "displayRouteCode": "B2",
+      "displayName": "ERZURUM DADAŞKENT",
+      "headSign": "ERZURUM DADAŞKENT",
+      "routeCode": "10020",
+      "shapeId": "100200",
+      "stopDiff": "3",
+      "routeColor": "9696c0",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "0",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "3",
+      "lat": "39.914528",
+      "lng": "41.200073",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": "113.8",
+      "busCapacity": "1",
+      "busCapacityColor": "#67D066"
+    }
+  ],
+  "routeList": []
+}

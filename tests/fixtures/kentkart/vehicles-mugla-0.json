@@ -1,0 +1,30 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194217",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "OTOGAR-HASTANE-AKYOL-Ş.İÇİ",
+      "displayRouteCode": "1-9",
+      "direction": "0",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "100010",
+      "busList": [
+        {
+          "busId": "61239",
+          "lat": "37.198105",
+          "lng": "28.369337",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "171.21"
+        }
+      ]
+    }
+  ]
+}

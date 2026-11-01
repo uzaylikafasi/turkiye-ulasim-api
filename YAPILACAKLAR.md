@@ -232,7 +232,7 @@ Ankara dış kontrolü: 263 hattında dolu araç yanıtı ve cache; varış serv
 - [x] Bu dört ilde gerçek durak varış kaynağını doğrula ve bağla; kaynak dakika tahminini saniyeye çevir, tarife kayıtlarını ayır.
 - [ ] Kentkart GPS ölçüm zamanını doğrula.
 - [x] Antalya KL08/600 ve Adana 112 canlı hat kimliklerini doğrula; araç/varış desteği bağlandı.
-- [ ] Antalya 35 gibi kimliği uyuşmayan hatların açık eşlemesini doğrula.
+- [x] Antalya 35 açık eşlemesi: iki yöndeki 62/65 durak aynı sırayla doğrulandı; yerel kimlik korunarak araç/varış açıldı.
 
 İl sayısı 28; yeni il eklenmedi. Önceki tarihli tamamlanma kayıtları o aşamadaki kapsamı anlatır.
 
@@ -253,7 +253,7 @@ Dış yayın kontrolü: örnek duraklarda Kocaeli 2, Gaziantep 2, Sivas 2, Edirn
 - [x] Antalya KL08 ve 600, Adana 112: kaynak hat/yön kimliği ve gerçek araç yanıtları.
 - [x] Antalya 10017, Adana 42077: gerçek durak varışları, yerel ilişki ve kaynak kimliği ayrımı.
 - [x] Adana kaynağının açık sonuç-yok yanıtını 501 olarak ayır; genel kaynak hatasını 502 koru.
-- [x] Antalya 35 kimlik farkını tahminle kapatma; bu hat 501 kalır.
+- [x] Antalya 35 kimlik farkı önce 501 korundu; sonrasında 62/65 durak kanıtıyla özel eşleme doğrulandı ve açıldı.
 - [ ] Antalya kalan kimlik farkları; GPS ölçüm zamanı ve diğer mevcut şehirlerin eksikleri.
 
 Yeni il eklenmedi; kapsam 28 il. Kentkart canlı destekli il sayısı altıya çıktı.
@@ -261,3 +261,16 @@ Yeni il eklenmedi; kapsam 28 il. Kentkart canlı destekli il sayısı altıya ç
 Antalya/Adana turu: 195 çevrimdışı test geçti.
 
 Dış kontrol: Antalya KL08 16 araç/10017 durağında 17 varış, Adana 112 1 araç/42077 durağında 3 varış; sayılar anlık. Cache, bilinmeyen kayıt 404, Antalya 35 ve Adana görev 100 için 501 doğrulandı. Mevcut Kentkart/Ankara/Trabzon/Diyarbakır uçları, ana site ve eski Maraş API sağlığı 200.
+
+## Muğla / Ordu / Erzurum ve Antalya 35
+
+- [x] Mevcut üç ilde canlı araç + varış; bölge, tam hat/yön, durak ve yerel ilişki doğrulaması.
+- [x] Antalya 35: yalnız 026 bölgesinde 00354 → 00035 kaynak yol eşlemesi; yerel kimlik korunur. İki yönde sıralı 62/65 durak birebir eşleşti.
+- [x] Araç ve varışta aynı özel eşleme; ilgisiz hat/bölgeye uygulanmama testleri.
+- [ ] Mardin/Tokat ve diğer mevcut illerde dolu canlı kaynak doğrulaması; Kentkart GPS zamanı, eksik yönler.
+
+Kapsam 28 il; Kentkart araç/varış destekli 9 il. Muğla 1-9 ve Erzurum B2 için ikinci yön kaynakta sonuç vermiyor; yalnız doğrulanan yön sunulur.
+
+Bu tamamlama turunda 203 çevrimdışı test geçti.
+
+Dış kontrol: Muğla 1 araç/5 varış, Ordu 5 araç/0 varış, Erzurum 10 araç/0 varış, Antalya 35 2 araç/0 varış. Sayılar anlık; boş varış başarılı kaynak yanıtıdır. Cache, 404, kaynak yol kimlikleri ve mevcut servis/ana site/eski Maraş sağlığı doğrulandı. Önceki kaynak araştırmasında Ordu/Erzurum/Antalya 35 dolu varışları fixture olarak kaydedildi.

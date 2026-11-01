@@ -12,10 +12,10 @@
 | Kocaeli | 409 | 405 | 8597 | Var / Var | Topluluk GTFS |
 | Adana | 291 | 132 | 3618 | Var / Var | Topluluk GTFS |
 | Gaziantep | 162 | 162 | 3110 | Var / Var | Topluluk GTFS |
-| Erzurum | 55 | 51 | 724 | Yok / Yok | Topluluk GTFS |
+| Erzurum | 55 | 51 | 724 | Var / Var | Topluluk GTFS |
 | Mardin | 92 | 87 | 765 | Yok / Yok | Topluluk GTFS |
-| Muğla | 383 | 321 | 3436 | Yok / Yok | Topluluk GTFS |
-| Ordu | 56 | 44 | 886 | Yok / Yok | Topluluk GTFS |
+| Muğla | 383 | 321 | 3436 | Var / Var | Topluluk GTFS |
+| Ordu | 56 | 44 | 886 | Var / Var | Topluluk GTFS |
 | Çanakkale | 32 | 11 | 324 | Yok / Yok | Topluluk GTFS |
 | Düzce | 57 | 50 | 1240 | Yok / Yok | Topluluk GTFS |
 | Burdur | 18 | 18 | 346 | Yok / Yok | Topluluk GTFS |
@@ -39,7 +39,7 @@
 - Sıralı durak kaydı bulunmayan hatlarda `directions` boş olabilir. Kaynakta geometri yoksa çizgi uydurulmaz; boş liste ve uyarı döner.
 - Konya kaynağı Kasım 2025 dosyasıdır; takvimin ileri tarihe uzaması güncellik kanıtı değildir.
 - Kahramanmaraş tam hat kataloğu sunmaz; arama sonuçları sınırlıdır. Kaynak veri lisansı belirtilmemiştir.
-- [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesinde takvim ve zamanlar türetilmiş olabilir. Derleme CC0, temel veri hakları Kentkart/belediyededir. Antalya, Adana, Kocaeli ve Gaziantep’te ayrıca Kentkart canlı araç ve varış desteği vardır; diğer topluluk GTFS illerinde bu canlı yetenekler henüz yoktur.
+- [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesinde takvim ve zamanlar türetilmiş olabilir. Derleme CC0, temel veri hakları Kentkart/belediyededir. Antalya, Adana, Kocaeli, Gaziantep, Muğla, Ordu ve Erzurum’da ayrıca Kentkart canlı araç ve varış desteği vardır; diğer topluluk GTFS illerinde bu canlı yetenekler henüz yoktur.
 
 ## Kastamonu düzeltmesi
 
@@ -87,3 +87,7 @@ Varış tamamlama doğrulaması: 192 çevrimdışı test geçti; kapsam 28 il.
 Antalya/Adana mevcut il tamamlama: KL08/600 ve 112 kaynak kimliği doğrulandı; iki ilde araç ve varış açıldı. Antalya 35 kimlik farkı, Adana 100 görev kaydı için araç ucu 501. GPS zamanı bilinmiyor; il sayısı 28.
 
 Antalya/Adana turu: 195 çevrimdışı test geçti.
+
+Mevcut il tamamlama: Muğla/Ordu/Erzurum araç ve varış desteği; Antalya 35 iki yöndeki 62/65 durak aynı sırayla doğrulanarak açık kimlik eşlemesiyle açıldı. Kapsam 28 il, Kentkart canlı 9 il. Önceki 35→501 kaydı bu doğrulamayla güncellendi.
+
+Bu tamamlama turunda 203 çevrimdışı test geçti.

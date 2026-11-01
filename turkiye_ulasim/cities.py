@@ -172,7 +172,7 @@ CITIES["diyarbakir"] = City(
 )
 
 # Canlı eşleşmesi doğrudan servis yanıtlarıyla doğrulanan bölgeler.
-KENTKART_LIVE_REGIONS = {"kocaeli":"004", "gaziantep":"028", "sivas":"005", "edirne":"013", "adana":"003", "antalya":"026"}
+KENTKART_LIVE_REGIONS = {"kocaeli":"004", "gaziantep":"028", "sivas":"005", "edirne":"013", "adana":"003", "antalya":"026", "mugla":"010", "ordu":"031", "erzurum":"038"}
 for city_id in KENTKART_LIVE_REGIONS:
     city=CITIES[city_id]
     CITIES[city_id]=replace(city,live_vehicles=True,live_arrivals=True,warnings=tuple(

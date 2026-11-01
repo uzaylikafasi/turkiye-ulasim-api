@@ -138,3 +138,9 @@ Varış tamamlama doğrulaması: 192 çevrimdışı test geçti; kapsam 28 il.
 Antalya KL08 ve 600 kaynak path_code kimliğiyle, Adana 112 aynı yöntemle doğrulandı. Antalya 35’teki uyuşmazlık tüm il için genellenmez; bu hatta 501 korunur. Adana 100 görev kaydı kaynakta Sonuç Bulunamadı döndürür; yolcu hattı 112 gerçek araç verir. Antalya 10017 ve Adana 42077 duraklarında gerçek varışlar alındı. Araç/varış, 15 sn cache ve ortak 30 kaynak isteği/dk bütçesi bağlandı. GPS ölçüm saati bilinmiyor; statik/topluluk ve canlı lisans ayrımı korunur. Kapsam 28 il.
 
 Antalya/Adana turu: 195 çevrimdışı test geçti.
+
+## 1 Kasım · Mevcut illerde canlı kapsam ve Antalya 35
+
+Muğla 010, Ordu 031, Erzurum 038 bölgeleri gerçek araç ve varış yanıtlarıyla bağlandı. Muğla 1-9 ve Erzurum B2 yalnız yön 0 döndürüyor; yön 1 üretilmez. Antalya 35 için yerel 00354 ile kaynak 00035 yol öneki, gidiş 62/dönüş 65 durak kimliği aynı sırayla doğrulanarak bağlandı. Bu tek hatta özel, bölgeye bağlı eşlemedir; diğer kimliklere genellenmez. Kaynak varışında routeCode 00354/shapeId 000350 birlikte görüldü ve aynı eşleme uygulandı. Toplam 28 il, Kentkart canlı 9 il.
+
+Bu tamamlama turunda 203 çevrimdışı test geçti.

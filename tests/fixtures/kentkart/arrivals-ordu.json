@@ -1,0 +1,42 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194254",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "40140",
+    "busStopName": "1150 FEVZİ ÇAKMAK CADDESİ ÇINAR SOKAK DURAĞI",
+    "lat": "41.12272",
+    "lng": "37.29389"
+  },
+  "busList": [
+    {
+      "busId": "50608",
+      "disabledPerson": "0",
+      "displayRouteCode": "23 DH",
+      "displayName": "DEVLET HASTANESİ-MEMURKENT",
+      "headSign": "DEVLET HASTANESİ-MEMURKENT",
+      "routeCode": "00231",
+      "shapeId": "002311",
+      "stopDiff": "1",
+      "routeColor": "FF0000",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "1",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "1",
+      "lat": "41.122272",
+      "lng": "37.29485",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    }
+  ],
+  "routeList": []
+}

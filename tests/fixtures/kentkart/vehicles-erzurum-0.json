@@ -1,0 +1,102 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194220",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "ERZURUM DADAŞKENT",
+      "displayRouteCode": "B2",
+      "direction": "0",
+      "tripShortName": "ERZURUM DADAŞKENT",
+      "direction_name": "",
+      "path_code": "100200",
+      "busList": [
+        {
+          "busId": "25103",
+          "lat": "39.91652",
+          "lng": "41.196846",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "152.5"
+        },
+        {
+          "busId": "25020",
+          "lat": "39.900658",
+          "lng": "41.27498",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "349.8"
+        },
+        {
+          "busId": "25014",
+          "lat": "39.90514",
+          "lng": "41.25507",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "110.3"
+        },
+        {
+          "busId": "25119",
+          "lat": "39.892647",
+          "lng": "41.200603",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "25017",
+          "lat": "39.908745",
+          "lng": "41.242462",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "290.1"
+        },
+        {
+          "busId": "25129",
+          "lat": "39.907806",
+          "lng": "41.2733",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "172.6"
+        },
+        {
+          "busId": "25045",
+          "lat": "39.919773",
+          "lng": "41.194866",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "335.6"
+        },
+        {
+          "busId": "25064",
+          "lat": "39.9137",
+          "lng": "41.270668",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "269.1"
+        },
+        {
+          "busId": "25082",
+          "lat": "39.892506",
+          "lng": "41.20057",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "279.8"
+        },
+        {
+          "busId": "25127",
+          "lat": "39.900658",
+          "lng": "41.19602",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "64.8"
+        }
+      ]
+    }
+  ]
+}

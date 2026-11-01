@@ -83,7 +83,7 @@ def arrival_stop(body):
             'lines':[{'id':bus['routeCode'],'code':bus['displayRouteCode']}]}
 
 
-@pytest.mark.parametrize('city',['kocaeli','gaziantep','sivas','edirne'])
+@pytest.mark.parametrize('city',['kocaeli','gaziantep','sivas','edirne','mugla','ordu','erzurum'])
 def test_real_arrivals_minutes_stops_and_static_mapping(city):
     b=arrival_body(city);stop=arrival_stop(b);rows=normalize_arrivals(b,stop)
     first=next(x for x in rows if x['vehicle_id']==b['busList'][0]['busId'])
@@ -153,7 +153,8 @@ def test_arrivals_api_static_validation_and_capability(gtfs_db):
 
 
 @pytest.mark.parametrize('city,region,line,code',[
-    ('adana','003','00112','112'),('antalya','026','00080','KL08')])
+    ('adana','003','00112','112'),('antalya','026','00080','KL08'),
+    ('mugla','010','10001','1-9'),('ordu','031','00210','21'),('erzurum','038','10020','B2')])
 @pytest.mark.asyncio
 async def test_adana_antalya_real_paths_and_shared_arrivals(city,region,line,code):
     fixture_dir=Path(__file__).parent/'fixtures/kentkart';calls=[]
@@ -173,12 +174,33 @@ async def test_adana_antalya_real_paths_and_shared_arrivals(city,region,line,cod
 
 
 @pytest.mark.asyncio
-async def test_known_no_result_and_antalya_identity_mismatch_remain_unsupported():
+async def test_known_no_result_and_unrelated_identity_remain_unsupported():
     fixture_dir=Path(__file__).parent/'fixtures/kentkart'
     for filename,region,line,code in [('no-path-adana.json','003','00100','100'),
-                                     ('mismatch-antalya35.json','026','00354','35')]:
+                                     ('mismatch-antalya35.json','004','00354','35')]:
         body=json.loads((fixture_dir/filename).read_text())
         async with httpx.AsyncClient(transport=httpx.MockTransport(lambda _:httpx.Response(200,json=body))) as c:
             with pytest.raises(SourceUnsupported):await KentkartLive(region,c).vehicles(line,line={'code':code})
     body['result']={'code':3,'message':'different failure'}
     with pytest.raises(SourceError):normalize(body,'00354','35',0)
+
+
+@pytest.mark.parametrize('way',[0,1])
+@pytest.mark.asyncio
+async def test_verified_antalya35_alias_preserves_local_and_source_ids(way):
+    fixture_dir=Path(__file__).parent/'fixtures/kentkart'
+    b=json.loads((fixture_dir/f'vehicles-antalya35-{way}.json').read_text())
+    assert normalize(b,'00354','35',way) is None  # no implicit numeric transformation
+    rows=normalize(b,'00354','35',way,path_line_id='00035')
+    assert rows and rows[0]['line_id']=='00354' and rows[0]['source_route_id']=='00035'+str(way)
+    assert normalize(b,'00464','46',way,path_line_id='00035') is None
+    def handler(r):
+        f=f'vehicles-antalya35-{r.url.params["direction"]}.json' if r.url.path.endswith('pathInfo') else 'arrivals-antalya35.json'
+        return httpx.Response(200,json=json.loads((fixture_dir/f).read_text()))
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as c:
+        live=KentkartLive('026',c);result=await live.vehicles('00354',line={'code':'35'})
+        assert {r['direction'] for r in result.data}=={0,1}
+        arrival=arrival_body('antalya35');stop=arrival_stop(arrival)
+        a=await live.arrivals_for_stop(stop)
+        assert a.data[0]['line_id']=='00354' and a.data[0]['source_route_id']=='000350'
+        with pytest.raises(SourceError):normalize_arrivals(arrival,stop)  # alias is scoped to verified region

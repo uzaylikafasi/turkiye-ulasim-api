@@ -1,0 +1,42 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194329",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "11985",
+    "busStopName": "FEVZİ ÇAKMAK CD-3",
+    "lat": "36.9747181",
+    "lng": "30.7521296"
+  },
+  "busList": [
+    {
+      "busId": "71573",
+      "disabledPerson": "1",
+      "displayRouteCode": "35",
+      "displayName": "VARSAK ALTIAYAK - MEYDAN",
+      "headSign": "VARSAK ALTIAYAK - MEYDAN",
+      "routeCode": "00354",
+      "shapeId": "000350",
+      "stopDiff": "2",
+      "routeColor": "FF0000",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "0",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "1",
+      "lat": "36.97491",
+      "lng": "30.74834",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    }
+  ],
+  "routeList": []
+}

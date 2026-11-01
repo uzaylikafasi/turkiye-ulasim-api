@@ -40,8 +40,8 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İzmir | Var | Var | Var | Var |
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
-| Konya ve diğer 12 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
-| Antalya, Adana, Kocaeli ve Gaziantep | Var | Kaynakta bulunan hatlarda | Var | Var |
+| Konya ve diğer 9 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
+| Antalya, Adana, Kocaeli, Gaziantep, Muğla, Ordu ve Erzurum | Var | Kaynakta bulunan hatlarda | Var | Var |
 | Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Var | Yok |
 | Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Var | Var |
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
@@ -50,7 +50,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | Sakarya | Var | SAKUS kaynak güzergâhlarında | Yok | Yok |
 | Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Var | Var |
 
-**Diğer 12 il:** Burdur, Çanakkale, Düzce, Erzurum, Kastamonu, Kırklareli, Mardin, Muğla, Niğde, Ordu, Osmaniye ve Tokat.
+**Diğer 9 il:** Burdur, Çanakkale, Düzce, Kastamonu, Kırklareli, Mardin, Niğde, Osmaniye ve Tokat.
 
 > **Kapsam kısmi olabilir.** Bir ilin listede olması bütün hatlarının güncel veya eksiksiz olduğunu göstermez. Katalogda bulunup sefer/durak sırası olmayan hatlar vardır. Veri olmayan yerde sefer, konum veya güzergâh üretilmez.
 
@@ -139,6 +139,8 @@ Trabzon canlı araçları da desteklenir: `/v1/trabzon/lines/59:94/vehicles`. Ge
 
 Ankara hat araçları: `/v1/ankara/lines/263/vehicles`. Araç ve durak varışlarında GPS zamanı, `age_seconds` ve `stale` sunulur. Varış önbelleği 20, araç önbelleği 15 saniyedir; ikisi 30 kaynak isteği/dakika bütçesini paylaşır.
 
-Antalya, Adana, Kocaeli, Gaziantep, Sivas ve Edirne’de Kentkart canlı araç ve durak varış desteği var. Örnek: `/v1/kocaeli/lines/41010/vehicles`. Kaynak GPS ölçüm zamanı doğrulanmadığından `observed_at`, `age_seconds` ve `stale` boş döner. Varış örneği: `/v1/kocaeli/stops/80671/arrivals`; kaynak dakika tahmini saniyeye çevrilir. Statik derlemenin CC0 lisansı canlı kaynağı kapsamaz. [Ayrıntılar](docs/API.md#kentkart-canlı-araçlar).
+Antalya, Adana, Kocaeli, Gaziantep, Sivas, Edirne, Muğla, Ordu ve Erzurum’da Kentkart canlı araç ve durak varış desteği var. Örnek: `/v1/kocaeli/lines/41010/vehicles`. Kaynak GPS ölçüm zamanı doğrulanmadığından `observed_at`, `age_seconds` ve `stale` boş döner. Varış örneği: `/v1/kocaeli/stops/80671/arrivals`; kaynak dakika tahmini saniyeye çevrilir. Statik derlemenin CC0 lisansı canlı kaynağı kapsamaz. [Ayrıntılar](docs/API.md#kentkart-canlı-araçlar).
 
-Antalya KL08 (`00080`) ve Adana 112 (`00112`) hatlarında araç sorgusu kullanılabilir. Antalya 35’te kaynak kimliği uyuşmuyor; bu hat için araç ucu 501 döner. Adana’daki görev gibi servis güzergâhlarında kaynak sonuç vermeyebilir. Varış örnekleri: `/v1/antalya/stops/10017/arrivals`, `/v1/adana/stops/42077/arrivals`. Destek bütün hatların eksiksizliğini göstermez.
+Antalya KL08 (`00080`) ve Adana 112 (`00112`) hatlarında araç sorgusu kullanılabilir. Antalya 35 (`00354`) özel kaynak eşlemesiyle desteklenir; iki yöndeki durak sırası doğrulanmıştır. Adana’daki görev gibi servis güzergâhlarında kaynak sonuç vermeyebilir. Varış örnekleri: `/v1/antalya/stops/10017/arrivals`, `/v1/adana/stops/42077/arrivals`. Destek bütün hatların eksiksizliğini göstermez.
+
+Muğla `/v1/mugla/lines/10001/vehicles`, Ordu `/v1/ordu/lines/00210/vehicles` ve Erzurum `/v1/erzurum/lines/10020/vehicles` canlı araç örnekleridir. Üç ilde durak varışları da vardır; GPS ölçüm saati henüz bilinmiyor.

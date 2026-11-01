@@ -7,16 +7,18 @@ import httpx
 from .base import LiveResult,SourceError,SourceRateLimited,SourceUnsupported
 URL='https://service.kentkart.com/rl1/web/pathInfo'
 ARRIVALS_URL='https://service.kentkart.com/rl1/web/nearest/bus'
+# Antalya 35: iki yönde 62/65 durak aynı sırayla doğrulandı; diğer kimliklere genellenmez.
+PATH_LINE_IDS={'026':{'00354':'00035'}}
 
 
-def normalize(body,line_id,code,direction):
+def normalize(body,line_id,code,direction,*,path_line_id=None):
     if (isinstance(body,dict) and isinstance(body.get('result'),dict)
         and str(body['result'].get('code'))=='3' and body['result'].get('message')=='Sonuç Bulunamadı'
         and body.get('pathList') in (None,[])):
         return None
     if not isinstance(body,dict) or not isinstance(body.get('result'),dict) or str(body['result'].get('code'))!='0' or not isinstance(body.get('pathList'),list):
         raise SourceError('Kentkart işlem sonucu başarısız veya şema değişti')
-    paths=[p for p in body['pathList'] if isinstance(p,dict) and str(p.get('path_code'))==line_id+str(direction)
+    paths=[p for p in body['pathList'] if isinstance(p,dict) and str(p.get('path_code'))==(path_line_id or line_id)+str(direction)
            and p.get('displayRouteCode')==code and str(p.get('direction'))==str(direction)]
     if len(paths)>1:raise SourceError('Kentkart hat/yön kimliği tekrarlı')
     if not paths:return None
@@ -31,7 +33,7 @@ def normalize(body,line_id,code,direction):
         except (ValueError,TypeError,KeyError):continue
         try:heading=float(r.get('bearing'))
         except (ValueError,TypeError):heading=None
-        rows.append({'id':vid,'line_id':line_id,'source_direction':str(direction),'direction':direction,
+        rows.append({'id':vid,'line_id':line_id,'source_direction':str(direction),'direction':direction,'source_route_id':paths[0]['path_code'],
                      'latitude':lat,'longitude':lon,'observed_at':None,'age_seconds':None,'stale':None,
                      'heading_degrees':heading if heading is not None and math.isfinite(heading) and 0<=heading<360 else None,
                      'wheelchair_accessible':{'0':False,'1':True}.get(str(r.get('disabledPerson'))),
@@ -46,7 +48,7 @@ def nonnegative(value):
     return number if math.isfinite(number) and number>=0 else None
 
 
-def normalize_arrivals(body,stop):
+def normalize_arrivals(body,stop,*,path_line_ids=None):
     if (not isinstance(body,dict) or not isinstance(body.get('result'),dict)
         or str(body['result'].get('code'))!='0' or not isinstance(body.get('busList'),list)
         or not isinstance(body.get('stopInfo'),dict)
@@ -60,7 +62,7 @@ def normalize_arrivals(body,stop):
         route=r.get('routeCode');way=r.get('direction');code=r.get('displayRouteCode');vid=r.get('busId')
         if (not isinstance(route,str) or not route or str(way) not in ('0','1')
             or not isinstance(code,str) or not code or not isinstance(vid,str) or not vid.strip()
-            or str(r.get('shapeId'))!=route+str(way)):
+            or str(r.get('shapeId'))!=(path_line_ids or {}).get(route,route)+str(way)):
             raise SourceError('Kentkart varış hat/yön kimliği geçersiz')
         minutes=nonnegative(r.get('timeDiff'));count=nonnegative(r.get('stopDiff'))
         try:
@@ -80,7 +82,7 @@ def normalize_arrivals(body,stop):
 
 class KentkartLive:
     def __init__(self,region,client=None,clock=time.monotonic):
-        self.region=region;self.client=client or httpx.AsyncClient(timeout=15);self.clock=clock
+        self.region=region;self.path_line_ids=PATH_LINE_IDS.get(region,{});self.client=client or httpx.AsyncClient(timeout=15);self.clock=clock
         self.lock=asyncio.Lock();self.cache=OrderedDict();self.requests=deque()
     async def vehicles(self,line_id,*,line):
         key=('vehicles',line_id,line['code'])
@@ -94,7 +96,7 @@ class KentkartLive:
             rows=[];missing=[]
             for direction in (0,1):
                 body=await self.request(URL,{'direction':direction,'displayRouteCode':line['code'],'resultType':'010000'})
-                part=normalize(body,line_id,line['code'],direction)
+                part=normalize(body,line_id,line['code'],direction,path_line_id=self.path_line_ids.get(line_id))
                 if part is None:missing.append(direction)
                 else:rows.extend(part)
             if len(missing)==2:raise SourceUnsupported('Kentkart kaynağında bu hat için doğrulanmış kimlik/yön bulunamadı')
@@ -106,6 +108,7 @@ class KentkartLive:
             warnings=['Kaynak doğrulanmış GPS ölçüm zamanı vermiyor; observed_at/age_seconds/stale null, fetched_at yalnız sorgu zamanıdır.',
                       'Statik topluluk GTFS ile canlı Kentkart servisi ayrı kaynaklardır; canlı eşleşme kaynak hat kimliği ve yönüyle doğrulanır.',
                       'Canlı kaynak: '+URL+'. Canlı verinin yeniden kullanım lisansı belirtilmemiştir; statik derlemenin CC0 lisansı canlı veriye uygulanmaz.']
+            if line_id in self.path_line_ids:warnings.append('Kaynak yol kimliği, iki yönün durak sırası doğrulanmış özel eşlemeyle yerel hatta bağlanır; source_route_id özgün yol kimliğidir.')
             if missing:warnings.append(f'{missing} yönleri için kaynak kimliği eşleşmedi; yalnız doğrulanan yön sunulur.')
             if conflicts:warnings.append(f'{len(conflicts)} aynı araç için çelişkili yön/konum yayımlanmadı.')
             result=LiveResult([r for vid,r in known.items() if vid not in conflicts],warnings)
@@ -140,7 +143,7 @@ class KentkartLive:
                     self.cache.move_to_end(key);return LiveResult(result.data,result.warnings,result.fetched_at,True)
                 del self.cache[key]
             body=await self.request(ARRIVALS_URL,{'accuracy':'0','lat':lat,'lng':lon,'busStopId':stop['id']})
-            result=LiveResult(normalize_arrivals(body,stop),[
+            result=LiveResult(normalize_arrivals(body,stop,path_line_ids=self.path_line_ids),[
                 'Tahmini varış kaynak timeDiff dakika alanından saniyeye çevrilir; stopDiff kalan durak sayısıdır. routeList tarife bilgileri canlı araç sayılmaz.',
                 'GPS ölçüm zamanı bilinmiyor; observed_at/age_seconds/stale null, fetched_at yalnız sorgu zamanıdır. Yerel durak-hat ilişkisi yoksa line_id null kalır.',
                 'Canlı kaynak: '+ARRIVALS_URL+'. Yeniden kullanım lisansı belirtilmemiştir; statik derleme CC0 lisansı canlı veriyi kapsamaz.'])

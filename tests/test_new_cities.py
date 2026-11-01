@@ -13,7 +13,7 @@ def test_community_bus_cities_have_honest_capabilities_and_public_routes(city,gt
         entry=next(c for c in listing if c['id']==city)
         assert entry['available'] and entry['source_kind']=='community_gtfs'
         assert entry['capabilities']['gtfs']
-        assert entry['capabilities']['vehicles'] == (city in ('kocaeli','gaziantep','adana','antalya'))
+        assert entry['capabilities']['vehicles'] == (city in ('kocaeli','gaziantep','adana','antalya','mugla','ordu','erzurum'))
         data=client.get(f'/v1/{city}/lines/446').json()
         assert data['data']['mode']=='bus' and data['meta']['source_kind']=='community_gtfs'
         assert data['meta']['warnings']

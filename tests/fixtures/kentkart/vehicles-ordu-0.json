@@ -1,0 +1,38 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194219",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "OTOGAR-ÇAKIRTEPE",
+      "displayRouteCode": "21",
+      "direction": "0",
+      "tripShortName": "OTOGAR -ÇAKIRTEPE",
+      "direction_name": "",
+      "path_code": "002100",
+      "busList": [
+        {
+          "busId": "50616",
+          "lat": "41.109035",
+          "lng": "37.353123",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "310.8"
+        },
+        {
+          "busId": "50208",
+          "lat": "41.131725",
+          "lng": "37.2861",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "15.5"
+        }
+      ]
+    }
+  ]
+}
