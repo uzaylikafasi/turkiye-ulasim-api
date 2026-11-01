@@ -42,7 +42,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
 | Konya ve diğer 16 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
 | Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Var | Yok |
-| Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Yok | Var |
+| Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Var | Var |
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
 | Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Yok | Var |
@@ -133,3 +133,5 @@ Trabzon, resmî AKUS GeoJSON servisinden desteklenir. `hatId:güzergâhId` kimli
 Diyarbakır, belediyenin resmî ASIS köprüsünden desteklenir. İç hat numarası API kimliğidir; görünen hat kodu korunur. `direction=0` gidiş, `direction=1` dönüş olarak kaynağın yön alanına bağlanır. Geometrisi bulunmayan hat/yönlerde geometri sorgusu 501 döner.
 
 Canlı veri örnekleri: Diyarbakır araçları `/v1/diyarbakir/lines/117/vehicles`, Trabzon durak varışları `/v1/trabzon/stops/3528/arrivals`. Diyarbakır’da `observed_at` GPS zamanı, `stale` eski konum işareti; Trabzon’da `eta_seconds` tahmini varış, `stops_away` kalan durak sayısıdır.
+
+Trabzon canlı araçları da desteklenir: `/v1/trabzon/lines/59:94/vehicles`. Genel kaynak yanıtı tam hat/güzergâh kimliğiyle süzülür; GPS zamanı ve eski konum işareti korunur.

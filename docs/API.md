@@ -157,7 +157,7 @@ Kaynak `hat_no` ve `hat_yon` birlikte kimliktir. `direction=0` bu kaydın kendi 
 
 Kaynak https://ulasim.trabzon.bel.tr/ ; `source_kind=official_service`, `partial_feed=true`, `gtfs=false`. Yeniden kullanım lisansı belirtilmemiştir. `/v1/trabzon/lines?q=103`, `/v1/trabzon/lines/1:36/stops`, `/v1/trabzon/lines/1:39/shape` örneklerdir.
 
-Her hat/güzergâh ayrı kimlik taşır. G/D yön alanları ve 1/2 kaynak yön numaraları birlikte doğrulanır; farklı varyantlar birleştirilmez. `direction=0` yalnız seçilen güzergâhın kendi sırasıdır. Duraklarda `durak_id` iç kimliği kullanılır. Sıra kaynağın `sira` alanıdır. Kaynağın EPSG:3857 koordinatları WGS84 enlem/boylama çevrilir; beklenmeyen koordinat sistemi aktarımı durdurur. Durak varışları desteklenir; hat araç listesi ve sefer takvimi desteklenmez.
+Her hat/güzergâh ayrı kimlik taşır. G/D yön alanları ve 1/2 kaynak yön numaraları birlikte doğrulanır; farklı varyantlar birleştirilmez. `direction=0` yalnız seçilen güzergâhın kendi sırasıdır. Duraklarda `durak_id` iç kimliği kullanılır. Sıra kaynağın `sira` alanıdır. Kaynağın EPSG:3857 koordinatları WGS84 enlem/boylama çevrilir; beklenmeyen koordinat sistemi aktarımı durdurur. Canlı araçlar ve durak varışları desteklenir; sefer takvimi desteklenmez.
 
 ## Diyarbakır: resmî belediye ASIS köprüsü
 
@@ -173,4 +173,12 @@ Kaynak `Response Model is Empty. This LineCode not have Coordinates...` mesajıy
 
 `/v1/trabzon/stops/3528/arrivals` iç durak kimliğini kaynağın `DurakQrKod=1032` koduna eşler. `stops/{id}` yanıtı `code` alanında QR kodunu sunar. `eta_seconds` kaynak tahmini, `stops_away` kalan durak sayısıdır. GPS konumu/zamanı yoktur; `observed_at`, latitude/longitude null kalır. `line_id` yalnız durakta doğrulanmış yerel hatId:güzergâhId ilişkisi varsa doldurulur; aksi halde null ve kaynak kimlikleri ayrı korunur.
 
-İki canlı kaynakta 15 saniye önbellek ve 30 kaynak isteği/dakika vardır. `cached=true` yanıtında GPS yaşı orijinal `fetched_at` anına aittir. Kaynak hatası boş başarıya dönüştürülmez. Trabzon hat araç listesi hâlâ desteklenmiyor; test edilen konum servisi hata verdi.
+İki canlı kaynakta 15 saniye önbellek ve 30 kaynak isteği/dakika vardır. `cached=true` yanıtında GPS yaşı orijinal `fetched_at` anına aittir. Kaynak hatası boş başarıya dönüştürülmez. Trabzon hat araç listesi de desteklenir; konum servisi JSON POST ile doğrulandı.
+
+### Trabzon araç konumları
+
+`/v1/trabzon/lines/59:94/vehicles` resmî `Web/KonumGetir` uç noktasını JSON POST (`{}`) ile kullanır. Form isteklerinde görülen hata, JSON biçiminde düzelir. Genel araç yanıtı 15 saniye boyunca kaynak başına paylaşılır; her sorgu kendi hatId:güzergâhId kaydına süzülür ve görünen hat kodu ayrıca eşleştirilir. Başka hatlara ait araçlar sonuca karışmaz. Kaynak yanıtı dışındaki filonun kapsamı doğrulanmaz; boş liste tüm şehirde araç olmadığı anlamına gelmez.
+
+KonumX/KonumY yanıtlarında hem WGS84 derece hem EPSG:3857 metre değerleri gözlendi. Canlı yanıtta CRS etiketi yoktur. Gözlenen biçimler Türkiye için birbiriyle örtüşmeyen değer aralıklarıyla yorumlanır ve dönüştürülür; `source_coordinate_system` hangi biçimin okunduğunu belirtir. Aralık dışı konumlar çıkarılır. API enlem/boylam sunar. Sabit araç kimliği PlakaKod'dur; ölçüm Id alanı araç kimliği yapılmaz. `observed_at` kaynak Tarih alanıdır (Europe/Istanbul), `age_seconds` sorgu anındaki yaşı, `stale` 300 saniyeden eski konum işaretidir. Tarih bilinmiyor/sentinel/120 saniyeden fazla gelecekte ise zaman ve stale null kalır. En yeni kayıt seçilir; aynı araç/zamanda çelişkili konum veya hat kaydı yayımlanmaz. Ortak alanlar dışındaki ham kaynak alanları aktarılmaz. Varış ve araç sorguları 30/dakika kaynak bütçesini paylaşır.
+
+Diyarbakır için kontrol edilen `station-routes` ucu yalnız geçen hatları döndürür; bu listeden ETA türetilmez ve varış desteği henüz açılmaz.

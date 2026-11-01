@@ -30,7 +30,7 @@
 | Ankara | 662 | 662 | 10.744 | Yok / Var | Resmî EGO sitesi + Cep’te servisi |
 | Samsun | 84 | 84 harita işaret listesi | 1.560 | Yok / Yok | Resmî SAMULAŞ kataloğu/haritası |
 | Mersin | 251 hat/yön | 245 kaynak listesi | 4.856 | Yok / Yok | Resmî ulaşım portalı |
-| Trabzon | 242 güzergâh (121 hat) | 242 | 4.914 | Yok / Var | Resmî AKUS GeoJSON |
+| Trabzon | 242 güzergâh (121 hat) | 242 | 4.914 | Var / Var | Resmî AKUS GeoJSON |
 | Diyarbakır | 115 | 115 (210 yön) | 991 | Var / Yok | Resmî belediye ASIS köprüsü |
 
 ## Sınırlar
@@ -73,3 +73,5 @@ Trabzon: 121 hat, 242 ayrı kaynak güzergâhı, 4.914 durak ve 13.104 sıralı 
 Diyarbakır: 115 hat, 991 kullanılan durak ve 5.266 sıralı ilişki; 210 yönde durak sırası var. 73 hattın 123 yönünde geometri mevcut; 42 hatta geometri yok. Genel katalogdaki koordinatsız tek durak içe alınan otobüs ilişkilerinde kullanılmadı. 140 test geçti.
 
 Mevcut il tamamlama turu: Diyarbakır canlı araç konumları, Trabzon durak varışları eklendi. İstek başına 15 saniye önbellek ve kaynak başına 30/dakika bütçe. Diyarbakır GPS zamanı/güncellik işareti sunar; Trabzon varış kaynağı GPS konumu/zamanı sunmaz. İl sayısı 28.
+
+Trabzon canlı tamamlama: konum servisi JSON POST ile doğrulandı ve araç listeleri açıldı. İl sayısı 28 kaldı; Trabzon artık hem araç hem varış verisi sunar.

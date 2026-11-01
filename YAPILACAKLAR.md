@@ -173,7 +173,7 @@ Mersin dış yayın kontrolü: 26 il kullanılabilir; hat/durak/geometri/yakın 
 - [x] Hat/güzergâh/yön eşlemesi, EPSG:3857 dönüşümü ve atomik günlük aktarım.
 - [x] 130 test ve canlı API kontrolleri; kapsam 27 il.
 - [x] Trabzon durak varışları; QR/iç kimlik ayrımı, kalan durak ve tahmini varış süresi.
-- [ ] Trabzon hat araç kaynağı: denenen KonumGetir çağrıları hata döndürdü.
+- [x] Trabzon hat araç kaynağı: JSON POST ile doğrulandı; genel yanıt hat/güzergâh kimliğine süzülür.
 
 Güncel kapsam: 27 il. Her hatId:güzergâhId ayrı tutulur; direction=0 seçilen güzergâhın kendi sırasıdır.
 
@@ -194,9 +194,20 @@ Güncel kapsam 28 il. Balıkesir portalında 403, Şanlıurfa'da kullanılabilir
 - [x] Diyarbakır canlı araç, hat kimliği/yön doğrulaması ve GPS güncellik alanları.
 - [x] Trabzon durak varışı, kalıcı QR eşlemesi; kaynağın vermediği GPS alanları null.
 - [x] Önbellek, dakika bütçesi, eski/çelişkili konum, kaynak hatası ve API entegrasyon testleri.
-- [ ] Trabzon araç konumu, Diyarbakır varışları ve diğer illerin canlı kaynakları.
+- [x] Trabzon araç konumu, GPS güncelliği ve paylaşılan önbellek.
+- [ ] Diyarbakır varışları ve diğer illerin canlı kaynakları.
 - [ ] Diğer şehirlerde kaynak GPS zamanı ve eski konum davranışını ortak alanlarla tamamla.
 
 Kapsam 28 il; öncelik mevcut desteğin tamamlanmasıdır.
 
 Canlı destek turu doğrulaması: 157 test; dış adreste Diyarbakır araç ve Trabzon varış yanıtları dolu, önbellek ve hata davranışları doğrulandı.
+
+## Trabzon araçları · mevcut desteği tamamlama
+
+- [x] JSON konum isteği, tam hat/güzergâh süzmesi ve ortak önbellek.
+- [x] GPS zamanı, eski/bilinmeyen konum, aynı araçta çelişkili ölçüm ve alan süzme testleri.
+- [ ] Diyarbakır: geçen hat listesi ETA değildir; gerçek varış kaynağı araştırılacak.
+
+Önceki Trabzon konum hatası form isteğiyle görülmüştü; JSON POST çalışıyor. İl sayısı 28 olarak korundu.
+
+Trabzon araç tamamlama doğrulaması: 163 test geçti; dış adreste dolu, doğru varyanta süzülmüş araç yanıtı ve paylaşılan önbellek doğrulandı. Varışlar, Diyarbakır araçları ve eski servisler çalışıyor.

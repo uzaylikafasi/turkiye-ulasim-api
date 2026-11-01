@@ -44,7 +44,7 @@ def build(destination,lines,fetch):
     with tempfile.TemporaryDirectory(dir=destination.parent,prefix='.trabzon-') as folder:
         stage=Path(folder)/'data.sqlite3';db=sqlite3.connect(stage)
         try:
-            db.executescript(SCHEMA);db.execute('CREATE TABLE source_stop_codes (stop_id TEXT PRIMARY KEY, code TEXT)');known={};warnings=['Her hatId:güzergâhId ayrı kayıttır; direction=0 bu kaynak güzergâhının kendi sırasını ifade eder. Sefer takvimi ve hat araç listesi sunulmaz; durak varışları ayrı servisten alınır.']
+            db.executescript(SCHEMA);db.execute('CREATE TABLE source_stop_codes (stop_id TEXT PRIMARY KEY, code TEXT)');known={};warnings=['Her hatId:güzergâhId ayrı kayıttır; direction=0 bu kaynak güzergâhının kendi sırasını ifade eder. Sefer takvimi sunulmaz; canlı araçlar ve durak varışları ayrı servislerden alınır.']
             for line in lines:
                 route_features=features(fetch(line[0],'GetHatGeoJson'));stop_features=features(fetch(line[0],'GetHatDurakGeoJson'));routes={}
                 for f in route_features:

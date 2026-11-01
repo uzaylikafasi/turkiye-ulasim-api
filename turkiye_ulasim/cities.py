@@ -155,10 +155,10 @@ CITIES["trabzon"] = City(
     id="trabzon", name="Trabzon", operator="Trabzon Büyükşehir Belediyesi / AKUS",
     gtfs_url="", source_url="https://ulasim.trabzon.bel.tr/",
     license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
-    source_kind="official_service", partial_feed=True, live_arrivals=True,
+    source_kind="official_service", partial_feed=True, live_arrivals=True, live_vehicles=True,
     warnings=("Resmî AKUS hat/durak GeoJSON servisi kullanılır; GTFS değildir.",
               "Her hatId:güzergâhId ayrı kayıttır; direction=0 seçilen güzergâhın kendi sırasıdır.",
-              "Koordinatlar EPSG:3857'den enlem/boylama çevrilir. Durak varışları desteklenir; hat araç listesi ve sefer takvimi sunulmaz."),
+              "Statik koordinatlar EPSG:3857'den çevrilir; canlı araçta kaynak koordinat biçimi ayrıca belirtilir. Araç ve varış desteklenir; sefer takvimi sunulmaz."),
 )
 
 CITIES["diyarbakir"] = City(

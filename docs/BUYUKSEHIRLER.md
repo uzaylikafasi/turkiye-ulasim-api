@@ -110,3 +110,9 @@ Balıkesir Kart portalı bu bağlantıdan 403 döndürdü. Şanlıurfa portalın
 İl sayısı 28 kaldı. Diyarbakır resmî `live-data` kaynağından hat araçları, Trabzon `DuragaYaklasanAraclar` kaynağından durak varışları eklendi. Diyarbakır iç hat kimliği/kodu ve yön, Trabzon iç durak/QR kodu ile hat-güzergâh ilişkileri doğrulanır. Kaynakların vermediği GPS zamanı veya konumu üretilmez. Trabzon `KonumGetir` hat araç servisi bu kontrolde hata verdi; araç listesi henüz desteklenmez.
 
 157 test geçti. Dış kontrolde Diyarbakır A1 hattında 10 gerçek araç, Trabzon 3528 iç durak kimliğinde dolu bir varış yanıtı görüldü. Tekrar sorgular önbellekten geldi; yanlış kimliklerde 404, desteklenmeyen karşı uçlarda 501 doğrulandı. Araç sayısı anlık gözlemdir.
+
+## Trabzon araç kaynağı düzeltmesi · 1 Kasım
+
+Önceki form isteği hatası JSON POST ile aşıldı; `Web/KonumGetir` genel araç yanıtı verir. Normalleştirilen ortak alanlar tüm güzergâhlar için 15 saniye paylaşılır, sonuç tam hat/güzergâh kimliğine süzülür. Canlı yanıtta CRS etiketi yoktur; hem derece hem metre değerleri gözlendi, Türkiye için ayrık aralıklarla yorumlanır. Bu çıkarım meta uyarısında açıkça belirtilir. GPS zamanı/güncellik ve aynı zamanlı çelişki denetimi eklendi. Personel alanları taşınmaz.
+
+163 test ve dolu dış araç/varış yanıtları doğrulandı. Diyarbakır `station-routes` yalnız geçen hatları verir; ETA kaynağı olarak kullanılmaz. Kapsam 28 il kaldı.
