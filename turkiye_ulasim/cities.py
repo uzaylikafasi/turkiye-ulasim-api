@@ -130,3 +130,13 @@ CITIES["ankara"] = City(
               "Statik durak koordinatları null; yakın durak, güzergâh geometrisi ve hat araç listesi desteklenmez. Durak varışları ayrı EGO Cepte servisinden alınır.",
               "direction=0 kaynakta yayımlanan tek durak listesidir; gidiş/dönüş ayrımı doğrulanmadı."),
 )
+
+CITIES["samsun"] = City(
+    id="samsun", name="Samsun", operator="SAMULAŞ",
+    gtfs_url="", source_url="https://samulas.com.tr/otobusler",
+    license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
+    source_kind="official_service", partial_feed=True,
+    warnings=("Resmî SAMULAŞ otobüs kataloğu ve hat haritası kullanılır; GTFS değildir.",
+              "Duraklar kaynak haritasının işaret sırasındadır; doğrulanmış sefer/durak sırası değildir.",
+              "direction=0 yayımlanan haritadır; canlı araç/varış ve sefer takvimi sunulmaz."),
+)

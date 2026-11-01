@@ -1,0 +1,1 @@
+Resmî SAMULAŞ 390 numaralı kaynak hattının katalog kaydı ve hat haritasından küçük örnek. İlk/son durak işaretleri ve ilk üç geometri noktası tutuldu. Kaynak: https://samulas.com.tr/otobus-detay/390 ; 1 Kasım 2026. Yeniden kullanım lisansı belirtilmemiştir.

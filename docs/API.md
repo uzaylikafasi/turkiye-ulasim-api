@@ -2,7 +2,7 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**24 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya ve Ankara. Destek, kaynağın sunduğu veriye göre değişir:
+**25 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya, Ankara ve Samsun. Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
@@ -140,3 +140,9 @@ Kaynak türü `official_service`, `partial_feed=true`, `gtfs=false`. Günlük ak
 `capabilities.stop_coordinates=false`, `capabilities.nearby=false`; durakların latitude/longitude alanları null'dır. Yakın durak, geometri ve hat araç listesi desteklenmez (501). Durak varışları desteklenir. Kaynakta tek liste yayımlanır; direction=0 bu sırayı korur, gidiş/dönüş eşlemesi değildir. Günlük aktarım tek dosyayı atomik değiştirir; kimlik, durak sırası veya kaynak şeması hatasında eski veri korunur.
 
 `/v1/ankara/stops/14043/arrivals` EGO Cep’te servisindeki gerçek araç kayıtlarını döndürür. `arac_no=-` tarife mesajları, geçersiz konumlar ve geçiş tamamlandı anlamındaki 999999 süre değeri dahil edilmez. `eta_seconds` kaynak saniye alanıdır; `observed_at` kaynak GPS zamanı (Europe/Istanbul), `fetched_at` sorgulama zamanıdır. `line_id=null`; kaynak hat kodu `source_line_id` ve yön kodu `source_direction` alanında korunur. Kaynak yön kodlarının ortak yönlere karşılığı tahmin edilmez. 20 saniye önbellek, 30 kaynak isteği/dakika sınırı vardır.
+
+## Samsun: SAMULAŞ otobüs haritaları
+
+`source_kind=official_service`, `partial_feed=true`, `gtfs=false`. Kaynak: https://samulas.com.tr/otobusler . Yeniden kullanım lisansı belirtilmemiştir. `/v1/samsun/lines?q=8`, `/v1/samsun/lines/390/stops`, `/v1/samsun/stops/9542` örnek sorgulardır.
+
+Hat kimliği SAMULAŞ `line_no` alanıdır; hat kodu görünen metnin başındaki koddan alınır. Durak kimliği harita etiketindeki iç kimliktir; görünen durak numarası adın başında korunur. Aynı görünen numara farklı konumlarda kullanıldığı için anahtar olarak kullanılmaz. Koordinat aynı işaretten alınır. İşaret sırası korunur; sefer/durak-sırası dosyasıyla doğrulanmış değildir. `direction=0` yayımlanan haritadır; ayrı gidiş/dönüş anlamı yüklenmez. Kopuk MultiLineString parçaları bağlanmaz ve bu kayıtların geometrisi 501 döner. Canlı araç/varış 501 döner.

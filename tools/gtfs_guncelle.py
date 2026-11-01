@@ -123,6 +123,10 @@ def update(city_id: str) -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as folder, httpx.Client(timeout=120, follow_redirects=True) as client:
         folder = Path(folder)
+        if city_id == "samsun":
+            from .samulas_guncelle import update as update_samulas
+            update_samulas(DATA_DIR / "samsun.sqlite3", client)
+            return
         if city_id == "ankara":
             from .ego_guncelle import update as update_ego
             update_ego(DATA_DIR / "ankara.sqlite3", client)

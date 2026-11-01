@@ -141,3 +141,14 @@ Güncel toplam 22 il: Sivas 111 hat / 222 doğrulanmış yön / 624 durak; Edirn
 - [ ] Bursa: portalda kullanılabilir hat/durak seti bulunamadı, BursaKart HTTP 403; erişilebilir resmî kaynak araştır.
 
 Güncel kapsam: 24 il. Ankara’da statik koordinat yok; canlı varış kaydı içindeki araç konumu durak koordinatı olarak kullanılmaz.
+
+## Samsun · 1 Kasım
+
+- [x] Resmî SAMULAŞ kataloğundaki 84 otobüs kaydını doğrula.
+- [x] 1.560 durak, 4.165 harita işareti ilişkisi ve 14 kesintisiz geometriyi aktar; günlük atomik yenilemeyi bağla.
+- [x] Aynı görünen durak numarasının farklı konumlarda kullanılması: iç kimlikleri koru ve regresyon testi ekle.
+- [x] 115 test; kaynak harita sırası ile sefer sırasının farkını belgelerde açıkla.
+- [ ] 70 çok parçalı geometri için ortak API'de parça yapısını koruyan biçim tasarla.
+- [ ] Doğrulanmış sefer/durak sırası ve canlı araç/varış kaynağı.
+
+Güncel kapsam 25 il. Denizli portal API'si 403 otomatik erişim reddi veriyor; bağlanmadı. Kayseri hat araması bu kontrolde boş yanıt döndürdü; doğrulanmış veri olmadan eklenmedi.

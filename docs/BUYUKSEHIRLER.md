@@ -82,3 +82,9 @@ EGO HareketSaatleri sayfasında 662 otobüs hattı bulundu. Otobüs seçicisi me
 EGO Cep’te anonim `Otobusler` servisi 14043 durağında gerçek araç konumu, kaynak GPS zamanı ve kalan saniye döndürdü. Tarife mesajı (`arac_no=-`) ve geçmiş/geçersiz varış kayıtları filtrelenir. Endpoint keşfi [egomac kaynak açıklaması](https://github.com/byigitt/egomac) ile yapıldı; yanıtlar doğrudan [EGO servisinden](https://egocptsrvand.ego.gov.tr/mblSrv14/service.asp) doğrulandı. Kod bağımsız uygulandı. Kaynak yeniden kullanım lisansı belirtilmemiştir.
 
 Bursa: yeni açık veri portalının 49 veri seti incelendi; bu katalogda kullanılabilir otobüs hat/durak seti bulunamadı. BursaKart web sitesi bu bağlantıdan HTTP 403 verdi. Bursa kapsamı henüz eklenmedi.
+
+## 1 Kasım · Samsun
+
+[Resmî SAMULAŞ otobüs sayfası](https://samulas.com.tr/otobusler) ve `api/v1/lines/list_v2` kataloğu 84 kayıt döndürdü. Hat başlığı ve ilk/son durak kimlikleriyle eşleşen harita işaretlerinden 1.560 durak ve 4.165 ilişki alındı. İşaret sırası korunur; doğrulanmış sefer sırası iddiası yok. 14 kesintisiz şekil yayımlanır; 70 çok parçalı şekil mevcut API biçiminde sunulmaz. Kaynak veri lisansı belirtilmemiştir.
+
+Denizli portalı anonim otomatik isteğe `403 browser_check_failed` döndürdü; entegrasyon yapılmadı. Kayseri'nin herkese açık arama ucu boş ve örnek 500 sorgusunda boş liste döndürdü; kullanılabilir veri doğrulanmadı. Bu kaynaklar kapsam sayısına dahil değildir.
