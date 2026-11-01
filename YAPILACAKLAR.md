@@ -1,10 +1,10 @@
 # Yapılacaklar
 
-Ortak çalışma listesi · son güncelleme: 31 Ekim 2026.
+Ortak çalışma listesi · son güncelleme: 1 Kasım 2026.
 
 **Canlı API:** https://mithrixa.com/turkiye-ulasim-api · [Belgeler](https://mithrixa.com/turkiye-ulasim-api/docs). Günlük güncelleme ve sürekli servis kuruldu.
 
-**Öncelik: yeni şehirler ve otobüs kapsamı.** Altyapı işleri şehir eklemeyi sürekli ertelememeli. Metro, tramvay, vapur ve şehirlerarası ulaşım sonraki aşama. Yeni kaynak bulunması ile çalışır şehir desteği farklı aşamalardır.
+**Öncelik: mevcut illeri tamamlama, canlı araç/varış ve veri kalitesi.** Yeni il sayısını artırma ikinci planda. Metro, tramvay, vapur ve şehirlerarası ulaşım sonraki aşama. Yeni kaynak bulunması ile çalışır şehir desteği farklı aşamalardır.
 
 ## Bir işi devralmak
 
@@ -172,7 +172,8 @@ Mersin dış yayın kontrolü: 26 il kullanılabilir; hat/durak/geometri/yakın 
 - [x] 4.914 durak ve 13.104 sıralı ilişki; 242 güzergâhta geometri.
 - [x] Hat/güzergâh/yön eşlemesi, EPSG:3857 dönüşümü ve atomik günlük aktarım.
 - [x] 130 test ve canlı API kontrolleri; kapsam 27 il.
-- [ ] Trabzon canlı araç/varış kaynağını ayrıca doğrula ve bağla.
+- [x] Trabzon durak varışları; QR/iç kimlik ayrımı, kalan durak ve tahmini varış süresi.
+- [ ] Trabzon hat araç kaynağı: denenen KonumGetir çağrıları hata döndürdü.
 
 Güncel kapsam: 27 il. Her hatId:güzergâhId ayrı tutulur; direction=0 seçilen güzergâhın kendi sırasıdır.
 
@@ -183,6 +184,19 @@ Güncel kapsam: 27 il. Her hatId:güzergâhId ayrı tutulur; direction=0 seçile
 - [x] Kimlik/yön/sıra doğrulaması, açık geometri-yok yanıtının hata yanıtından ayrılması, atomik günlük aktarım.
 - [x] Ham kodların sonundaki boşlukları temizle; 140 test ve canlı kontroller.
 - [ ] Geometrisi olmayan 42 hat ve diğer eksik yönler için kaynak tamamlaması.
-- [ ] Diyarbakır canlı araç/varış desteği.
+- [x] Diyarbakır canlı araç desteği.
+- [ ] Diyarbakır durak varış desteği.
 
 Güncel kapsam 28 il. Balıkesir portalında 403, Şanlıurfa'da kullanılabilir anonim veri doğrulanmadı; Eskişehir resmî portalı boş/başarısız yanıt verdi. Yeni il kaynak araştırmaları açık.
+
+## Mevcut il tamamlama · 1 Kasım
+
+- [x] Diyarbakır canlı araç, hat kimliği/yön doğrulaması ve GPS güncellik alanları.
+- [x] Trabzon durak varışı, kalıcı QR eşlemesi; kaynağın vermediği GPS alanları null.
+- [x] Önbellek, dakika bütçesi, eski/çelişkili konum, kaynak hatası ve API entegrasyon testleri.
+- [ ] Trabzon araç konumu, Diyarbakır varışları ve diğer illerin canlı kaynakları.
+- [ ] Diğer şehirlerde kaynak GPS zamanı ve eski konum davranışını ortak alanlarla tamamla.
+
+Kapsam 28 il; öncelik mevcut desteğin tamamlanmasıdır.
+
+Canlı destek turu doğrulaması: 157 test; dış adreste Diyarbakır araç ve Trabzon varış yanıtları dolu, önbellek ve hata davranışları doğrulandı.

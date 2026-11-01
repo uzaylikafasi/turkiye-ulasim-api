@@ -41,8 +41,8 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
 | Konya ve diğer 16 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
-| Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Yok | Yok |
-| Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Yok | Yok |
+| Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Var | Yok |
+| Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Yok | Var |
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
 | Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Yok | Var |
@@ -131,3 +131,5 @@ Mersin, resmî ulaşım portalının hat/yön kataloğu, durak ve geometri servi
 Trabzon, resmî AKUS GeoJSON servisinden desteklenir. `hatId:güzergâhId` kimliği kaynak varyantlarını ayırır; `direction=0` seçilen güzergâhın kendi sırasıdır. Duraklar kaynak `sira` alanına göre sunulur, EPSG:3857 koordinatları enlem/boylama çevrilir.
 
 Diyarbakır, belediyenin resmî ASIS köprüsünden desteklenir. İç hat numarası API kimliğidir; görünen hat kodu korunur. `direction=0` gidiş, `direction=1` dönüş olarak kaynağın yön alanına bağlanır. Geometrisi bulunmayan hat/yönlerde geometri sorgusu 501 döner.
+
+Canlı veri örnekleri: Diyarbakır araçları `/v1/diyarbakir/lines/117/vehicles`, Trabzon durak varışları `/v1/trabzon/stops/3528/arrivals`. Diyarbakır’da `observed_at` GPS zamanı, `stale` eski konum işareti; Trabzon’da `eta_seconds` tahmini varış, `stops_away` kalan durak sayısıdır.

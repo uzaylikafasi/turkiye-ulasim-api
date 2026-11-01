@@ -20,6 +20,8 @@ from .cities import CITIES, City
 from .gtfs import GtfsStore
 from .sources.izmir import IzmirLive
 from .sources.ankara import AnkaraLive
+from .sources.diyarbakir import DiyarbakirLive
+from .sources.trabzon import TrabzonLive
 from .sources.istanbul import IstanbulLive
 from .sources.base import SourceError, SourceRateLimited, SourceNotFound, SourceUnsupported
 from .sources.kahramanmaras import Kahramanmaras
@@ -28,7 +30,7 @@ DATA_DIR = Path(os.environ.get("ULASIM_DATA_DIR", Path(__file__).resolve().paren
 
 
 def default_sources() -> dict:
-    factories = {"izmir": IzmirLive, "istanbul": IstanbulLive, "ankara": AnkaraLive}
+    factories = {"izmir": IzmirLive, "istanbul": IstanbulLive, "ankara": AnkaraLive, "diyarbakir": DiyarbakirLive, "trabzon": TrabzonLive}
     sources = {city_id: (GtfsStore(DATA_DIR / f"{city_id}.sqlite3"),
                          factories[city_id]() if city_id in factories else None)
                for city_id, city in CITIES.items() if city.gtfs and (DATA_DIR / f"{city_id}.sqlite3").is_file()}
@@ -228,11 +230,12 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
     @app.get("/v1/{city_id}/stops/{stop_id}/arrivals")
     async def arrivals(city_id: str, stop_id: str):
         city, store, live = city_of(city_id)
-        if await store_call(store, "stop", stop_id) is None:
+        found = await store_call(store, "stop", stop_id)
+        if found is None:
             raise HTTPException(404, "Durak bulunamadı")
         if not city.live_arrivals or live is None:
             raise HTTPException(501, "Bu şehirde açık canlı varış kaynağı desteklenmiyor")
-        result = await live.arrivals(stop_id)
+        result = await live.arrivals_for_stop(found) if hasattr(live, "arrivals_for_stop") else await live.arrivals(stop_id)
         state["observations"].setdefault(city.id, {}).update(last_outcome="success", last_success_at=result.fetched_at)
         return envelope(city, store, result.data, result=result)
 

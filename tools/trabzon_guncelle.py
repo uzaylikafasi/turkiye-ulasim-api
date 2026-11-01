@@ -44,7 +44,7 @@ def build(destination,lines,fetch):
     with tempfile.TemporaryDirectory(dir=destination.parent,prefix='.trabzon-') as folder:
         stage=Path(folder)/'data.sqlite3';db=sqlite3.connect(stage)
         try:
-            db.executescript(SCHEMA);known={};warnings=['Her hatId:güzergâhId ayrı kayıttır; direction=0 bu kaynak güzergâhının kendi sırasını ifade eder. Sefer takvimi ve canlı veri sunulmaz.']
+            db.executescript(SCHEMA);db.execute('CREATE TABLE source_stop_codes (stop_id TEXT PRIMARY KEY, code TEXT)');known={};warnings=['Her hatId:güzergâhId ayrı kayıttır; direction=0 bu kaynak güzergâhının kendi sırasını ifade eder. Sefer takvimi ve hat araç listesi sunulmaz; durak varışları ayrı servisten alınır.']
             for line in lines:
                 route_features=features(fetch(line[0],'GetHatGeoJson'));stop_features=features(fetch(line[0],'GetHatDurakGeoJson'));routes={}
                 for f in route_features:
@@ -66,7 +66,13 @@ def build(destination,lines,fetch):
                     if g['type']!='Point':raise ValueError('Trabzon durak geometrisi değişti')
                     lat,lon=point(g,g['coordinates']);sid=str(int(p['durak_id']));stop=(sid,p['ad'],lat,lon)
                     if sid in known and known[sid]!=stop:raise ValueError(f'Trabzon durak kimliği çelişkisi: {sid}')
-                    if sid not in known:db.execute('INSERT INTO stops VALUES (?,?,?,?)',stop);known[sid]=stop
+                    source_code=str(p['durak_kod'])
+                    if not source_code.isdigit():raise ValueError('Trabzon durak QR kodu geçersiz')
+                    if sid not in known:
+                        db.execute('INSERT INTO stops VALUES (?,?,?,?)',stop);known[sid]=stop
+                        db.execute('INSERT INTO source_stop_codes VALUES (?,?)',(sid,source_code))
+                    elif db.execute('SELECT code FROM source_stop_codes WHERE stop_id=?',(sid,)).fetchone()[0]!=source_code:
+                        raise ValueError('Trabzon durak QR kodu çelişkili')
                     seq=p['sira']
                     if not isinstance(seq,int) or seq<0:raise ValueError('Trabzon durak sırası geçersiz')
                     db.execute('INSERT INTO line_stops VALUES (?,?,?,?)',(f'{line[0]}:{rid}',0,seq,sid))

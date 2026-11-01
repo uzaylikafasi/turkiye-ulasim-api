@@ -157,7 +157,7 @@ Kaynak `hat_no` ve `hat_yon` birlikte kimliktir. `direction=0` bu kaydın kendi 
 
 Kaynak https://ulasim.trabzon.bel.tr/ ; `source_kind=official_service`, `partial_feed=true`, `gtfs=false`. Yeniden kullanım lisansı belirtilmemiştir. `/v1/trabzon/lines?q=103`, `/v1/trabzon/lines/1:36/stops`, `/v1/trabzon/lines/1:39/shape` örneklerdir.
 
-Her hat/güzergâh ayrı kimlik taşır. G/D yön alanları ve 1/2 kaynak yön numaraları birlikte doğrulanır; farklı varyantlar birleştirilmez. `direction=0` yalnız seçilen güzergâhın kendi sırasıdır. Duraklarda `durak_id` iç kimliği kullanılır. Sıra kaynağın `sira` alanıdır. Kaynağın EPSG:3857 koordinatları WGS84 enlem/boylama çevrilir; beklenmeyen koordinat sistemi aktarımı durdurur. Canlı araç/varış ve sefer takvimi desteklenmez.
+Her hat/güzergâh ayrı kimlik taşır. G/D yön alanları ve 1/2 kaynak yön numaraları birlikte doğrulanır; farklı varyantlar birleştirilmez. `direction=0` yalnız seçilen güzergâhın kendi sırasıdır. Duraklarda `durak_id` iç kimliği kullanılır. Sıra kaynağın `sira` alanıdır. Kaynağın EPSG:3857 koordinatları WGS84 enlem/boylama çevrilir; beklenmeyen koordinat sistemi aktarımı durdurur. Durak varışları desteklenir; hat araç listesi ve sefer takvimi desteklenmez.
 
 ## Diyarbakır: resmî belediye ASIS köprüsü
 
@@ -165,4 +165,12 @@ Kaynak https://www.diyarbakir.bel.tr/ulasim/canli ; `source_kind=official_servic
 
 API kimliği kaynağın `lineNo` iç numarasıdır, görünen kod `code` alanında korunur. Kaynak Gidiş/Dönüş listeleri 0/1 yönlerine çevrilir; `lineCode`, `lineNo`, durak kimliği ve sıra birlikte doğrulanır. Geometrinin `routeCode` ve G/D yönü ayrıca eşleştirilir. Kaynak genel durak envanterinden yalnız içe alınan otobüslerin kullandığı duraklar yayımlanır. Koordinatsız duraklar null kalır ve yakın durak sonucuna girmez.
 
-Kaynak `Response Model is Empty. This LineCode not have Coordinates...` mesajıyla geometri yokluğunu bildirebilir; yalnız bu açık yanıt boş geometri sayılır. Diğer başarısız sonuçlar aktarımı durdurur ve eski dosya korunur. Eksik geometri 501; canlı araç/varış henüz desteklenmez. Başlangıç verisi resmî sayfanın JSON parçalarından okunur, JavaScript çalıştırılmaz.
+Kaynak `Response Model is Empty. This LineCode not have Coordinates...` mesajıyla geometri yokluğunu bildirebilir; yalnız bu açık yanıt boş geometri sayılır. Diğer başarısız sonuçlar aktarımı durdurur ve eski dosya korunur. Eksik geometri 501; canlı araçlar desteklenir, durak varışları henüz desteklenmez. Başlangıç verisi resmî sayfanın JSON parçalarından okunur, JavaScript çalıştırılmaz.
+
+## Diyarbakır canlı araçlar ve Trabzon varışları
+
+`/v1/diyarbakir/lines/117/vehicles` kaynağın hat kodu ve iç numarasını birlikte doğrular. Araçlarda `source_direction=G/D`, ortak `direction=0/1` alanıdır; `heading_degrees` aracın pusula açısıdır ve yön kodu yerine kullanılmaz. `speed_kmh` kaynak hızıdır. `observed_at` GPS zamanı, `age_seconds` sorgu anındaki yaşı, `stale` 300 saniyeden eski kaydı gösterir. Saat dilimi olmayan kaynak zamanı Europe/Istanbul kabul edilir; bu varsayım meta uyarısında belirtilir. Geçersiz/belirsiz GPS zamanı null, gelecekte 120 saniyeden uzak zaman bilinmeyen sayılır. Aynı aracın en yeni ölçümü seçilir; aynı zamanda çelişen konumlar çıkarılır. Yalnız ortak araç alanları yayımlanır.
+
+`/v1/trabzon/stops/3528/arrivals` iç durak kimliğini kaynağın `DurakQrKod=1032` koduna eşler. `stops/{id}` yanıtı `code` alanında QR kodunu sunar. `eta_seconds` kaynak tahmini, `stops_away` kalan durak sayısıdır. GPS konumu/zamanı yoktur; `observed_at`, latitude/longitude null kalır. `line_id` yalnız durakta doğrulanmış yerel hatId:güzergâhId ilişkisi varsa doldurulur; aksi halde null ve kaynak kimlikleri ayrı korunur.
+
+İki canlı kaynakta 15 saniye önbellek ve 30 kaynak isteği/dakika vardır. `cached=true` yanıtında GPS yaşı orijinal `fetched_at` anına aittir. Kaynak hatası boş başarıya dönüştürülmez. Trabzon hat araç listesi hâlâ desteklenmiyor; test edilen konum servisi hata verdi.

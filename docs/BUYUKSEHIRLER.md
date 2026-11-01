@@ -104,3 +104,9 @@ Denizli portalı anonim otomatik isteğe `403 browser_check_failed` döndürdü;
 [Belediyenin canlı ulaşım sayfası](https://www.diyarbakir.bel.tr/ulasim/canli) 115 hat ve 1.060 genel durak kaydını başlangıç JSON'unda yayımlıyor. Anonim `/api/transport/asis/line-directions` kaynağı hat kodu/iç numarası, Gidiş/Dönüş, durak kimliği ve sıra veriyor. `route-coordinate` geometrisi G/D yönüne göre ayrıca eşleştirilir. Ham kodların sonundaki boşluklar temizlenir; iç boşluklar ve diğer karakterler korunur. Kaynağın açık geometri-yok mesajı haricindeki başarısız yanıtlar güncellemeyi durdurur.
 
 Balıkesir Kart portalı bu bağlantıdan 403 döndürdü. Şanlıurfa portalının oturum açma kullanan arayüzü incelendi, kullanılabilir anonim veri doğrulanmadı. Eskişehir resmî portalının rotalar ucu başarısız sonuç, duraklar ucu boş liste döndürdü. Bu şehirler henüz kapsama eklenmedi.
+
+## 1 Kasım · Mevcut illerde canlı destek
+
+İl sayısı 28 kaldı. Diyarbakır resmî `live-data` kaynağından hat araçları, Trabzon `DuragaYaklasanAraclar` kaynağından durak varışları eklendi. Diyarbakır iç hat kimliği/kodu ve yön, Trabzon iç durak/QR kodu ile hat-güzergâh ilişkileri doğrulanır. Kaynakların vermediği GPS zamanı veya konumu üretilmez. Trabzon `KonumGetir` hat araç servisi bu kontrolde hata verdi; araç listesi henüz desteklenmez.
+
+157 test geçti. Dış kontrolde Diyarbakır A1 hattında 10 gerçek araç, Trabzon 3528 iç durak kimliğinde dolu bir varış yanıtı görüldü. Tekrar sorgular önbellekten geldi; yanlış kimliklerde 404, desteklenmeyen karşı uçlarda 501 doğrulandı. Araç sayısı anlık gözlemdir.

@@ -81,7 +81,7 @@ def build(destination,lines,stations,fetch):
             # Ortak durak envanterinde yalnız bu otobüslerin kullandığı duraklar.
             db.execute('DELETE FROM stops WHERE id NOT IN (SELECT stop_id FROM line_stops)')
             if not db.execute('SELECT 1 FROM line_stops LIMIT 1').fetchone():raise ValueError('Diyarbakır bütün durak listeleri boş')
-            now=datetime.now(timezone.utc).isoformat(timespec='seconds');warnings=['Resmî belediye portalındaki ASIS köprüsü kullanılır; sefer takvimi veya canlı veri sunulmaz.',f'Kaynak genel durak kataloğunda {unknown_positions} kaydın koordinatı yoktur; kullanılanlar null korunur ve yakın durak sonucuna girmez.']
+            now=datetime.now(timezone.utc).isoformat(timespec='seconds');warnings=['Resmî belediye portalındaki ASIS köprüsü kullanılır; sefer takvimi sunulmaz; canlı araçlar ayrı servisten alınır.',f'Kaynak genel durak kataloğunda {unknown_positions} kaydın koordinatı yoktur; kullanılanlar null korunur ve yakın durak sonucuna girmez.']
             db.executemany('INSERT INTO meta VALUES (?,?)',[('calendar_end',''),('imported_at',now),('topology_updated_at',now),('topology_source',API),('warnings',json.dumps(warnings,ensure_ascii=False))]);db.commit()
         finally:db.close()
         stage.replace(destination)

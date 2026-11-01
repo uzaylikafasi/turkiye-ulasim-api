@@ -281,7 +281,12 @@ class GtfsStore:
         lines = self.db.execute(
             "SELECT DISTINCT l.* FROM line_stops ls JOIN lines l ON l.id = ls.line_id WHERE ls.stop_id=? "
             "ORDER BY CAST(l.short_name AS INTEGER), l.short_name", (stop_id,))
-        return {**_stop(row), "lines": [_line(r) for r in lines]}
+        result = {**_stop(row), "lines": [_line(r) for r in lines]}
+        if self.db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='source_stop_codes'").fetchone():
+            code = self.db.execute("SELECT code FROM source_stop_codes WHERE stop_id=?", (stop_id,)).fetchone()
+            if code:
+                result["code"] = code[0]
+        return result
 
     def nearby(self, latitude: float, longitude: float, radius_m: float, limit: int = 20) -> list[dict]:
         # Önce kaba bir kutu, sonra gerçek mesafe: 11 bin durakta tam tarama gerekmez.

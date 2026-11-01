@@ -1,1 +1,3 @@
 Resmî Trabzon AKUS sitesinin 1 numaralı hat kaydı ve Web/GetHatGeoJson, Web/GetHatDurakGeoJson yanıtlarından küçük örnekler. 36/39 güzergâhlarının ilk üç geometri noktası ve ilk iki durak özelliği tutuldu. EPSG:3857 kaynak koordinat sistemi ve kimlik/yön alanları aynen korundu. Kaynak: https://ulasim.trabzon.bel.tr/Web/Mobil?hatIdler=1 ; 1 Kasım 2026. Yeniden kullanım lisansı belirtilmemiştir.
+
+`arrivals.json`: resmî Web/DuragaYaklasanAraclar?qrDurakKod=1032 yanıtından gerçek durak varışları. Kaynak GPS ölçüm zamanı vermiyor; GecilenDurakTarih sentinel değeri GPS zamanı olarak kullanılmaz.
