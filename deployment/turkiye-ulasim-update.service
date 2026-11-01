@@ -9,6 +9,6 @@ WorkingDirectory=%h/kod/turkiye-ulasim
 ExecStart=%h/kod/turkiye-ulasim/.venv/bin/python -u -m tools.yenile
 MemoryMax=750M
 CPUQuota=50%
-TimeoutStartSec=30min
+TimeoutStartSec=60min
 NoNewPrivileges=true
 UMask=0077

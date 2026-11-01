@@ -2,7 +2,7 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**25 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya, Ankara ve Samsun. Destek, kaynağın sunduğu veriye göre değişir:
+**26 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya, Ankara, Samsun ve Mersin. Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
@@ -146,3 +146,9 @@ Kaynak türü `official_service`, `partial_feed=true`, `gtfs=false`. Günlük ak
 `source_kind=official_service`, `partial_feed=true`, `gtfs=false`. Kaynak: https://samulas.com.tr/otobusler . Yeniden kullanım lisansı belirtilmemiştir. `/v1/samsun/lines?q=8`, `/v1/samsun/lines/390/stops`, `/v1/samsun/stops/9542` örnek sorgulardır.
 
 Hat kimliği SAMULAŞ `line_no` alanıdır; hat kodu görünen metnin başındaki koddan alınır. Durak kimliği harita etiketindeki iç kimliktir; görünen durak numarası adın başında korunur. Aynı görünen numara farklı konumlarda kullanıldığı için anahtar olarak kullanılmaz. Koordinat aynı işaretten alınır. İşaret sırası korunur; sefer/durak-sırası dosyasıyla doğrulanmış değildir. `direction=0` yayımlanan haritadır; ayrı gidiş/dönüş anlamı yüklenmez. Kopuk MultiLineString parçaları bağlanmaz ve bu kayıtların geometrisi 501 döner. Canlı araç/varış 501 döner.
+
+## Mersin: kaynak hat/yön kayıtları
+
+Resmî portal: https://ulasim.mersin.bel.tr/hatveguzergahlar . `source_kind=official_service`, `partial_feed=true`, `gtfs=false`; yeniden kullanım lisansı belirtilmemiştir. Örnekler: `/v1/mersin/lines?q=10M`, `/v1/mersin/lines/10M-G/stops`, `/v1/mersin/lines/10M-G/shape`, `/v1/mersin/stops/54397`.
+
+Kaynak `hat_no` ve `hat_yon` birlikte kimliktir. `direction=0` bu kaydın kendi sırasını korur; ayrı kayıttaki dönüş listesiyle birleştirilmez. Durak sırası kaynağın yanıt sırasıdır, sefer dosyasıyla doğrulanmadı. Katalog adları durak listesinin başlangıç/bitişiyle tam örtüşmeyebilir. Yanıt hat kimliğini tekrar etmez; ilişki katalogdaki kod/yönün sorgulanmasına dayanır. Kaynak 0 döndürürse veri yoktur; eksik durak/geometri 501 döner. Canlı araç/varış sunulmaz.

@@ -152,3 +152,16 @@ Güncel kapsam: 24 il. Ankara’da statik koordinat yok; canlı varış kaydı i
 - [ ] Doğrulanmış sefer/durak sırası ve canlı araç/varış kaynağı.
 
 Güncel kapsam 25 il. Denizli portal API'si 403 otomatik erişim reddi veriyor; bağlanmadı. Kayseri hat araması bu kontrolde boş yanıt döndürdü; doğrulanmış veri olmadan eklenmedi.
+
+## Mersin · 1 Kasım
+
+- [x] Resmî portalın 251 hat/yön kaydını indir ve kaynak şemasını doğrula.
+- [x] 4.856 durak, 16.847 ilişki; 245 kaynak listesi ve 241 geometriyi atomik aktar.
+- [x] Günlük yenilemeyi bağla; kayıt başına sorgu artışı için güncelleme zaman aşımını 60 dakikaya çıkar.
+- [x] 122 çevrimdışı test; şema/koordinat/kimlik hatalarında eski dosyanın korunmasını doğrula.
+- [ ] Katalog adları ile başlangıç/bitiş tutarsızlığını daha güncel resmî kaynaktan doğrula.
+- [ ] Kaynakta boş 6 durak listesi ve 10 geometri; canlı araç/varış.
+
+Güncel kapsam: 26 il. Mersin'de G/D kaydı ayrı tutulur; yanıtların kendi hat kimliğini tekrar etmediği ve sıraların sefer dosyasıyla doğrulanmadığı açıkça belirtilir.
+
+Mersin dış yayın kontrolü: 26 il kullanılabilir; hat/durak/geometri/yakın durak, eksik veri için 501 ve eski servis sağlığı doğrulandı.

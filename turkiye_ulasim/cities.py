@@ -140,3 +140,13 @@ CITIES["samsun"] = City(
               "Duraklar kaynak haritasının işaret sırasındadır; doğrulanmış sefer/durak sırası değildir.",
               "direction=0 yayımlanan haritadır; canlı araç/varış ve sefer takvimi sunulmaz."),
 )
+
+CITIES["mersin"] = City(
+    id="mersin", name="Mersin", operator="Mersin Büyükşehir Belediyesi",
+    gtfs_url="", source_url="https://ulasim.mersin.bel.tr/hatveguzergahlar",
+    license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
+    source_kind="official_service", partial_feed=True,
+    warnings=("Resmî ulaşım portalının hat/yön kataloğu kullanılır; GTFS değildir.",
+              "Hat adı ve durak listesinin başlangıç/bitişi farklı olabilir; kaynak adları korunur.",
+              "direction=0 kaynak hat/yön kaydının kendi sırasıdır; sefer dosyasıyla doğrulanmadı. Canlı araç/varış desteklenmez."),
+)

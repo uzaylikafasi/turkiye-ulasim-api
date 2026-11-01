@@ -1,6 +1,6 @@
 # İl kapsamı
 
-1 Kasım 2026 · **25 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
+1 Kasım 2026 · **26 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
 
 | İl | Hat / güzergâh kaydı | Sıralı durağı olan hat | Durak | Canlı araç / varış | Kaynak |
 |---|---:|---:|---:|---|---|
@@ -29,6 +29,7 @@
 | Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Yok / Yok | Resmî SAKUS servisi |
 | Ankara | 662 | 662 | 10.744 | Yok / Var | Resmî EGO sitesi + Cep’te servisi |
 | Samsun | 84 | 84 harita işaret listesi | 1.560 | Yok / Yok | Resmî SAMULAŞ kataloğu/haritası |
+| Mersin | 251 hat/yön | 245 kaynak listesi | 4.856 | Yok / Yok | Resmî ulaşım portalı |
 
 ## Sınırlar
 
@@ -62,3 +63,5 @@ Servis tamamlama turu: 82 test ve Sivas/Edirne üzerinde 14 dış veri sorgusu b
 1 Kasım Ankara turu: 662 hattın tamamında yayımlanan durak sırası doğrulandı; 10.744 farklı durak ve 52.228 hat-durak kaydı. Statik durak koordinatları kaynakta bulunmuyor; null sunulur. Yakın durak/geometri desteklenmez. Durak varışları ayrı EGO Cep’te servisinden alınır, tarife mesajları filtrelenir. 107 çevrimdışı test geçti.
 
 Samsun: 84 otobüs katalog kaydı, 1.560 durak ve 4.165 hat-durak işareti. İşaret sırası sefer dosyasıyla doğrulanmış değildir. Kesintisiz 14 hattın geometrisi yayımlanır; 70 hattın çok parçalı geometrisi mevcut tek çizgi biçimine dönüştürülmez ve 501 döner. Aynı görünen durak numarası iki ayrı konumda bulunduğu için iç durak kimlikleri korunur. 115 test geçti.
+
+Mersin: 251 hat/yön kaydı, 4.856 durak ve 16.847 ilişki. 245 kayıtta kaynak durak listesi, 241 kayıtta geometri var; kalan 6/10 kayıtta ilgili uç 501 döner. Katalog adı ve durak listesi arasında bilinen başlangıç/bitiş farkı vardır. 122 test geçti.

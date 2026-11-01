@@ -4,7 +4,7 @@
 
 Türkiye’nin otobüs verileri için tek API, ortak yanıt biçimi.
 
-**25 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
+**26 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](turkiye_ulasim/main.py)
@@ -41,6 +41,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
 | Konya ve diğer 16 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
+| Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
 | Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Yok | Var |
 | Sakarya | Var | SAKUS kaynak güzergâhlarında | Yok | Yok |
@@ -122,3 +123,5 @@ Ankara, resmî EGO sitesinin otobüs kataloğu ve durak sırasıyla desteklenir.
 Ankara durak varışları EGO Cep’te servisinden alınır: `/v1/ankara/stops/14043/arrivals`. Tarife/hareket saati mesajları canlı araç sayılmaz; kalan süre ve kaynak GPS zamanı ayrı alanlardır. Canlı kaynak için 30 istek/dakika bütçe ve 20 saniye önbellek uygulanır.
 
 Samsun, resmî SAMULAŞ otobüs kataloğu ve hat haritalarıyla desteklenir. Durak koordinatları ve yakın durak sorgusu vardır; durak listesi kaynak harita işaretlerinin sırasını korur ve sefer dosyasıyla doğrulanmış sıra iddiası taşımaz. Canlı araç/varış ve tarife sunulmaz.
+
+Mersin, resmî ulaşım portalının hat/yön kataloğu, durak ve geometri servisiyle desteklenir. `10M-G` ve `10M-D` ayrı kayıtlardır; `direction=0` seçilen kaynak kaydının kendi listesidir. Katalogdaki hat adları gerçek başlangıç/bitişle farklılık gösterebilir; kaynak adları korunur.

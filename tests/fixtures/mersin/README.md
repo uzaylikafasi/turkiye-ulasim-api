@@ -1,0 +1,1 @@
+Mersin resmî portalının anonim ajax/bilgi.php servisinden 1 Kasım 2026 tarihinde alınan küçük örnek. Katalogda ilk iki 10M-G/D kaydı; durak/geometri örneği 10M-G yanıtlarının ilk üç kaydıdır. Alanlar XML dönüşümünden gelen {"0": "değer"} biçimindedir. Kaynak: https://ulasim.mersin.bel.tr/hatveguzergahlar . Yeniden kullanım lisansı belirtilmemiştir.

@@ -88,3 +88,9 @@ Bursa: yeni açık veri portalının 49 veri seti incelendi; bu katalogda kullan
 [Resmî SAMULAŞ otobüs sayfası](https://samulas.com.tr/otobusler) ve `api/v1/lines/list_v2` kataloğu 84 kayıt döndürdü. Hat başlığı ve ilk/son durak kimlikleriyle eşleşen harita işaretlerinden 1.560 durak ve 4.165 ilişki alındı. İşaret sırası korunur; doğrulanmış sefer sırası iddiası yok. 14 kesintisiz şekil yayımlanır; 70 çok parçalı şekil mevcut API biçiminde sunulmaz. Kaynak veri lisansı belirtilmemiştir.
 
 Denizli portalı anonim otomatik isteğe `403 browser_check_failed` döndürdü; entegrasyon yapılmadı. Kayseri'nin herkese açık arama ucu boş ve örnek 500 sorgusunda boş liste döndürdü; kullanılabilir veri doğrulanmadı. Bu kaynaklar kapsam sayısına dahil değildir.
+
+## 1 Kasım · Mersin resmî portalı
+
+[Resmî hat sayfasının](https://ulasim.mersin.bel.tr/hatveguzergahlar) anonim `ajax/bilgi.php` servisi kullanılır. `tipi=hatbilgisi, aranan=TUM` 251 hat/yön kaydı döndürdü; `hatdurak` ve `hatguzergah` çağrılarında `hatno=10M-G` gibi kaynak kimliği kullanılır. Alanlar `{"0":"değer"}` sarmalayıcısından okunur; şema değişirse aktarım durur. Geçersiz hat sorgusu kaynakta 0 döndürdü.
+
+Örnek 10M-G katalog adı ÇARŞI–TECE iken durak listesi KARACA İLYAS BAŞLANGIÇ’tan başlıyor; bu tutarsızlık gizlenmez ve adlar tahminle düzeltilmez. Durak/geometri yanıtları hat kimliğini tekrar etmez; ilişki sorgulanan katalog kodu/yönüne dayanır. Durak listesinin kaynak sırası korunur, sefer dosyasıyla doğrulanmış sıra iddiası yoktur. Canlı araç/varış henüz bağlı değildir. Kaynak veri için yeniden kullanım lisansı belirtilmemiştir.
