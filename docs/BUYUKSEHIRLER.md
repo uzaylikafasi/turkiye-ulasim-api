@@ -165,3 +165,14 @@ Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.
 - [ ] Gerçek durak varışının dolu yanıtı ve kimlik/süre sözleşmesi; GPS zamanı.
 
 229 test geçti. İl sayısı 28. Konya/Samsun/Mersin canlı kaynakları açık; bu tur Sakarya araç bağlantısı tamamlandı.
+
+## Mersin mevcut il canlı araç tamamlama
+
+- [x] Resmî hattakiaraclar POST, tam kaynak G/D kimliği ve yerel hat doğrulaması.
+- [x] XML dönüşümlü alanlar, erişilebilirlik/bisiklet, kararlı cihaz özeti, çelişen konum ve bilinmeyen GPS zamanı.
+- [x] Belirsiz kaynak 0 sonucunu 502 ayır; cache/kota ve API testleri.
+- [ ] Mersin gerçek durak varış kaynağı ve GPS ölçüm zamanı.
+
+Konya ATUS örnek URL’i 404 sayfasına yönlendi; canlı yetenek açılmadı. Konya/Samsun kaynakları ve mevcut il veri eksikleri açık. İl sayısı 28 kaldı.
+
+Mersin tamamlama turu: 238 çevrimdışı test geçti.

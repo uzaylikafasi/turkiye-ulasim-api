@@ -47,7 +47,7 @@ def build(destination,lines,fetch):
             db.executescript(SCHEMA);known={};warnings=[
                 'Katalogdaki hat adları durak listesinin başlangıç/bitişiyle tam örtüşmeyebilir; kaynak adları değiştirilmeden korunur.',
                 'Duraklar kaynak yanıtı sırasındadır; sefer dosyasıyla doğrulanmış değildir. Yanıt hat kimliğini tekrar etmez; eşleşme katalogdaki hat/yön sorgu parametresiyledir.',
-                'G/D kaynak kimliğinde korunur; direction=0 bu kaydın kendi sırasıdır. Canlı araç/varış ve tarife sunulmaz.']
+                'G/D kaynak kimliğinde korunur; direction=0 bu statik kaydın kendi sırasıdır. Statik aktarım canlı veri veya tarife içermez; canlı araçlar ayrı bağlayıcıdan sunulur.']
             for lid,code,name in lines:
                 db.execute('INSERT INTO lines VALUES (?,?,?,?,?)',(lid,code,name,3,lid))
                 for seq,r in enumerate(rows(fetch(lid,'hatdurak'))):

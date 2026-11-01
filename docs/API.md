@@ -151,7 +151,7 @@ Hat kimliği SAMULAŞ `line_no` alanıdır; hat kodu görünen metnin başındak
 
 Resmî portal: https://ulasim.mersin.bel.tr/hatveguzergahlar . `source_kind=official_service`, `partial_feed=true`, `gtfs=false`; yeniden kullanım lisansı belirtilmemiştir. Örnekler: `/v1/mersin/lines?q=10M`, `/v1/mersin/lines/10M-G/stops`, `/v1/mersin/lines/10M-G/shape`, `/v1/mersin/stops/54397`.
 
-Kaynak `hat_no` ve `hat_yon` birlikte kimliktir. `direction=0` bu kaydın kendi sırasını korur; ayrı kayıttaki dönüş listesiyle birleştirilmez. Durak sırası kaynağın yanıt sırasıdır, sefer dosyasıyla doğrulanmadı. Katalog adları durak listesinin başlangıç/bitişiyle tam örtüşmeyebilir. Yanıt hat kimliğini tekrar etmez; ilişki katalogdaki kod/yönün sorgulanmasına dayanır. Kaynak 0 döndürürse veri yoktur; eksik durak/geometri 501 döner. Canlı araç/varış sunulmaz.
+Kaynak `hat_no` ve `hat_yon` birlikte kimliktir. `direction=0` bu kaydın kendi sırasını korur; ayrı kayıttaki dönüş listesiyle birleştirilmez. Durak sırası kaynağın yanıt sırasıdır, sefer dosyasıyla doğrulanmadı. Katalog adları durak listesinin başlangıç/bitişiyle tam örtüşmeyebilir. Yanıt hat kimliğini tekrar etmez; ilişki katalogdaki kod/yönün sorgulanmasına dayanır. Statik durak/geometri kaynağı 0 döndürürse bu ilişkiler yoktur; eksik durak/geometri 501 döner. Canlı araç desteklenir, varış henüz desteklenmez. Canlı kaynağın 0 yanıtı aşağıda ayrı açıklanır.
 
 ## Trabzon: AKUS GeoJSON
 
@@ -273,3 +273,13 @@ Kaynak `lineId`, `lineNumber`, `routeId` doğrulanır; GeoJSON Point koordinatla
 Kaynak GPS ölçüm zamanı vermediğinden `observed_at`, `age_seconds`, `stale` null kalır. `fetched_at` sorgu zamanıdır. Kaynaktaki `etaS` bir sonraki durağa aittir; seçilmiş durağa varış tahmini yerine kullanılamaz. Araç yanıtı ETA sunmaz. `estimates` örneği yalnız boş liste verdiği için varış desteği henüz açılmadı; ilgili uç 501 kalır.
 
 Aynı ana hattın güzergâhları 15 saniye önbelleği ve tek kaynak isteğini paylaşır. SAKUS başına süreçte 30 kaynak isteği/dakika bütçesi vardır; dolunca 503 + Retry-After, kaynak/şema/hat hatasında 502 döner. Yerel güzergâh kimliği doğrulanmamış kayıtta 501, bilinmeyen hatta 404. Tek süreç kullanın; çoklu süreçlerde ortak kota gerekir. Kaynak yeniden kullanım lisansı belirtilmemiştir.
+
+## Mersin canlı araçlar
+
+`/v1/mersin/lines/10M-G/vehicles` ve `10M-D` ayrı sorgulanır. [Resmî portal](https://ulasim.mersin.bel.tr/hattakiaraclar) ajax/bilgi.php kaynağına POST `tipi=hattakiaraclar&hatno=10M-G` gönderir. Yerelde doğrulanan tam hat/yön kimliği aynen kullanılır; yalnız `10` veya `10M` yeterli değildir. Kaynak yanıtta hat/yönü tekrarlamadığından eşleme gönderilen sorguya dayanır; bu sınır uyarıda açıklanır.
+
+XML dönüşümlü alanlar `{ "0": "değer" }` biçimindedir. Konumlar Türkiye sınırları içinde doğrulanır, aynı araç için çelişen konumlar çıkarılır. `engelli_uyumu` ve `bisiklet_aparati` yalnız true/false olduğunda doldurulur. Araç `id` değeri kaynak cihaz adresinin `mersin:` önekli SHA-256 özetinin ilk 20 karakteridir; cihaz adresi ve plaka yayımlanmaz. Bu kararlı kimlik kaynak cihaz değişirse değişebilir.
+
+`sefer_saat` hareket saatidir, GPS ölçüm zamanı değildir. `observed_at`, `age_seconds`, `stale` null kalır; `fetched_at` sorgu zamanıdır. `source_direction` özgün G/D değerini korur; `direction=null`, `source_route_id` sorgulanan tam kaynak kaydıdır. Araç konumundan ETA hesaplanmaz, varış 501 kalır.
+
+Kaynak portalı `0` yanıtını hem araç yokluğu hem servis veri getirememesi için kullanır; bunlar güvenle ayrılamadığından API 502 döndürür. Açık bir liste yanıtı normalleştirilir, `[]` başarılı boş liste olabilir. Şema/HTTP hataları da 502; kaynak bütçesi veya 429 için 503 + Retry-After. 15 saniye hat/yön başına cache ve şehir başına 30 kaynak isteği/dakika; tek süreçte uygulanır. Kaynak yeniden kullanım lisansı belirtilmemiştir.

@@ -1,0 +1,42 @@
+[
+  {
+    "enlem": {
+      "0": "36.82671333"
+    },
+    "boylam": {
+      "0": "34.679205"
+    },
+    "arac_no": {
+      "0": "fixture-device-10M-G-0"
+    },
+    "bisiklet_aparati": {
+      "0": "false"
+    },
+    "engelli_uyumu": {
+      "0": "true"
+    },
+    "sefer_saat": {
+      "0": "20:05"
+    }
+  },
+  {
+    "enlem": {
+      "0": "36.70099667"
+    },
+    "boylam": {
+      "0": "34.45268333"
+    },
+    "arac_no": {
+      "0": "fixture-device-10M-G-1"
+    },
+    "bisiklet_aparati": {
+      "0": "false"
+    },
+    "engelli_uyumu": {
+      "0": "true"
+    },
+    "sefer_saat": {
+      "0": "19:00"
+    }
+  }
+]

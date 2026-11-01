@@ -44,7 +44,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | Topluluk GTFS kullanan 16 il | Var | Kaynakta bulunan hatlarda | Var | Var |
 | Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Var | Yok |
 | Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Var | Var |
-| Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
+| Mersin | Var | Kaynak hat/yön yanıtlarında | Var | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
 | Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Var | Var |
 | Sakarya | Var | SAKUS kaynak güzergâhlarında | Var | Yok |
@@ -148,3 +148,5 @@ Muğla `/v1/mugla/lines/10001/vehicles`, Ordu `/v1/ordu/lines/00210/vehicles` ve
 Mevcut 18 Kentkart şehrinin tamamında canlı araç ve durak varış bağlantısı vardır (16 topluluk GTFS + Sivas/Edirne). Bu, her hattın veya yönün eksiksiz olduğu anlamına gelmez. Mardin H2, Tokat 1 ve diğer son tamamlanan illerin [örnek uçları](docs/API.md#kalan-kentkart-illerinde-canlı-destek) belgede.
 
 Sakarya canlı araçları desteklenir: `/v1/sakarya/lines/50:802/vehicles` (M1). Kaynak hat ve güzergâh kimliği birlikte doğrulanır; GPS ölçüm saati bilinmediğinden güncellik alanları null kalır. [Ayrıntılar](docs/API.md#sakarya-canlı-araçlar).
+
+Mersin canlı araçları: `/v1/mersin/lines/10M-G/vehicles`. Tam G/D kodu korunur; GPS ölçüm saati bilinmiyor. Kaynağın belirsiz `0` yanıtı boş başarı sayılmaz, 502 döner. [Ayrıntılar](docs/API.md#mersin-canlı-araçlar).

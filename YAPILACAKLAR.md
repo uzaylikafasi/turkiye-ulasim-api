@@ -299,3 +299,16 @@ Dış yayın kontrolü: mardin 5 araç/2 varış, tokat 2 araç/1 varış, canak
 229 test geçti. İl sayısı 28. Konya/Samsun/Mersin canlı kaynakları açık; bu tur Sakarya araç bağlantısı tamamlandı.
 
 Sakarya dış kontrolü: 50:802 bir araç, 50:803 üç araç, 5:86 ve 5:87 birer araç; güzergâh süzmesi ve ortak cache doğrulandı. Varış 501, bilinmeyen hat 404; eski API/site ve mevcut uçlar sağlıklı. Anlık sayılardır. Genel 28 il, 25 araç/22 varış yeteneği.
+
+## Mersin mevcut il canlı araç tamamlama
+
+- [x] Resmî hattakiaraclar POST, tam kaynak G/D kimliği ve yerel hat doğrulaması.
+- [x] XML dönüşümlü alanlar, erişilebilirlik/bisiklet, kararlı cihaz özeti, çelişen konum ve bilinmeyen GPS zamanı.
+- [x] Belirsiz kaynak 0 sonucunu 502 ayır; cache/kota ve API testleri.
+- [ ] Mersin gerçek durak varış kaynağı ve GPS ölçüm zamanı.
+
+Konya ATUS örnek URL’i 404 sayfasına yönlendi; canlı yetenek açılmadı. Konya/Samsun kaynakları ve mevcut il veri eksikleri açık. İl sayısı 28 kaldı.
+
+Mersin tamamlama turu: 238 çevrimdışı test geçti.
+
+Mersin dış kontrolü: 10M-G, 10M-D ve 26M-G ikişer araç; cache, 404, varış501 ve mevcut Sakarya/Antalya uçları/site/eski Maraş sağlığı doğrulandı. Sayılar anlık. Genel 28 il, 26 araç/22 varış yeteneği.

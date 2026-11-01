@@ -29,7 +29,7 @@
 | Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Var / Yok | Resmî SAKUS servisi |
 | Ankara | 662 | 662 | 10.744 | Var / Var | Resmî EGO sitesi + Cep’te servisi |
 | Samsun | 84 | 84 harita işaret listesi | 1.560 | Yok / Yok | Resmî SAMULAŞ kataloğu/haritası |
-| Mersin | 251 hat/yön | 245 kaynak listesi | 4.856 | Yok / Yok | Resmî ulaşım portalı |
+| Mersin | 251 hat/yön | 245 kaynak listesi | 4.856 | Var / Yok | Resmî ulaşım portalı |
 | Trabzon | 242 güzergâh (121 hat) | 242 | 4.914 | Var / Var | Resmî AKUS GeoJSON |
 | Diyarbakır | 115 | 115 (210 yön) | 991 | Var / Yok | Resmî belediye ASIS köprüsü |
 
@@ -97,3 +97,7 @@ Son mevcut il tamamlama: Mardin, Tokat, Çanakkale, Düzce, Burdur, Niğde, Kır
 Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.
 
 Sakarya canlı araç tamamlama: resmî VehicleTracking LineId sorgusu, tam hatId:routeId süzmesi, ana hat başına paylaşılan cache. GPS zamanı yok; varış henüz desteklenmez. 229 test geçti; toplam 28 il.
+
+Mersin araç tamamlama: tam 10M-G/D kaydıyla gerçek konumlar bağlandı. Sefer saati GPS zamanı sayılmaz. Kaynak 0 belirsizliği 502; varış açılmadı.
+
+Mersin tamamlama turu: 238 çevrimdışı test geçti.
