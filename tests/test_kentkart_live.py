@@ -150,3 +150,35 @@ def test_arrivals_api_static_validation_and_capability(gtfs_db):
         r=c.get('/v1/kocaeli/stops/21050/arrivals');assert r.status_code==200
         assert r.json()['data'][0]['line_id']=='446' and r.json()['meta']['live']
         assert c.get('/v1/kocaeli/stops/21050/arrivals').json()['meta']['cached'] and len(calls)==1
+
+
+@pytest.mark.parametrize('city,region,line,code',[
+    ('adana','003','00112','112'),('antalya','026','00080','KL08')])
+@pytest.mark.asyncio
+async def test_adana_antalya_real_paths_and_shared_arrivals(city,region,line,code):
+    fixture_dir=Path(__file__).parent/'fixtures/kentkart';calls=[]
+    def handler(r):
+        calls.append(r)
+        name=f'vehicles-{city}-{r.url.params["direction"]}.json' if r.url.path.endswith('pathInfo') else f'arrivals-{city}.json'
+        return httpx.Response(200,json=json.loads((fixture_dir/name).read_text()))
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as c:
+        live=KentkartLive(region,c)
+        vehicles=await live.vehicles(line,line={'code':code})
+        assert vehicles.data and all(r['line_id']==line for r in vehicles.data)
+        assert (await live.vehicles(line,line={'code':code})).cached
+        body=arrival_body(city);stop=arrival_stop(body);arrivals=await live.arrivals_for_stop(stop)
+        assert arrivals.data and len(calls)==3 and len(live.requests)==3
+        assert all(r.url.params['region']==region for r in calls)
+        assert (await live.arrivals_for_stop(stop)).cached
+
+
+@pytest.mark.asyncio
+async def test_known_no_result_and_antalya_identity_mismatch_remain_unsupported():
+    fixture_dir=Path(__file__).parent/'fixtures/kentkart'
+    for filename,region,line,code in [('no-path-adana.json','003','00100','100'),
+                                     ('mismatch-antalya35.json','026','00354','35')]:
+        body=json.loads((fixture_dir/filename).read_text())
+        async with httpx.AsyncClient(transport=httpx.MockTransport(lambda _:httpx.Response(200,json=body))) as c:
+            with pytest.raises(SourceUnsupported):await KentkartLive(region,c).vehicles(line,line={'code':code})
+    body['result']={'code':3,'message':'different failure'}
+    with pytest.raises(SourceError):normalize(body,'00354','35',0)

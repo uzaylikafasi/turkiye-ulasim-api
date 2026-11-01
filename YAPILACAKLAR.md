@@ -231,7 +231,8 @@ Ankara dış kontrolü: 263 hattında dolu araç yanıtı ve cache; varış serv
 - [x] Canlı/statik kaynak ve lisans ayrımı; bilinmeyen GPS zamanı/güncelliği null.
 - [x] Bu dört ilde gerçek durak varış kaynağını doğrula ve bağla; kaynak dakika tahminini saniyeye çevir, tarife kayıtlarını ayır.
 - [ ] Kentkart GPS ölçüm zamanını doğrula.
-- [ ] Antalya yerel/kaynak hat kimliği farkını çöz; Adana için doğrulanmış canlı hat eşlemesi bul.
+- [x] Antalya KL08/600 ve Adana 112 canlı hat kimliklerini doğrula; araç/varış desteği bağlandı.
+- [ ] Antalya 35 gibi kimliği uyuşmayan hatların açık eşlemesini doğrula.
 
 İl sayısı 28; yeni il eklenmedi. Önceki tarihli tamamlanma kayıtları o aşamadaki kapsamı anlatır.
 
@@ -240,8 +241,23 @@ Ankara dış kontrolü: 263 hattında dolu araç yanıtı ve cache; varış serv
 - [x] Kocaeli, Gaziantep, Sivas, Edirne: gerçek nearest/bus kaynağı; durak kimliği, kaynak hat/yönü, otobüs filtresi.
 - [x] Yerel hat ilişkisi yoksa kaynak kimliğini koru; bilinmeyen süre/konumları null bırak.
 - [x] Araç ve varış ortak kotası, ayrı cache anahtarları; dört gerçek yanıt fixture’ı ve API/hata testleri.
-- [ ] Antalya/Adana canlı hat eşlemesi ve diğer mevcut şehirlerin canlı/eksik verileri.
+- [x] Antalya/Adana doğrulanmış hatlarda canlı araç ve varış desteği.
+- [ ] Antalya kimlik farkı kalan hatlar ve diğer mevcut şehirlerin canlı/eksik verileri.
 
 Varış tamamlama doğrulaması: 192 çevrimdışı test geçti; kapsam 28 il.
 
 Dış yayın kontrolü: örnek duraklarda Kocaeli 2, Gaziantep 2, Sivas 2, Edirne 1 gerçek araçlı varış; tekrar cache ve bilinmeyen durak 404 doğrulandı. Dört ilin araç uçları, Ankara/Trabzon/Diyarbakır araçları, ana site ve eski Maraş API sağlığı 200. Sayılar anlık gözlemdir.
+
+## Antalya ve Adana mevcut il tamamlama
+
+- [x] Antalya KL08 ve 600, Adana 112: kaynak hat/yön kimliği ve gerçek araç yanıtları.
+- [x] Antalya 10017, Adana 42077: gerçek durak varışları, yerel ilişki ve kaynak kimliği ayrımı.
+- [x] Adana kaynağının açık sonuç-yok yanıtını 501 olarak ayır; genel kaynak hatasını 502 koru.
+- [x] Antalya 35 kimlik farkını tahminle kapatma; bu hat 501 kalır.
+- [ ] Antalya kalan kimlik farkları; GPS ölçüm zamanı ve diğer mevcut şehirlerin eksikleri.
+
+Yeni il eklenmedi; kapsam 28 il. Kentkart canlı destekli il sayısı altıya çıktı.
+
+Antalya/Adana turu: 195 çevrimdışı test geçti.
+
+Dış kontrol: Antalya KL08 16 araç/10017 durağında 17 varış, Adana 112 1 araç/42077 durağında 3 varış; sayılar anlık. Cache, bilinmeyen kayıt 404, Antalya 35 ve Adana görev 100 için 501 doğrulandı. Mevcut Kentkart/Ankara/Trabzon/Diyarbakır uçları, ana site ve eski Maraş API sağlığı 200.

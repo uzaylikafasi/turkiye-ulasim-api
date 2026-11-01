@@ -132,3 +132,9 @@ Kocaeli 004, Gaziantep 028, Sivas 005 ve Edirne 013 bölgeleri anonim pathInfo k
 Aynı dört ilde web uygulamasının web/nearest/bus çağrısı gerçek araçlı varış döndürdü. timeDiff web arayüzünde dakika olarak gösterilir, API saniyeye çevirir. stopDiff kalan durak sayısıdır. Tarife routeList alanı ayrı tutulur. Kaynak durak/hat/yön kimliği doğrulanır; yerel ilişki yoksa line_id null kalır. GPS ölçüm zamanı ve canlı lisansı belirsizliği sürer. İl sayısı 28.
 
 Varış tamamlama doğrulaması: 192 çevrimdışı test geçti; kapsam 28 il.
+
+## 1 Kasım · Antalya ve Adana canlı destek
+
+Antalya KL08 ve 600 kaynak path_code kimliğiyle, Adana 112 aynı yöntemle doğrulandı. Antalya 35’teki uyuşmazlık tüm il için genellenmez; bu hatta 501 korunur. Adana 100 görev kaydı kaynakta Sonuç Bulunamadı döndürür; yolcu hattı 112 gerçek araç verir. Antalya 10017 ve Adana 42077 duraklarında gerçek varışlar alındı. Araç/varış, 15 sn cache ve ortak 30 kaynak isteği/dk bütçesi bağlandı. GPS ölçüm saati bilinmiyor; statik/topluluk ve canlı lisans ayrımı korunur. Kapsam 28 il.
+
+Antalya/Adana turu: 195 çevrimdışı test geçti.

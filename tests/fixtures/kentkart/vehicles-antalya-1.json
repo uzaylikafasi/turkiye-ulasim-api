@@ -1,0 +1,70 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101193627",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "GÜZELOBA - SARISU DEPOLAMA",
+      "displayRouteCode": "KL08",
+      "direction": "1",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "000801",
+      "busList": [
+        {
+          "busId": "75798",
+          "lat": "36.86149",
+          "lng": "30.841324",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "73104",
+          "lat": "36.85176",
+          "lng": "30.758286",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "75998",
+          "lat": "36.871597",
+          "lng": "30.719204",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "79100",
+          "lat": "36.88679",
+          "lng": "30.710352",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "75632",
+          "lat": "36.8837",
+          "lng": "30.657986",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "79159",
+          "lat": "36.877846",
+          "lng": "30.646782",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        }
+      ]
+    }
+  ]
+}

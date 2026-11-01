@@ -1,0 +1,21 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101193612",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "A - BALCALI - BEYCELİ",
+      "displayRouteCode": "112",
+      "direction": "1",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "001121",
+      "busList": []
+    }
+  ]
+}

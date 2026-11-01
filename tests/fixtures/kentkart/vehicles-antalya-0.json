@@ -1,0 +1,94 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101193527",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "SARISU DEPOLAMA - GÜZELOBA",
+      "displayRouteCode": "KL08",
+      "direction": "0",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "000800",
+      "busList": [
+        {
+          "busId": "79033",
+          "lat": "36.830738",
+          "lng": "30.596048",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "75825",
+          "lat": "36.84854",
+          "lng": "30.613306",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "79244",
+          "lat": "36.889652",
+          "lng": "30.688301",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "75702",
+          "lat": "36.887424",
+          "lng": "30.696846",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "79120",
+          "lat": "36.85868",
+          "lng": "30.73847",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "75680",
+          "lat": "36.852478",
+          "lng": "30.772135",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "75916",
+          "lat": "36.851955",
+          "lng": "30.843428",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "73167",
+          "lat": "36.856396",
+          "lng": "30.783606",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        },
+        {
+          "busId": "75988",
+          "lat": "36.850147",
+          "lng": "30.82701",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": ""
+        }
+      ]
+    }
+  ]
+}

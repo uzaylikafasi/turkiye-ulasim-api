@@ -10,6 +10,10 @@ ARRIVALS_URL='https://service.kentkart.com/rl1/web/nearest/bus'
 
 
 def normalize(body,line_id,code,direction):
+    if (isinstance(body,dict) and isinstance(body.get('result'),dict)
+        and str(body['result'].get('code'))=='3' and body['result'].get('message')=='Sonuç Bulunamadı'
+        and body.get('pathList') in (None,[])):
+        return None
     if not isinstance(body,dict) or not isinstance(body.get('result'),dict) or str(body['result'].get('code'))!='0' or not isinstance(body.get('pathList'),list):
         raise SourceError('Kentkart işlem sonucu başarısız veya şema değişti')
     paths=[p for p in body['pathList'] if isinstance(p,dict) and str(p.get('path_code'))==line_id+str(direction)
