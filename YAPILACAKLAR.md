@@ -223,3 +223,13 @@ Trabzon araç tamamlama doğrulaması: 163 test geçti; dış adreste dolu, doğ
 Yeni il eklenmedi; mevcut 28 ilin desteği tamamlanıyor.
 
 Ankara dış kontrolü: 263 hattında dolu araç yanıtı ve cache; varış servisinde 200 boş yanıt, desteklenmeyen geometri/yakın durak için 501, diğer canlı şehirler ve eski API sağlığı doğrulandı.
+
+## Kentkart mevcut il tamamlama
+
+- [x] Kocaeli, Gaziantep, Sivas ve Edirne: canlı araç bağlayıcısı; tam kaynak hat/yön kimliği doğrulaması.
+- [x] İki yön, çelişen araç kayıtları, 15 saniye önbellek, şehir başına 30 kaynak isteği/dakika bütçesi ve API sözleşmesi; 179 test geçti.
+- [x] Canlı/statik kaynak ve lisans ayrımı; bilinmeyen GPS zamanı/güncelliği null.
+- [ ] Bu dört ilde gerçek durak varış kaynağını ve GPS ölçüm zamanını doğrula.
+- [ ] Antalya yerel/kaynak hat kimliği farkını çöz; Adana için doğrulanmış canlı hat eşlemesi bul.
+
+İl sayısı 28; yeni il eklenmedi. Önceki tarihli tamamlanma kayıtları o aşamadaki kapsamı anlatır.

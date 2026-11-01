@@ -10,9 +10,10 @@
 | İstanbul · İETT | Var | Kaynakta yok | Var | Desteklenmiyor | İBB Açık Veri Lisansı |
 | Konya | Var | Var | Desteklenmiyor | Desteklenmiyor | CC BY 4.0 |
 | Kahramanmaraş · topluluk köprüsü | Arama / durak / yakın durak | Var | Var | Var | Kaynak veri lisansı belirtilmemiş |
-| Antalya, Kocaeli, Adana, Gaziantep · topluluk GTFS | Var | Var | Desteklenmiyor | Desteklenmiyor | Derleme CC0; alt veri hakları Kentkart/belediyede |
+| Antalya, Adana · topluluk GTFS | Var | Var | Desteklenmiyor | Desteklenmiyor | Derleme CC0; alt veri hakları Kentkart/belediyede |
+| Kocaeli, Gaziantep · topluluk GTFS + Kentkart canlı | Var | Kaynakta bulunan hatlarda | Var | Desteklenmiyor | Statik derleme CC0; canlı lisansı belirtilmemiş |
 
-Kahramanmaraş, [Kahramankart Ulaşım API’sinin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır, canlı araç/varış sunulmaz.
+Kahramanmaraş, [Kahramankart Ulaşım API’sinin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır. Bu 16 ilin Kocaeli ve Gaziantep kaynaklarında ayrıca Kentkart canlı araç desteği vardır; varış desteği yoktur.
 
 Şehirlerin kurulum durumu ve yetenekleri `/v1/cities` yanıtındaki `available` ve `capabilities` alanlarından okunur; `available` kaynağın yapılandırıldığını belirtir, anlık sağlık kontrolü değildir. `capabilities.line_catalog` tam hat listesini, `gtfs` statik GTFS desteğini belirtir. Canlı verisi desteklenmeyen uç `501`, henüz veritabanı kurulmamış şehir `503` döner. Boş bir araç listesi başarılı bir canlı sorgunun sonucu olabilir; destek yokluğu anlamına gelmez.
 
@@ -190,3 +191,20 @@ Diyarbakır için kontrol edilen `station-routes` ucu yalnız geçen hatları d�
 GPS `konum_tarihi` Europe/Istanbul kabul edilir. `observed_at` kaynak zamanı, `age_seconds` sorgu anındaki yaş, `stale` 300 saniyeden eski konumu gösterir. Bilinmeyen/sentinel veya 120 saniyeden uzak gelecek zaman null kalır. En yeni kayıt seçilir; aynı araçta aynı zamanlı çelişen konumlar çıkarılır. Hız ve pusula açısı ayrı alanlardır; kaynak yon=3/4 gibi değerler ortak 0/1 yönü diye tahmin edilmez (`direction=null`).
 
 Aynı GPS güncellik alanları Ankara varışlarına da eklendi. 15 saniye araç, 20 saniye varış önbelleği ve ortak 30 kaynak isteği/dakika bütçesi vardır. Önbellekte yaş alanı orijinal fetched_at anına aittir. Statik durak koordinatı ve geometri eksikleri devam eder; araç konumu durak koordinatı olarak kullanılmaz.
+
+## Kentkart canlı araçlar
+
+Kocaeli (`004`), Gaziantep (`028`), Sivas (`005`) ve Edirne (`013`) bölgelerinde [Kentkart pathInfo](https://service.kentkart.com/rl1/web/pathInfo) kaynağı kullanılır. Örnekler:
+
+- `/v1/kocaeli/lines/41010/vehicles`
+- `/v1/gaziantep/lines/00010/vehicles`
+- `/v1/sivas/lines/10010/vehicles`
+- `/v1/edirne/lines/22011/vehicles`
+
+Hat kimliklerini arama sonucundan baştaki sıfırları koruyarak alın. Her sorguda iki yön ayrı istenir; kaynak `path_code = line_id + direction`, görünen hat kodu ve yön birlikte doğrulanır. Eşleşmeyen hat 501, başarısız kaynak 502 döner. Bir yön eşleşmezse yalnız doğrulanan yön uyarıyla sunulur. Aynı araç için çelişen yön/konum kayıtları yayımlanmaz. Boş araç listesi doğrulanmış hatta o anda araç görülmediğini belirtir.
+
+Önbellek 15 saniye, şehir başına kaynak bütçesi dakikada 30 istektir; önbellek dışındaki hat sorgusu iki kaynak isteği tüketir. Kaynak sınırı 503 ve `Retry-After` döndürür. Tek süreç kullanın; birden çok süreçte ortak kota gerekir.
+
+Kaynak GPS ölçüm zamanı doğrulanmadığından `observed_at`, `age_seconds`, `stale` null döner; `fetched_at` yalnız sorgu zamanıdır. Pusula açısı hat yönünden ayrıdır. Erişilebilirlik ve bisiklet taşıma alanları yalnız kaynak 0/1 verdiğinde doldurulur. Durak varış tahmini üretilmez.
+
+Yanıttaki `source_kind`, `source` ve `license` statik şehir kaynağını tanımlar; canlı kaynağın adresi ve lisans belirsizliği uyarılarda ayrıca belirtilir. Statik derlemenin CC0 lisansı canlı Kentkart verisini kapsamaz. Antalya’da yerel/kaynak hat kimliği uyuşmadığı için canlı yetenek açılmadı. Diğer Kentkart şehirlerine destek otomatik yayılmaz.

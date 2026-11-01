@@ -12,7 +12,8 @@ def test_community_bus_cities_have_honest_capabilities_and_public_routes(city,gt
         listing=client.get('/v1/cities').json()['data']
         entry=next(c for c in listing if c['id']==city)
         assert entry['available'] and entry['source_kind']=='community_gtfs'
-        assert entry['capabilities']['gtfs'] and not entry['capabilities']['vehicles']
+        assert entry['capabilities']['gtfs']
+        assert entry['capabilities']['vehicles'] == (city in ('kocaeli','gaziantep'))
         data=client.get(f'/v1/{city}/lines/446').json()
         assert data['data']['mode']=='bus' and data['meta']['source_kind']=='community_gtfs'
         assert data['meta']['warnings']

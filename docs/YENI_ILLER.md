@@ -9,9 +9,9 @@
 | Konya | 162 | 154 | 4117 | Yok / Yok | Resmi açık veri |
 | Kahramanmaraş | Arama | Uzak API | Uzak API | Var / Var | Topluluk köprüsü |
 | Antalya | 162 | 162 | 4503 | Yok / Yok | Topluluk GTFS |
-| Kocaeli | 409 | 405 | 8597 | Yok / Yok | Topluluk GTFS |
+| Kocaeli | 409 | 405 | 8597 | Var / Yok | Topluluk GTFS |
 | Adana | 291 | 132 | 3618 | Yok / Yok | Topluluk GTFS |
-| Gaziantep | 162 | 162 | 3110 | Yok / Yok | Topluluk GTFS |
+| Gaziantep | 162 | 162 | 3110 | Var / Yok | Topluluk GTFS |
 | Erzurum | 55 | 51 | 724 | Yok / Yok | Topluluk GTFS |
 | Mardin | 92 | 87 | 765 | Yok / Yok | Topluluk GTFS |
 | Muğla | 383 | 321 | 3436 | Yok / Yok | Topluluk GTFS |
@@ -24,8 +24,8 @@
 | Osmaniye | 17 | 15 | 221 | Yok / Yok | Topluluk GTFS |
 | Tokat | 23 | 2 | 63 | Yok / Yok | Topluluk GTFS |
 | Kastamonu | 27 | 23 | 91 | Yok / Yok | Topluluk GTFS |
-| Sivas | 111 | 111 | 624 | Yok / Yok | Katalog + Kentkart servisi |
-| Edirne | 23 | 23 | 392 | Yok / Yok | Katalog + Kentkart servisi |
+| Sivas | 111 | 111 | 624 | Var / Yok | Katalog + Kentkart servisi |
+| Edirne | 23 | 23 | 392 | Var / Yok | Katalog + Kentkart servisi |
 | Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Yok / Yok | Resmî SAKUS servisi |
 | Ankara | 662 | 662 | 10.744 | Var / Var | Resmî EGO sitesi + Cep’te servisi |
 | Samsun | 84 | 84 harita işaret listesi | 1.560 | Yok / Yok | Resmî SAMULAŞ kataloğu/haritası |
@@ -39,7 +39,7 @@
 - Sıralı durak kaydı bulunmayan hatlarda `directions` boş olabilir. Kaynakta geometri yoksa çizgi uydurulmaz; boş liste ve uyarı döner.
 - Konya kaynağı Kasım 2025 dosyasıdır; takvimin ileri tarihe uzaması güncellik kanıtı değildir.
 - Kahramanmaraş tam hat kataloğu sunmaz; arama sonuçları sınırlıdır. Kaynak veri lisansı belirtilmemiştir.
-- [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesinde takvim ve zamanlar türetilmiş olabilir. Derleme CC0, temel veri hakları Kentkart/belediyededir. Bu illerde canlı araç/varış desteği yoktur.
+- [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesinde takvim ve zamanlar türetilmiş olabilir. Derleme CC0, temel veri hakları Kentkart/belediyededir. Kocaeli ve Gaziantep’te ayrıca Kentkart canlı araç desteği vardır; diğer topluluk GTFS illerinde canlı araç, bu grubun tamamında varış desteği henüz yoktur.
 
 ## Kastamonu düzeltmesi
 
@@ -77,3 +77,5 @@ Mevcut il tamamlama turu: Diyarbakır canlı araç konumları, Trabzon durak var
 Trabzon canlı tamamlama: konum servisi JSON POST ile doğrulandı ve araç listeleri açıldı. İl sayısı 28 kaldı; Trabzon artık hem araç hem varış verisi sunar.
 
 Ankara tamamlama: hat araçları açıldı; mevcut varışlar da GPS yaşı/eski konum alanlarıyla tamamlandı. Statik durak koordinatı ve geometri henüz yok. İl sayısı 28 olarak korundu.
+
+1 Kasım Kentkart canlı tamamlama: Kocaeli, Gaziantep, Sivas ve Edirne araç desteği açıldı. Tam hat/yön kimliği doğrulanır; GPS ölçüm zamanı bilinmediği için güncellik alanları null kalır. Varış desteği yok. 179 çevrimdışı test geçti; kapsam 28 il.

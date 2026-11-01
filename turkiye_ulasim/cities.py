@@ -1,7 +1,7 @@
 """Kaynak türü ve veri lisansı belirtilen şehirler; resmi ve topluluk kaynakları ayrıdır."""
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 
 @dataclass(frozen=True)
@@ -170,3 +170,10 @@ CITIES["diyarbakir"] = City(
               "Gidiş=0, dönüş=1 kaynak yön bilgisiyle eşleştirilir. Konumu eksik duraklar null korunur.",
               "Canlı araç konumu desteklenir; durak varışı ve sefer takvimi henüz desteklenmez."),
 )
+
+# Canlı eşleşmesi doğrudan servis yanıtlarıyla doğrulanan bölgeler.
+KENTKART_LIVE_REGIONS = {"kocaeli":"004", "gaziantep":"028", "sivas":"005", "edirne":"013"}
+for city_id in KENTKART_LIVE_REGIONS:
+    city=CITIES[city_id]
+    CITIES[city_id]=replace(city,live_vehicles=True,warnings=tuple(
+        w.replace("canlı araç/varış desteği eklenmedi", "canlı araç desteği var; varış desteği eklenmedi") for w in city.warnings))

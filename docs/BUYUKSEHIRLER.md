@@ -122,3 +122,7 @@ Balıkesir Kart portalı bu bağlantıdan 403 döndürdü. Şanlıurfa portalın
 EGO Cep’te `FNC=Otobus&HAT=263` çağrısı DURAK parametresi olmadan gerçek araç döndürdü. Hat kimliği/kodu doğrulanır; tarife mesajı araç sayılmaz. Kaynağın durak seçilmeden ürettiği saniye alanı araç uç noktasında ETA olarak sunulmaz. Araç ve varış GPS zamanlarına yaş/eski konum işareti eklendi. Hız/pusula açısı ayrı; yon=3/4 değerlerinin ortak karşılığı tahmin edilmez.
 
 171 test ve dış kontroller geçti: 263 hattında iki gerçek araç, cache ve eski servisler doğrulandı. Örnek durak varışı son kontrolde boştu; bu destek yokluğu anlamına gelmez. İl sayısı 28 kaldı. Statik Ankara koordinat/geometri eksikleri sürüyor.
+
+## 1 Kasım · Kentkart canlı araç tamamlama
+
+Kocaeli 004, Gaziantep 028, Sivas 005 ve Edirne 013 bölgeleri anonim pathInfo kaynağıyla doğrulandı. Örnek hatlarda sırasıyla 2, 8, 6 ve 1 araç gözlendi; bunlar anlık örneklerdir, tüm hatların kapsamını kanıtlamaz. Yerel hat kimliği + kaynak yönü tam eşleştirilir. GPS ölçüm zamanı doğrulanmadığı için güncellik iddiası kurulmaz. Canlı lisansı belirtilmemiştir; statik derleme CC0 kapsamı ayrı tutulur. 179 test geçti. Antalya kimlik uyuşmazlığı nedeniyle etkinleştirilmedi; il sayısı 28 kaldı.
