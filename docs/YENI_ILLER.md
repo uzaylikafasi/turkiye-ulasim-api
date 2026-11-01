@@ -26,7 +26,7 @@
 | Kastamonu | 27 | 23 | 91 | Var / Var | Topluluk GTFS |
 | Sivas | 111 | 111 | 624 | Var / Var | Katalog + Kentkart servisi |
 | Edirne | 23 | 23 | 392 | Var / Var | Katalog + Kentkart servisi |
-| Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Yok / Yok | Resmî SAKUS servisi |
+| Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Var / Yok | Resmî SAKUS servisi |
 | Ankara | 662 | 662 | 10.744 | Var / Var | Resmî EGO sitesi + Cep’te servisi |
 | Samsun | 84 | 84 harita işaret listesi | 1.560 | Yok / Yok | Resmî SAMULAŞ kataloğu/haritası |
 | Mersin | 251 hat/yön | 245 kaynak listesi | 4.856 | Yok / Yok | Resmî ulaşım portalı |
@@ -95,3 +95,5 @@ Bu tamamlama turunda 203 çevrimdışı test geçti.
 Son mevcut il tamamlama: Mardin, Tokat, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye ve Kastamonu araç/varış bağlantıları doğrulandı. Kentkart canlı 18 il, toplam 28 il. GPS zamanı ve hat/yön kapsam boşlukları sürer.
 
 Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.
+
+Sakarya canlı araç tamamlama: resmî VehicleTracking LineId sorgusu, tam hatId:routeId süzmesi, ana hat başına paylaşılan cache. GPS zamanı yok; varış henüz desteklenmez. 229 test geçti; toplam 28 il.

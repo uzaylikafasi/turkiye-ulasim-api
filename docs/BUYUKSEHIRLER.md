@@ -156,3 +156,12 @@ Mardin H2, Tokat 1, Çanakkale 11Ç, Düzce 1, Burdur 1, Niğde 1, Kırklareli 0
 İl sayısı 28; mevcut 18 Kentkart ilinin tamamında canlı bağlantı var. Her hattın/yönün tam olduğu iddia edilmez.
 
 Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.
+
+## Sakarya mevcut il canlı araç tamamlama
+
+- [x] Resmî VehicleTracking LineId sorgusu; ASIS kimliği ile belediye kimliğini ayır.
+- [x] Tam hatId:routeId süzmesi; ana hat cache paylaşımı, kota, hata/çelişkili konum ve API testleri.
+- [x] GPS zamanını bilinmiyor bırak; bir sonraki durağın etaS alanını genel varışa dönüştürme.
+- [ ] Gerçek durak varışının dolu yanıtı ve kimlik/süre sözleşmesi; GPS zamanı.
+
+229 test geçti. İl sayısı 28. Konya/Samsun/Mersin canlı kaynakları açık; bu tur Sakarya araç bağlantısı tamamlandı.

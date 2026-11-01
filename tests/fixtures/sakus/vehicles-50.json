@@ -1,0 +1,58 @@
+[
+  {
+    "busNumber": 3,
+    "lineNumber": "M1",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        30.395058,
+        40.773163
+      ]
+    },
+    "lineId": 50,
+    "routeId": 802,
+    "headingDegree": 244.57448261958257
+  },
+  {
+    "busNumber": 1003,
+    "lineNumber": "M1",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        30.397573,
+        40.773804
+      ]
+    },
+    "lineId": 50,
+    "routeId": 803,
+    "headingDegree": 167.4609605805565
+  },
+  {
+    "busNumber": 102,
+    "lineNumber": "M1",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        30.387434,
+        40.77782
+      ]
+    },
+    "lineId": 50,
+    "routeId": 803,
+    "headingDegree": 173.69120054695827
+  },
+  {
+    "busNumber": 5,
+    "lineNumber": "M1",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        30.298033,
+        40.854267
+      ]
+    },
+    "lineId": 50,
+    "routeId": 803,
+    "headingDegree": 93.03859020078573
+  }
+]

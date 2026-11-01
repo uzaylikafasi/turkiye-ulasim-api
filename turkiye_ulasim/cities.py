@@ -114,11 +114,11 @@ CITIES["sakarya"] = City(
     id="sakarya", name="Sakarya", operator="Sakarya Büyükşehir Belediyesi / SAKUS",
     gtfs_url="", source_url="https://sakus.sakarya.bel.tr/harita",
     license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
-    source_kind="official_service", partial_feed=True,
+    source_kind="official_service", partial_feed=True, live_vehicles=True,
     warnings=("GTFS değildir; resmî SAKUS servisinden statik katalog aktarılır.",
               "Her güzergâh ayrı hatId:routeId kimliği taşır; direction=0 güzergâhın kendi sırasıdır, gidiş/dönüş eşlemesi değildir.",
               "Bazı kaynak güzergâhlarında durak listesi boştur; desteklenmeyen durak sırası 501 döner.",
-              "Canlı araç, varış ve sefer takvimi desteklenmez."),
+              "Canlı araç desteklenir; varış ve sefer takvimi henüz desteklenmez."),
 )
 
 CITIES["ankara"] = City(

@@ -288,3 +288,14 @@ Mardin H2, Tokat 1, Çanakkale 11Ç, Düzce 1, Burdur 1, Niğde 1, Kırklareli 0
 Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.
 
 Dış yayın kontrolü: mardin 5 araç/2 varış, tokat 2 araç/1 varış, canakkale 1 araç/2 varış, duzce 0 araç/1 varış, burdur 6 araç/2 varış, nigde 8 araç/3 varış, kirklareli 8 araç/3 varış, osmaniye 2 araç/2 varış, kastamonu 3 araç/4 varış. Sayılar anlık. Dokuz ilde cache/404 ve 200, eski servis sağlığı doğrulandı. Genel yetenek sayıları: 28 il, 24 araç destekli, 22 varış destekli.
+
+## Sakarya mevcut il canlı araç tamamlama
+
+- [x] Resmî VehicleTracking LineId sorgusu; ASIS kimliği ile belediye kimliğini ayır.
+- [x] Tam hatId:routeId süzmesi; ana hat cache paylaşımı, kota, hata/çelişkili konum ve API testleri.
+- [x] GPS zamanını bilinmiyor bırak; bir sonraki durağın etaS alanını genel varışa dönüştürme.
+- [ ] Gerçek durak varışının dolu yanıtı ve kimlik/süre sözleşmesi; GPS zamanı.
+
+229 test geçti. İl sayısı 28. Konya/Samsun/Mersin canlı kaynakları açık; bu tur Sakarya araç bağlantısı tamamlandı.
+
+Sakarya dış kontrolü: 50:802 bir araç, 50:803 üç araç, 5:86 ve 5:87 birer araç; güzergâh süzmesi ve ortak cache doğrulandı. Varış 501, bilinmeyen hat 404; eski API/site ve mevcut uçlar sağlıklı. Anlık sayılardır. Genel 28 il, 25 araç/22 varış yeteneği.

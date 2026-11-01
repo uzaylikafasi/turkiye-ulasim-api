@@ -263,3 +263,13 @@ Kentkart bağlantısı mevcut 18 ilde etkin: önceki dokuz ile aşağıdaki doku
 | Kastamonu | `025` | `/v1/kastamonu/lines/37001/vehicles` | `/v1/kastamonu/stops/37016/arrivals` |
 
 Aynı katı hat/yön/durak doğrulaması, 15 saniye cache ve şehir başına ortak 30 kaynak isteği/dakika bütçesi uygulanır. Kaynak lisansı belirtilmemiştir; GPS ölçüm zamanı null kalır. Düzce 1 örneğinde iki yön de doğrulanıp boş araç listesi verdi, fakat durak kaynağı gerçek varışlar döndürdü. Mardin’de ilk incelenen kaynak durağı yerel katalogda yoktu; örnek uç için yerelde bulunan 10079 kullanılır. Yerelde bulunmayan durak yine 404 döner. Doğrulanmamış hat/yönler üretilmez.
+
+## Sakarya canlı araçlar
+
+`/v1/sakarya/lines/50:802/vehicles` M1’in 802 kaynak güzergâhını, `50:803` diğer güzergâhını sunar. [Resmî SAKUS](https://sakus.sakarya.bel.tr/harita) uygulamasının [VehicleTracking](https://sbbpublicapi.sakarya.bel.tr/api/v1/VehicleTracking) kaynağı belediye `LineId=50` ile çağrılır. ASIS entegrasyon kimliği farklıdır; `AsisId` yerine belediye kimliği kullanılır. Origin/Referer başlıkları resmî web uygulamasını belirtir; kullanıcı hesabı veya anahtar gerekmez.
+
+Kaynak `lineId`, `lineNumber`, `routeId` doğrulanır; GeoJSON Point koordinatları `[boylam,enlem]` sırasından çevrilir. Çıktı tam yerel `hatId:routeId` kimliğine süzülür. Kaynak güzergâhı ortak gidiş/dönüşe tahmin edilmez; `direction=null`, `source_route_id` özgün güzergâhtır. `busNumber` kararlı araç kimliği olarak kullanılır; plaka ve ilgisiz kaynak alanları aktarılmaz. Aynı araçta çelişen güzergâh/konum çıkarılır, geçersiz koordinatlar yayımlanmaz.
+
+Kaynak GPS ölçüm zamanı vermediğinden `observed_at`, `age_seconds`, `stale` null kalır. `fetched_at` sorgu zamanıdır. Kaynaktaki `etaS` bir sonraki durağa aittir; seçilmiş durağa varış tahmini yerine kullanılamaz. Araç yanıtı ETA sunmaz. `estimates` örneği yalnız boş liste verdiği için varış desteği henüz açılmadı; ilgili uç 501 kalır.
+
+Aynı ana hattın güzergâhları 15 saniye önbelleği ve tek kaynak isteğini paylaşır. SAKUS başına süreçte 30 kaynak isteği/dakika bütçesi vardır; dolunca 503 + Retry-After, kaynak/şema/hat hatasında 502 döner. Yerel güzergâh kimliği doğrulanmamış kayıtta 501, bilinmeyen hatta 404. Tek süreç kullanın; çoklu süreçlerde ortak kota gerekir. Kaynak yeniden kullanım lisansı belirtilmemiştir.

@@ -20,6 +20,7 @@ from .cities import CITIES, City
 from .gtfs import GtfsStore
 from .sources.izmir import IzmirLive
 from .sources.ankara import AnkaraLive
+from .sources.sakus import SakusLive
 from .sources.kentkart import KentkartLive
 from .cities import KENTKART_LIVE_REGIONS
 from .sources.diyarbakir import DiyarbakirLive
@@ -32,7 +33,7 @@ DATA_DIR = Path(os.environ.get("ULASIM_DATA_DIR", Path(__file__).resolve().paren
 
 
 def default_sources() -> dict:
-    factories = {"izmir": IzmirLive, "istanbul": IstanbulLive, "ankara": AnkaraLive, "diyarbakir": DiyarbakirLive, "trabzon": TrabzonLive}
+    factories = {"sakarya": SakusLive, "izmir": IzmirLive, "istanbul": IstanbulLive, "ankara": AnkaraLive, "diyarbakir": DiyarbakirLive, "trabzon": TrabzonLive}
     factories.update({city_id: (lambda region=region: KentkartLive(region)) for city_id,region in KENTKART_LIVE_REGIONS.items()})
     sources = {city_id: (GtfsStore(DATA_DIR / f"{city_id}.sqlite3"),
                          factories[city_id]() if city_id in factories else None)

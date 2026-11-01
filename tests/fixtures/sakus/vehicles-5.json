@@ -1,0 +1,30 @@
+[
+  {
+    "busNumber": 132,
+    "lineNumber": "4",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        30.361664,
+        40.762
+      ]
+    },
+    "lineId": 5,
+    "routeId": 86,
+    "headingDegree": 150.91765295176623
+  },
+  {
+    "busNumber": 17,
+    "lineNumber": "4",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        30.414524,
+        40.746365
+      ]
+    },
+    "lineId": 5,
+    "routeId": 87,
+    "headingDegree": 187.0602315541765
+  }
+]

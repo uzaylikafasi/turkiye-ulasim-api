@@ -47,7 +47,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
 | Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Var | Var |
-| Sakarya | Var | SAKUS kaynak güzergâhlarında | Yok | Yok |
+| Sakarya | Var | SAKUS kaynak güzergâhlarında | Var | Yok |
 | Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Var | Var |
 
 **Topluluk GTFS kullanan 16 il:** Adana, Antalya, Burdur, Çanakkale, Düzce, Erzurum, Gaziantep, Kastamonu, Kırklareli, Kocaeli, Mardin, Muğla, Niğde, Ordu, Osmaniye ve Tokat.
@@ -146,3 +146,5 @@ Antalya KL08 (`00080`) ve Adana 112 (`00112`) hatlarında araç sorgusu kullanı
 Muğla `/v1/mugla/lines/10001/vehicles`, Ordu `/v1/ordu/lines/00210/vehicles` ve Erzurum `/v1/erzurum/lines/10020/vehicles` canlı araç örnekleridir. Üç ilde durak varışları da vardır; GPS ölçüm saati henüz bilinmiyor.
 
 Mevcut 18 Kentkart şehrinin tamamında canlı araç ve durak varış bağlantısı vardır (16 topluluk GTFS + Sivas/Edirne). Bu, her hattın veya yönün eksiksiz olduğu anlamına gelmez. Mardin H2, Tokat 1 ve diğer son tamamlanan illerin [örnek uçları](docs/API.md#kalan-kentkart-illerinde-canlı-destek) belgede.
+
+Sakarya canlı araçları desteklenir: `/v1/sakarya/lines/50:802/vehicles` (M1). Kaynak hat ve güzergâh kimliği birlikte doğrulanır; GPS ölçüm saati bilinmediğinden güncellik alanları null kalır. [Ayrıntılar](docs/API.md#sakarya-canlı-araçlar).

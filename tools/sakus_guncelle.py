@@ -31,7 +31,7 @@ def build(destination, lines, fetch):
             db.executescript(SCHEMA)
             stops = {}
             warnings = ['Her kaynak güzergâhı ayrı hat kimliğidir (hatId:routeId); direction=0 yalnız bu güzergâhın kaynak sırasıdır, gidiş/dönüş eşlemesi değildir.',
-                        'Sefer takvimi ve canlı araç/varış verisi sunulmaz.']
+                        'Bu statik aktarım sefer takvimi veya canlı veri içermez; canlı yetenekler ayrı bağlayıcıda sunulur.']
             for line in lines:
                 body = fetch(line['id'])
                 if body['lineId'] != line['id'] or body['typeValueId'] != line['busTypeId']:
