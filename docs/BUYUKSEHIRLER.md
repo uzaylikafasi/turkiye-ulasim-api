@@ -116,3 +116,9 @@ Balıkesir Kart portalı bu bağlantıdan 403 döndürdü. Şanlıurfa portalın
 Önceki form isteği hatası JSON POST ile aşıldı; `Web/KonumGetir` genel araç yanıtı verir. Normalleştirilen ortak alanlar tüm güzergâhlar için 15 saniye paylaşılır, sonuç tam hat/güzergâh kimliğine süzülür. Canlı yanıtta CRS etiketi yoktur; hem derece hem metre değerleri gözlendi, Türkiye için ayrık aralıklarla yorumlanır. Bu çıkarım meta uyarısında açıkça belirtilir. GPS zamanı/güncellik ve aynı zamanlı çelişki denetimi eklendi. Personel alanları taşınmaz.
 
 163 test ve dolu dış araç/varış yanıtları doğrulandı. Diyarbakır `station-routes` yalnız geçen hatları verir; ETA kaynağı olarak kullanılmaz. Kapsam 28 il kaldı.
+
+## Ankara hat araçları · mevcut desteği tamamlama
+
+EGO Cep’te `FNC=Otobus&HAT=263` çağrısı DURAK parametresi olmadan gerçek araç döndürdü. Hat kimliği/kodu doğrulanır; tarife mesajı araç sayılmaz. Kaynağın durak seçilmeden ürettiği saniye alanı araç uç noktasında ETA olarak sunulmaz. Araç ve varış GPS zamanlarına yaş/eski konum işareti eklendi. Hız/pusula açısı ayrı; yon=3/4 değerlerinin ortak karşılığı tahmin edilmez.
+
+171 test ve dış kontroller geçti: 263 hattında iki gerçek araç, cache ve eski servisler doğrulandı. Örnek durak varışı son kontrolde boştu; bu destek yokluğu anlamına gelmez. İl sayısı 28 kaldı. Statik Ankara koordinat/geometri eksikleri sürüyor.

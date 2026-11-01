@@ -125,9 +125,9 @@ CITIES["ankara"] = City(
     id="ankara", name="Ankara", operator="EGO Genel Müdürlüğü",
     gtfs_url="", source_url="https://www.ego.gov.tr/HareketSaatleri",
     license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
-    source_kind="official_service", partial_feed=True, stop_coordinates=False, live_arrivals=True,
+    source_kind="official_service", partial_feed=True, stop_coordinates=False, live_arrivals=True, live_vehicles=True,
     warnings=("Resmî EGO sitesinin otobüs kataloğu ve yayımlanan durak listesi kullanılır; GTFS değildir.",
-              "Statik durak koordinatları null; yakın durak, güzergâh geometrisi ve hat araç listesi desteklenmez. Durak varışları ayrı EGO Cepte servisinden alınır.",
+              "Statik durak koordinatları null; yakın durak ve güzergâh geometrisi desteklenmez. Canlı araç ve durak varışları EGO Cepte servisinden alınır.",
               "direction=0 kaynakta yayımlanan tek durak listesidir; gidiş/dönüş ayrımı doğrulanmadı."),
 )
 

@@ -137,7 +137,8 @@ Güncel toplam 22 il: Sivas 111 hat / 222 doğrulanmış yön / 624 durak; Edirn
 - [x] EGO Cep’te durak varışları; gerçek araç/tarife ayrımı, kaynak zamanı, 20 saniye önbellek ve 30 istek/dakika bütçesi.
 - [x] 107 test ve dış API kontrolleri; toplam 24 il.
 - [ ] Ankara durak koordinatlarını resmî kaynakla doğrula; yakın durak/geometriyi tamamla.
-- [ ] Ankara hat araç listesi ve kaynak yönlerinin anlamını ayrıca doğrula.
+- [x] Ankara hat araç listesi; durak parametresiz EGO Otobus çağrısı doğrulandı.
+- [ ] Ankara kaynak yön kodlarının ortak 0/1 anlamını ayrıca doğrula.
 - [ ] Bursa: portalda kullanılabilir hat/durak seti bulunamadı, BursaKart HTTP 403; erişilebilir resmî kaynak araştır.
 
 Güncel kapsam: 24 il. Ankara’da statik koordinat yok; canlı varış kaydı içindeki araç konumu durak koordinatı olarak kullanılmaz.
@@ -211,3 +212,14 @@ Canlı destek turu doğrulaması: 157 test; dış adreste Diyarbakır araç ve T
 Önceki Trabzon konum hatası form isteğiyle görülmüştü; JSON POST çalışıyor. İl sayısı 28 olarak korundu.
 
 Trabzon araç tamamlama doğrulaması: 163 test geçti; dış adreste dolu, doğru varyanta süzülmüş araç yanıtı ve paylaşılan önbellek doğrulandı. Varışlar, Diyarbakır araçları ve eski servisler çalışıyor.
+
+## Ankara canlı tamamlama
+
+- [x] Hat araçları, hat kimliği/kodu doğrulaması ve tarife mesajlarının ayrılması.
+- [x] Araç/varış ortak kota; ayrı önbellek anahtarları ve GPS yaş/eski konum işareti.
+- [x] 171 test: zaman, yanlış hat, şema, çelişkili ölçüm ve API entegrasyonu.
+- [ ] Ankara statik durak koordinatları/geometri ve kaynak yön kodlarının anlamı.
+
+Yeni il eklenmedi; mevcut 28 ilin desteği tamamlanıyor.
+
+Ankara dış kontrolü: 263 hattında dolu araç yanıtı ve cache; varış servisinde 200 boş yanıt, desteklenmeyen geometri/yakın durak için 501, diğer canlı şehirler ve eski API sağlığı doğrulandı.

@@ -45,7 +45,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Var | Var |
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
-| Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Yok | Var |
+| Ankara | Var; koordinatlar yok | Kaynak durak listesi var; geometri yok | Var | Var |
 | Sakarya | Var | SAKUS kaynak güzergâhlarında | Yok | Yok |
 | Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Yok | Yok |
 
@@ -135,3 +135,5 @@ Diyarbakır, belediyenin resmî ASIS köprüsünden desteklenir. İç hat numara
 Canlı veri örnekleri: Diyarbakır araçları `/v1/diyarbakir/lines/117/vehicles`, Trabzon durak varışları `/v1/trabzon/stops/3528/arrivals`. Diyarbakır’da `observed_at` GPS zamanı, `stale` eski konum işareti; Trabzon’da `eta_seconds` tahmini varış, `stops_away` kalan durak sayısıdır.
 
 Trabzon canlı araçları da desteklenir: `/v1/trabzon/lines/59:94/vehicles`. Genel kaynak yanıtı tam hat/güzergâh kimliğiyle süzülür; GPS zamanı ve eski konum işareti korunur.
+
+Ankara hat araçları: `/v1/ankara/lines/263/vehicles`. Araç ve durak varışlarında GPS zamanı, `age_seconds` ve `stale` sunulur. Varış önbelleği 20, araç önbelleği 15 saniyedir; ikisi 30 kaynak isteği/dakika bütçesini paylaşır.

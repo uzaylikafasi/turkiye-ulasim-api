@@ -137,7 +137,7 @@ Kaynak türü `official_service`, `partial_feed=true`, `gtfs=false`. Günlük ak
 
 `source_kind=official_service`, `gtfs=false`, `partial_feed=true`. Kaynak: https://www.ego.gov.tr/HareketSaatleri . Yeniden kullanım lisansı belirtilmemiştir. `/v1/ankara/lines?q=Gölbaşı`, `/v1/ankara/lines/101/stops?direction=0`, `/v1/ankara/stops/14043` örnek sorgulardır.
 
-`capabilities.stop_coordinates=false`, `capabilities.nearby=false`; durakların latitude/longitude alanları null'dır. Yakın durak, geometri ve hat araç listesi desteklenmez (501). Durak varışları desteklenir. Kaynakta tek liste yayımlanır; direction=0 bu sırayı korur, gidiş/dönüş eşlemesi değildir. Günlük aktarım tek dosyayı atomik değiştirir; kimlik, durak sırası veya kaynak şeması hatasında eski veri korunur.
+`capabilities.stop_coordinates=false`, `capabilities.nearby=false`; durakların latitude/longitude alanları null'dır. Yakın durak ve geometri desteklenmez (501). Canlı araçlar ve durak varışları desteklenir. Kaynakta tek liste yayımlanır; direction=0 bu sırayı korur, gidiş/dönüş eşlemesi değildir. Günlük aktarım tek dosyayı atomik değiştirir; kimlik, durak sırası veya kaynak şeması hatasında eski veri korunur.
 
 `/v1/ankara/stops/14043/arrivals` EGO Cep’te servisindeki gerçek araç kayıtlarını döndürür. `arac_no=-` tarife mesajları, geçersiz konumlar ve geçiş tamamlandı anlamındaki 999999 süre değeri dahil edilmez. `eta_seconds` kaynak saniye alanıdır; `observed_at` kaynak GPS zamanı (Europe/Istanbul), `fetched_at` sorgulama zamanıdır. `line_id=null`; kaynak hat kodu `source_line_id` ve yön kodu `source_direction` alanında korunur. Kaynak yön kodlarının ortak yönlere karşılığı tahmin edilmez. 20 saniye önbellek, 30 kaynak isteği/dakika sınırı vardır.
 
@@ -182,3 +182,11 @@ Kaynak `Response Model is Empty. This LineCode not have Coordinates...` mesajıy
 KonumX/KonumY yanıtlarında hem WGS84 derece hem EPSG:3857 metre değerleri gözlendi. Canlı yanıtta CRS etiketi yoktur. Gözlenen biçimler Türkiye için birbiriyle örtüşmeyen değer aralıklarıyla yorumlanır ve dönüştürülür; `source_coordinate_system` hangi biçimin okunduğunu belirtir. Aralık dışı konumlar çıkarılır. API enlem/boylam sunar. Sabit araç kimliği PlakaKod'dur; ölçüm Id alanı araç kimliği yapılmaz. `observed_at` kaynak Tarih alanıdır (Europe/Istanbul), `age_seconds` sorgu anındaki yaşı, `stale` 300 saniyeden eski konum işaretidir. Tarih bilinmiyor/sentinel/120 saniyeden fazla gelecekte ise zaman ve stale null kalır. En yeni kayıt seçilir; aynı araç/zamanda çelişkili konum veya hat kaydı yayımlanmaz. Ortak alanlar dışındaki ham kaynak alanları aktarılmaz. Varış ve araç sorguları 30/dakika kaynak bütçesini paylaşır.
 
 Diyarbakır için kontrol edilen `station-routes` ucu yalnız geçen hatları döndürür; bu listeden ETA türetilmez ve varış desteği henüz açılmaz.
+
+### Ankara hat araçları ve GPS güncelliği
+
+`/v1/ankara/lines/263/vehicles` EGO Cep’te `FNC=Otobus&HAT=263` çağrısını durak parametresi olmadan kullanır. Yerel hat kodu/kimliği ile kaynağın hat_no/hat_kod alanları eşleştirilir. Tarife mesajları (`arac_no=-`) araç listesine alınmaz. Araç yanıtı varış süresi sunmaz; durak sorgusu yapılmadığı için kaynak `saniye` alanı bu uçta kullanılmaz. Geçmiş/geçilmiş varış işareti gerçek konumu araç listesinden çıkarma nedeni değildir.
+
+GPS `konum_tarihi` Europe/Istanbul kabul edilir. `observed_at` kaynak zamanı, `age_seconds` sorgu anındaki yaş, `stale` 300 saniyeden eski konumu gösterir. Bilinmeyen/sentinel veya 120 saniyeden uzak gelecek zaman null kalır. En yeni kayıt seçilir; aynı araçta aynı zamanlı çelişen konumlar çıkarılır. Hız ve pusula açısı ayrı alanlardır; kaynak yon=3/4 gibi değerler ortak 0/1 yönü diye tahmin edilmez (`direction=null`).
+
+Aynı GPS güncellik alanları Ankara varışlarına da eklendi. 15 saniye araç, 20 saniye varış önbelleği ve ortak 30 kaynak isteği/dakika bütçesi vardır. Önbellekte yaş alanı orijinal fetched_at anına aittir. Statik durak koordinatı ve geometri eksikleri devam eder; araç konumu durak koordinatı olarak kullanılmaz.
