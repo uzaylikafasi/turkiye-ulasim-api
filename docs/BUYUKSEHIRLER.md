@@ -98,3 +98,9 @@ Denizli portalı anonim otomatik isteğe `403 browser_check_failed` döndürdü;
 ## 1 Kasım · Trabzon
 
 [Resmî AKUS portalı](https://ulasim.trabzon.bel.tr/) 121 otobüs hattı yayımlıyor. `Web/GetHatGeoJson` ve `Web/GetHatDurakGeoJson` kaynaklarında hat/güzergâh kimliği ve G/D, 1/2 yön alanları birlikte doğrulandı. 242 güzergâh, 4.914 durak, 13.104 sıralı ilişki alındı; her güzergâhta geometri var. Koordinatlar kaynakta EPSG:3857; enlem/boylam dönüşümünden sonra Türkiye sınırları kontrol edilir. Kaynak veri için yeniden kullanım lisansı belirtilmemiştir; canlı veri henüz eklenmedi.
+
+## 1 Kasım · Diyarbakır
+
+[Belediyenin canlı ulaşım sayfası](https://www.diyarbakir.bel.tr/ulasim/canli) 115 hat ve 1.060 genel durak kaydını başlangıç JSON'unda yayımlıyor. Anonim `/api/transport/asis/line-directions` kaynağı hat kodu/iç numarası, Gidiş/Dönüş, durak kimliği ve sıra veriyor. `route-coordinate` geometrisi G/D yönüne göre ayrıca eşleştirilir. Ham kodların sonundaki boşluklar temizlenir; iç boşluklar ve diğer karakterler korunur. Kaynağın açık geometri-yok mesajı haricindeki başarısız yanıtlar güncellemeyi durdurur.
+
+Balıkesir Kart portalı bu bağlantıdan 403 döndürdü. Şanlıurfa portalının oturum açma kullanan arayüzü incelendi, kullanılabilir anonim veri doğrulanmadı. Eskişehir resmî portalının rotalar ucu başarısız sonuç, duraklar ucu boş liste döndürdü. Bu şehirler henüz kapsama eklenmedi.

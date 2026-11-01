@@ -160,3 +160,13 @@ CITIES["trabzon"] = City(
               "Her hatId:güzergâhId ayrı kayıttır; direction=0 seçilen güzergâhın kendi sırasıdır.",
               "Koordinatlar EPSG:3857'den enlem/boylama çevrilir. Canlı araç/varış ve sefer takvimi sunulmaz."),
 )
+
+CITIES["diyarbakir"] = City(
+    id="diyarbakir", name="Diyarbakır", operator="Diyarbakır Büyükşehir Belediyesi / ASIS köprüsü",
+    gtfs_url="", source_url="https://www.diyarbakir.bel.tr/ulasim/canli",
+    license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
+    source_kind="official_service", partial_feed=True,
+    warnings=("Resmî belediye portalının ASIS köprüsü kullanılır; GTFS değildir.",
+              "Gidiş=0, dönüş=1 kaynak yön bilgisiyle eşleştirilir. Konumu eksik duraklar null korunur.",
+              "Canlı araç/varış ve sefer takvimi henüz desteklenmez."),
+)

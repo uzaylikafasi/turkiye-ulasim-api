@@ -4,7 +4,7 @@
 
 Türkiye’nin otobüs verileri için tek API, ortak yanıt biçimi.
 
-**27 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
+**28 il · Hatlar ve duraklar · Güzergâhlar · Desteklenen şehirlerde canlı veri**
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](turkiye_ulasim/main.py)
@@ -41,6 +41,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
 | Konya ve diğer 16 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
+| Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Yok | Yok |
 | Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Yok | Yok |
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
 | Samsun | Var | Kaynak harita işaretleri ve geometri | Yok | Yok |
@@ -128,3 +129,5 @@ Samsun, resmî SAMULAŞ otobüs kataloğu ve hat haritalarıyla desteklenir. Dur
 Mersin, resmî ulaşım portalının hat/yön kataloğu, durak ve geometri servisiyle desteklenir. `10M-G` ve `10M-D` ayrı kayıtlardır; `direction=0` seçilen kaynak kaydının kendi listesidir. Katalogdaki hat adları gerçek başlangıç/bitişle farklılık gösterebilir; kaynak adları korunur.
 
 Trabzon, resmî AKUS GeoJSON servisinden desteklenir. `hatId:güzergâhId` kimliği kaynak varyantlarını ayırır; `direction=0` seçilen güzergâhın kendi sırasıdır. Duraklar kaynak `sira` alanına göre sunulur, EPSG:3857 koordinatları enlem/boylama çevrilir.
+
+Diyarbakır, belediyenin resmî ASIS köprüsünden desteklenir. İç hat numarası API kimliğidir; görünen hat kodu korunur. `direction=0` gidiş, `direction=1` dönüş olarak kaynağın yön alanına bağlanır. Geometrisi bulunmayan hat/yönlerde geometri sorgusu 501 döner.

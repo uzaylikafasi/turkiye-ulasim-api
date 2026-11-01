@@ -1,6 +1,6 @@
 # İl kapsamı
 
-1 Kasım 2026 · **27 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
+1 Kasım 2026 · **28 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
 
 | İl | Hat / güzergâh kaydı | Sıralı durağı olan hat | Durak | Canlı araç / varış | Kaynak |
 |---|---:|---:|---:|---|---|
@@ -31,6 +31,7 @@
 | Samsun | 84 | 84 harita işaret listesi | 1.560 | Yok / Yok | Resmî SAMULAŞ kataloğu/haritası |
 | Mersin | 251 hat/yön | 245 kaynak listesi | 4.856 | Yok / Yok | Resmî ulaşım portalı |
 | Trabzon | 242 güzergâh (121 hat) | 242 | 4.914 | Yok / Yok | Resmî AKUS GeoJSON |
+| Diyarbakır | 115 | 115 (210 yön) | 991 | Yok / Yok | Resmî belediye ASIS köprüsü |
 
 ## Sınırlar
 
@@ -68,3 +69,5 @@ Samsun: 84 otobüs katalog kaydı, 1.560 durak ve 4.165 hat-durak işareti. İş
 Mersin: 251 hat/yön kaydı, 4.856 durak ve 16.847 ilişki. 245 kayıtta kaynak durak listesi, 241 kayıtta geometri var; kalan 6/10 kayıtta ilgili uç 501 döner. Katalog adı ve durak listesi arasında bilinen başlangıç/bitiş farkı vardır. 122 test geçti.
 
 Trabzon: 121 hat, 242 ayrı kaynak güzergâhı, 4.914 durak ve 13.104 sıralı ilişki. 242 güzergâhın tamamında kaynak sırası ve geometri var. Hat/güzergâh kimliği, G/D yön kodu ve 1/2 yön numarası birlikte doğrulanır. EPSG:3857 koordinatları enlem/boylama çevrilir. 130 test geçti.
+
+Diyarbakır: 115 hat, 991 kullanılan durak ve 5.266 sıralı ilişki; 210 yönde durak sırası var. 73 hattın 123 yönünde geometri mevcut; 42 hatta geometri yok. Genel katalogdaki koordinatsız tek durak içe alınan otobüs ilişkilerinde kullanılmadı. 140 test geçti.

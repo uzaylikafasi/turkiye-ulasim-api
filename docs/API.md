@@ -2,7 +2,7 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**27 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya, Ankara, Samsun, Mersin ve Trabzon. Destek, kaynağın sunduğu veriye göre değişir:
+**28 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya, Ankara, Samsun, Mersin, Trabzon ve Diyarbakır. Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
@@ -158,3 +158,11 @@ Kaynak `hat_no` ve `hat_yon` birlikte kimliktir. `direction=0` bu kaydın kendi 
 Kaynak https://ulasim.trabzon.bel.tr/ ; `source_kind=official_service`, `partial_feed=true`, `gtfs=false`. Yeniden kullanım lisansı belirtilmemiştir. `/v1/trabzon/lines?q=103`, `/v1/trabzon/lines/1:36/stops`, `/v1/trabzon/lines/1:39/shape` örneklerdir.
 
 Her hat/güzergâh ayrı kimlik taşır. G/D yön alanları ve 1/2 kaynak yön numaraları birlikte doğrulanır; farklı varyantlar birleştirilmez. `direction=0` yalnız seçilen güzergâhın kendi sırasıdır. Duraklarda `durak_id` iç kimliği kullanılır. Sıra kaynağın `sira` alanıdır. Kaynağın EPSG:3857 koordinatları WGS84 enlem/boylama çevrilir; beklenmeyen koordinat sistemi aktarımı durdurur. Canlı araç/varış ve sefer takvimi desteklenmez.
+
+## Diyarbakır: resmî belediye ASIS köprüsü
+
+Kaynak https://www.diyarbakir.bel.tr/ulasim/canli ; `source_kind=official_service`, `partial_feed=true`, `gtfs=false`. Lisans belirtilmemiştir. `/v1/diyarbakir/lines?q=A1`, `/v1/diyarbakir/lines/117/stops?direction=0`, `/v1/diyarbakir/lines/117/shape?direction=1` örneklerdir.
+
+API kimliği kaynağın `lineNo` iç numarasıdır, görünen kod `code` alanında korunur. Kaynak Gidiş/Dönüş listeleri 0/1 yönlerine çevrilir; `lineCode`, `lineNo`, durak kimliği ve sıra birlikte doğrulanır. Geometrinin `routeCode` ve G/D yönü ayrıca eşleştirilir. Kaynak genel durak envanterinden yalnız içe alınan otobüslerin kullandığı duraklar yayımlanır. Koordinatsız duraklar null kalır ve yakın durak sonucuna girmez.
+
+Kaynak `Response Model is Empty. This LineCode not have Coordinates...` mesajıyla geometri yokluğunu bildirebilir; yalnız bu açık yanıt boş geometri sayılır. Diğer başarısız sonuçlar aktarımı durdurur ve eski dosya korunur. Eksik geometri 501; canlı araç/varış henüz desteklenmez. Başlangıç verisi resmî sayfanın JSON parçalarından okunur, JavaScript çalıştırılmaz.

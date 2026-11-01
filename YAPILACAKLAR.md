@@ -175,3 +175,14 @@ Mersin dış yayın kontrolü: 26 il kullanılabilir; hat/durak/geometri/yakın 
 - [ ] Trabzon canlı araç/varış kaynağını ayrıca doğrula ve bağla.
 
 Güncel kapsam: 27 il. Her hatId:güzergâhId ayrı tutulur; direction=0 seçilen güzergâhın kendi sırasıdır.
+
+## Diyarbakır · 1 Kasım
+
+- [x] Resmî belediye ASIS köprüsünden 115 hat ve otobüslerin kullandığı 991 durak.
+- [x] 210 yönde 5.266 sıralı ilişki; 73 hattın 123 yönünde geometri.
+- [x] Kimlik/yön/sıra doğrulaması, açık geometri-yok yanıtının hata yanıtından ayrılması, atomik günlük aktarım.
+- [x] Ham kodların sonundaki boşlukları temizle; 140 test ve canlı kontroller.
+- [ ] Geometrisi olmayan 42 hat ve diğer eksik yönler için kaynak tamamlaması.
+- [ ] Diyarbakır canlı araç/varış desteği.
+
+Güncel kapsam 28 il. Balıkesir portalında 403, Şanlıurfa'da kullanılabilir anonim veri doğrulanmadı; Eskişehir resmî portalı boş/başarısız yanıt verdi. Yeni il kaynak araştırmaları açık.
