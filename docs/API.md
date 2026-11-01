@@ -2,7 +2,7 @@
 
 Şehirlerin otobüs verilerini aynı uçlardan, aynı `{data, meta}` biçimiyle sunan açık kaynak API. Öncelik büyükşehirlerin otobüsleri; metro, tramvay ve vapur sonraki aşamada.
 
-**23 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne ve Sakarya. Destek, kaynağın sunduğu veriye göre değişir:
+**24 il destekleniyor.** İzmir, İstanbul, Konya, Kahramanmaraş; Antalya, Kocaeli, Adana, Gaziantep; Erzurum, Mardin, Muğla, Ordu, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye, Tokat, Kastamonu, Sivas, Edirne, Sakarya ve Ankara. Destek, kaynağın sunduğu veriye göre değişir:
 
 | Şehir | Hat / durak / yakın durak | Güzergâh geometrisi | Canlı araç | Canlı varış | Veri lisansı |
 |---|---|---|---|---|---|
@@ -132,3 +132,11 @@ Güncelleyici çağrılar arasında en az bir saniye bırakır. Servis/doğrulam
 Kaynak türü `official_service`, `partial_feed=true`, `gtfs=false`. Günlük aktarım SAKUS hat/durak/güzergâh servisinden yapılır; takvim veya sefer üretilmez. Yeniden kullanım lisansı belirtilmemiştir.
 
 `/v1/sakarya/lines?q=1` ile arayın; `/v1/sakarya/lines/2:157/stops?direction=0` ve `/v1/sakarya/lines/2:157/shape?direction=0` örneklerdir. Her `hatId:routeId` ayrı güzergâhtır. Tek `direction=0` o güzergâhın kaynak sırasını ifade eder; kaynak 219/220/221 yön kodları gidiş/dönüş diye tahmin edilmez. Güzergâhı olmayan katalog kayıtlarında yalnız hat kimliği bulunur. Kopuk çok parçalı şekiller birleştirilerek sahte bağlantı üretilmez; geometri yoksa 501 dönülür. Canlı araç/varış 501 döner.
+
+## Ankara: EGO otobüs kataloğu
+
+`source_kind=official_service`, `gtfs=false`, `partial_feed=true`. Kaynak: https://www.ego.gov.tr/HareketSaatleri . Yeniden kullanım lisansı belirtilmemiştir. `/v1/ankara/lines?q=Gölbaşı`, `/v1/ankara/lines/101/stops?direction=0`, `/v1/ankara/stops/14043` örnek sorgulardır.
+
+`capabilities.stop_coordinates=false`, `capabilities.nearby=false`; durakların latitude/longitude alanları null'dır. Yakın durak, geometri ve hat araç listesi desteklenmez (501). Durak varışları desteklenir. Kaynakta tek liste yayımlanır; direction=0 bu sırayı korur, gidiş/dönüş eşlemesi değildir. Günlük aktarım tek dosyayı atomik değiştirir; kimlik, durak sırası veya kaynak şeması hatasında eski veri korunur.
+
+`/v1/ankara/stops/14043/arrivals` EGO Cep’te servisindeki gerçek araç kayıtlarını döndürür. `arac_no=-` tarife mesajları, geçersiz konumlar ve geçiş tamamlandı anlamındaki 999999 süre değeri dahil edilmez. `eta_seconds` kaynak saniye alanıdır; `observed_at` kaynak GPS zamanı (Europe/Istanbul), `fetched_at` sorgulama zamanıdır. `line_id=null`; kaynak hat kodu `source_line_id` ve yön kodu `source_direction` alanında korunur. Kaynak yön kodlarının ortak yönlere karşılığı tahmin edilmez. 20 saniye önbellek, 30 kaynak isteği/dakika sınırı vardır.

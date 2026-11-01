@@ -39,7 +39,7 @@ def test_update_failure_is_recorded_and_other_cities_continue(tmp_path,monkeypat
 
 
 def test_public_proxy_only_allows_specific_paths():
-    for path in ['/v1/cities','/readyz','/v1/kahramanmaras/lines/9576:1/vehicles']:
+    for path in ['/v1/ankara/lines','/v1/sakarya/lines/2:157/stops','/v1/cities','/readyz','/v1/kahramanmaras/lines/9576:1/vehicles']:
         assert public_proxy.PATH.fullmatch(path)
-    for path in ['/v1/../secret','/admin','/v1/izmir/lines/%2e%2e','/v1/ankara/lines']:
+    for path in ['/v1/../secret','/admin','/v1/izmir/lines/%2e%2e','/v1/unknown-city/lines']:
         assert not public_proxy.PATH.fullmatch(path)

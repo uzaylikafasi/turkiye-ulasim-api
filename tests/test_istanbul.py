@@ -98,7 +98,7 @@ def test_unavailable_arrivals_and_unknown_routes_never_call_source(gtfs_db):
         assert client.get('/v1/istanbul/lines/missing/stops').status_code == 404
         assert client.get('/v1/istanbul/lines/missing/shape').status_code == 404
         cities = {c['id']: c for c in client.get('/v1/cities').json()['data']}
-        assert cities['istanbul']['capabilities'] == {'static': True, 'vehicles': True, 'arrivals': False, 'line_catalog': True, 'gtfs': True}
+        assert cities['istanbul']['capabilities'] == {'static': True, 'vehicles': True, 'arrivals': False, 'line_catalog': True, 'gtfs': True, 'nearby': True, 'stop_coordinates': True}
         assert cities['konya']['available'] is False
         assert client.get('/v1/konya/lines').status_code == 503
 

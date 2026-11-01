@@ -129,3 +129,15 @@ Güncel toplam 22 il: Sivas 111 hat / 222 doğrulanmış yön / 624 durak; Edirn
 - [ ] Sakarya canlı araç/varış bağlantısı.
 
 1 Kasım yayın kontrolü: şehir listesi 23 ve tümü kullanılabilir; Sakarya hat/durak/geometri/yakın durak uçları, ana site ve eski Maraş sağlığı doğrulandı. Canlı araç desteklenmediği için 501 döner.
+
+## Ankara · 1 Kasım yayını
+
+- [x] EGO sitesindeki 662 otobüs hattının tamamını ve 10.744 durağı içe aktar.
+- [x] 52.228 kaynak sırasını koru; seçili Hat No doğrulaması ve atomik günlük yenileme.
+- [x] EGO Cep’te durak varışları; gerçek araç/tarife ayrımı, kaynak zamanı, 20 saniye önbellek ve 30 istek/dakika bütçesi.
+- [x] 107 test ve dış API kontrolleri; toplam 24 il.
+- [ ] Ankara durak koordinatlarını resmî kaynakla doğrula; yakın durak/geometriyi tamamla.
+- [ ] Ankara hat araç listesi ve kaynak yönlerinin anlamını ayrıca doğrula.
+- [ ] Bursa: portalda kullanılabilir hat/durak seti bulunamadı, BursaKart HTTP 403; erişilebilir resmî kaynak araştır.
+
+Güncel kapsam: 24 il. Ankara’da statik koordinat yok; canlı varış kaydı içindeki araç konumu durak koordinatı olarak kullanılmaz.

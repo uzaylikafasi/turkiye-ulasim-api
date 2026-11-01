@@ -113,7 +113,7 @@ def test_source_failures_become_502(gtfs_db):
 
 def test_bad_input_never_reaches_source(gtfs_db):
     with make_client(gtfs_db, no_upstream) as client:
-        for path in ("/v1/ankara/lines", "/v1/izmir/lines/999/vehicles", "/v1/izmir/lines/abc/vehicles",
+        for path in ("/v1/unknown-city/lines", "/v1/izmir/lines/999/vehicles", "/v1/izmir/lines/abc/vehicles",
                      "/v1/izmir/stops/99999/arrivals", "/v1/izmir/lines/446/stops?direction=2",
                      "/v1/izmir/stops/nearby?latitude=91&longitude=27"):
             assert client.get(path).status_code in (404, 422), path

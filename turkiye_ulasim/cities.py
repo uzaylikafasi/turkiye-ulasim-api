@@ -22,6 +22,7 @@ class City:
     gtfs: bool = True
     partial_feed: bool = False
     topology_region: str | None = None
+    stop_coordinates: bool = True
 
 
 CITIES = {
@@ -118,4 +119,14 @@ CITIES["sakarya"] = City(
               "Her güzergâh ayrı hatId:routeId kimliği taşır; direction=0 güzergâhın kendi sırasıdır, gidiş/dönüş eşlemesi değildir.",
               "Bazı kaynak güzergâhlarında durak listesi boştur; desteklenmeyen durak sırası 501 döner.",
               "Canlı araç, varış ve sefer takvimi desteklenmez."),
+)
+
+CITIES["ankara"] = City(
+    id="ankara", name="Ankara", operator="EGO Genel Müdürlüğü",
+    gtfs_url="", source_url="https://www.ego.gov.tr/HareketSaatleri",
+    license="Kaynak veri için yeniden kullanım lisansı belirtilmemiş",
+    source_kind="official_service", partial_feed=True, stop_coordinates=False, live_arrivals=True,
+    warnings=("Resmî EGO sitesinin otobüs kataloğu ve yayımlanan durak listesi kullanılır; GTFS değildir.",
+              "Statik durak koordinatları null; yakın durak, güzergâh geometrisi ve hat araç listesi desteklenmez. Durak varışları ayrı EGO Cepte servisinden alınır.",
+              "direction=0 kaynakta yayımlanan tek durak listesidir; gidiş/dönüş ayrımı doğrulanmadı."),
 )

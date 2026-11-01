@@ -1,6 +1,6 @@
 # İl kapsamı
 
-1 Kasım 2026 · **23 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
+1 Kasım 2026 · **24 il**. Aşağıdaki sayılar içe alınan kaynak dosyalarından okunmuştur. Hat/güzergâh kaydı, aktif sefer sayısı değildir; bir ilin listede olması tam şehir kapsamı anlamına gelmez.
 
 | İl | Hat / güzergâh kaydı | Sıralı durağı olan hat | Durak | Canlı araç / varış | Kaynak |
 |---|---:|---:|---:|---|---|
@@ -27,6 +27,7 @@
 | Sivas | 111 | 111 | 624 | Yok / Yok | Katalog + Kentkart servisi |
 | Edirne | 23 | 23 | 392 | Yok / Yok | Katalog + Kentkart servisi |
 | Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Yok / Yok | Resmî SAKUS servisi |
+| Ankara | 662 | 662 | 10.744 | Yok / Var | Resmî EGO sitesi + Cep’te servisi |
 
 ## Sınırlar
 
@@ -56,3 +57,5 @@ Güncel test sonucu: 82 test geçti. Sivas ve Edirne gerçek servis doğrulamas�
 Servis tamamlama turu: 82 test ve Sivas/Edirne üzerinde 14 dış veri sorgusu başarılı. İki ilin doğrulanan yön toplamı 268; eksik tarife veya canlı araç verisi varmış gibi sunulmadı.
 
 1 Kasım: Sakarya için 160 hat tarandı, 301 kaynak güzergâhı ve 2.581 durak alındı. 206 güzergâhta sıralı durak var; 95 güzergâhın kaynak durak listesi boş. Kopuk geometri içeren `74:305` için şekil yayımlanmadı. 92 çevrimdışı test geçti.
+
+1 Kasım Ankara turu: 662 hattın tamamında yayımlanan durak sırası doğrulandı; 10.744 farklı durak ve 52.228 hat-durak kaydı. Statik durak koordinatları kaynakta bulunmuyor; null sunulur. Yakın durak/geometri desteklenmez. Durak varışları ayrı EGO Cep’te servisinden alınır, tarife mesajları filtrelenir. 107 çevrimdışı test geçti.

@@ -19,6 +19,7 @@ from starlette.concurrency import run_in_threadpool
 from .cities import CITIES, City
 from .gtfs import GtfsStore
 from .sources.izmir import IzmirLive
+from .sources.ankara import AnkaraLive
 from .sources.istanbul import IstanbulLive
 from .sources.base import SourceError, SourceRateLimited, SourceNotFound, SourceUnsupported
 from .sources.kahramanmaras import Kahramanmaras
@@ -27,7 +28,7 @@ DATA_DIR = Path(os.environ.get("ULASIM_DATA_DIR", Path(__file__).resolve().paren
 
 
 def default_sources() -> dict:
-    factories = {"izmir": IzmirLive, "istanbul": IstanbulLive}
+    factories = {"izmir": IzmirLive, "istanbul": IstanbulLive, "ankara": AnkaraLive}
     sources = {city_id: (GtfsStore(DATA_DIR / f"{city_id}.sqlite3"),
                          factories[city_id]() if city_id in factories else None)
                for city_id, city in CITIES.items() if city.gtfs and (DATA_DIR / f"{city_id}.sqlite3").is_file()}
@@ -149,6 +150,7 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
     def cities():
         return {"data": [asdict(c) | {"modes": list(c.modes), "available": c.id in state["sources"], "gtfs": c.gtfs and not c.partial_feed,
                         "capabilities": {"static": True, "vehicles": c.live_vehicles, "arrivals": c.live_arrivals,
+                                         "stop_coordinates": c.stop_coordinates, "nearby": c.stop_coordinates,
                                          "line_catalog": c.line_catalog, "gtfs": c.gtfs and not c.partial_feed}}
                          for c in CITIES.values()],
                 "meta": {}}
@@ -211,6 +213,8 @@ def create_app(sources_factory: Callable[[], dict] = default_sources) -> FastAPI
     async def nearby(city_id: str, latitude: float = Query(ge=-90, le=90), longitude: float = Query(ge=-180, le=180),
                radius: float = Query(500, gt=0, le=3000)):
         city, store, _ = city_of(city_id)
+        if not city.stop_coordinates:
+            raise HTTPException(501, "Kaynak durak koordinatı vermiyor; yakın durak desteklenmiyor")
         return envelope(city, store, await store_call(store, "nearby", latitude, longitude, radius))
 
     @app.get("/v1/{city_id}/stops/{stop_id}")

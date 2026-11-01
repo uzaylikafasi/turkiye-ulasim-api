@@ -74,3 +74,11 @@ Tekrarlanabilir kontrol: `python -m tools.sakus_kontrol`. Bu araç yalnız katal
 ## 1 Kasım · Sakarya entegrasyonu
 
 SAKUS için atomik SQLite aktarımı ve günlük yenileme bağlandı. Kaynak güzergâh kimliği korunur; `hatId:routeId` ayrı API kaydıdır. Kaynağın 219/220/221 kodları için gidiş/dönüş anlamı tahmin edilmez. Bütün güzergâhların kendi durak sırası `direction=0` ile sunulur. Hatalı kimlik, koordinat, tekrarlı sıra veya çelişen durak güncellemeyi durdurur; eski dosya korunur. Kopuk MultiLineString parçaları sahte hatla bağlanmaz.
+
+## 1 Kasım · Ankara resmî kaynakları
+
+EGO HareketSaatleri sayfasında 662 otobüs hattı bulundu. Otobüs seçicisi metro/Ankaray alanlarından ayrı okunur. Her hattın sayfasındaki Hat No doğrulanır; yayımlanan durak numarası/adı/sırası alınır. Koordinat veya gidiş/dönüş anlamı üretilmez. Günlük güncelleme tamamlanmadan mevcut dosya değiştirilmez.
+
+EGO Cep’te anonim `Otobusler` servisi 14043 durağında gerçek araç konumu, kaynak GPS zamanı ve kalan saniye döndürdü. Tarife mesajı (`arac_no=-`) ve geçmiş/geçersiz varış kayıtları filtrelenir. Endpoint keşfi [egomac kaynak açıklaması](https://github.com/byigitt/egomac) ile yapıldı; yanıtlar doğrudan [EGO servisinden](https://egocptsrvand.ego.gov.tr/mblSrv14/service.asp) doğrulandı. Kod bağımsız uygulandı. Kaynak yeniden kullanım lisansı belirtilmemiştir.
+
+Bursa: yeni açık veri portalının 49 veri seti incelendi; bu katalogda kullanılabilir otobüs hat/durak seti bulunamadı. BursaKart web sitesi bu bağlantıdan HTTP 403 verdi. Bursa kapsamı henüz eklenmedi.
