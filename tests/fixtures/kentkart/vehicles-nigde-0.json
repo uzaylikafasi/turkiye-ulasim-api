@@ -1,0 +1,70 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194857",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "SSK A - YENİ TERMİNAL",
+      "displayRouteCode": "1",
+      "direction": "0",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "510010",
+      "busList": [
+        {
+          "busId": "51068",
+          "lat": "37.962494",
+          "lng": "34.658634",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "51112",
+          "lat": "37.961437",
+          "lng": "34.649296",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "51019",
+          "lat": "37.96282",
+          "lng": "34.64385",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "51090",
+          "lat": "37.966976",
+          "lng": "34.673717",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "51104",
+          "lat": "37.96397",
+          "lng": "34.691307",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "51014",
+          "lat": "37.97059",
+          "lng": "34.70252",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        }
+      ]
+    }
+  ]
+}

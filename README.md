@@ -40,8 +40,8 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | İzmir | Var | Var | Var | Var |
 | İstanbul | Var | Durak sırası var; geometri yok | Var | Yok |
 | Kahramanmaraş | Hat arama / durak | Var | Var | Var |
-| Konya ve diğer 9 il | Var | Kaynakta bulunan hatlarda | Yok | Yok |
-| Antalya, Adana, Kocaeli, Gaziantep, Muğla, Ordu ve Erzurum | Var | Kaynakta bulunan hatlarda | Var | Var |
+| Konya | Var | Kaynakta bulunan hatlarda | Yok | Yok |
+| Topluluk GTFS kullanan 16 il | Var | Kaynakta bulunan hatlarda | Var | Var |
 | Diyarbakır | Var | Yön bazında kaynak sırası ve mevcut geometriler | Var | Yok |
 | Trabzon | Var | Kaynak güzergâhına göre durak sırası ve geometri | Var | Var |
 | Mersin | Var | Kaynak hat/yön yanıtlarında | Yok | Yok |
@@ -50,7 +50,7 @@ Anahtar gerektirmez. Halka açık köprüde IP başına **60 istek/dakika** sın
 | Sakarya | Var | SAKUS kaynak güzergâhlarında | Yok | Yok |
 | Sivas ve Edirne | Var | Kentkart servisinden doğrulanan hat/yönlerde | Var | Var |
 
-**Diğer 9 il:** Burdur, Çanakkale, Düzce, Kastamonu, Kırklareli, Mardin, Niğde, Osmaniye ve Tokat.
+**Topluluk GTFS kullanan 16 il:** Adana, Antalya, Burdur, Çanakkale, Düzce, Erzurum, Gaziantep, Kastamonu, Kırklareli, Kocaeli, Mardin, Muğla, Niğde, Ordu, Osmaniye ve Tokat.
 
 > **Kapsam kısmi olabilir.** Bir ilin listede olması bütün hatlarının güncel veya eksiksiz olduğunu göstermez. Katalogda bulunup sefer/durak sırası olmayan hatlar vardır. Veri olmayan yerde sefer, konum veya güzergâh üretilmez.
 
@@ -144,3 +144,5 @@ Antalya, Adana, Kocaeli, Gaziantep, Sivas, Edirne, Muğla, Ordu ve Erzurum’da 
 Antalya KL08 (`00080`) ve Adana 112 (`00112`) hatlarında araç sorgusu kullanılabilir. Antalya 35 (`00354`) özel kaynak eşlemesiyle desteklenir; iki yöndeki durak sırası doğrulanmıştır. Adana’daki görev gibi servis güzergâhlarında kaynak sonuç vermeyebilir. Varış örnekleri: `/v1/antalya/stops/10017/arrivals`, `/v1/adana/stops/42077/arrivals`. Destek bütün hatların eksiksizliğini göstermez.
 
 Muğla `/v1/mugla/lines/10001/vehicles`, Ordu `/v1/ordu/lines/00210/vehicles` ve Erzurum `/v1/erzurum/lines/10020/vehicles` canlı araç örnekleridir. Üç ilde durak varışları da vardır; GPS ölçüm saati henüz bilinmiyor.
+
+Mevcut 18 Kentkart şehrinin tamamında canlı araç ve durak varış bağlantısı vardır (16 topluluk GTFS + Sivas/Edirne). Bu, her hattın veya yönün eksiksiz olduğu anlamına gelmez. Mardin H2, Tokat 1 ve diğer son tamamlanan illerin [örnek uçları](docs/API.md#kalan-kentkart-illerinde-canlı-destek) belgede.

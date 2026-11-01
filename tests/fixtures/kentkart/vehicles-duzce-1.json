@@ -1,0 +1,21 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194854",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "D.ÜNİVERSİTESİ-KONURALP",
+      "displayRouteCode": "1",
+      "direction": "1",
+      "tripShortName": "1-ÜNİVERSİTE-KONURALP",
+      "direction_name": "",
+      "path_code": "100101",
+      "busList": []
+    }
+  ]
+}

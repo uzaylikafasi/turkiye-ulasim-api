@@ -1,0 +1,30 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194933",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "FAKIUŞAĞI - ÇARŞI",
+      "displayRouteCode": "A5",
+      "direction": "0",
+      "tripShortName": "FAKIUŞAĞI - ÇARŞI",
+      "direction_name": "",
+      "path_code": "000500",
+      "busList": [
+        {
+          "busId": "80135",
+          "lat": "37.049988",
+          "lng": "36.231026",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "256.89"
+        }
+      ]
+    }
+  ]
+}

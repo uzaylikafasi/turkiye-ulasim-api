@@ -83,7 +83,7 @@ def arrival_stop(body):
             'lines':[{'id':bus['routeCode'],'code':bus['displayRouteCode']}]}
 
 
-@pytest.mark.parametrize('city',['kocaeli','gaziantep','sivas','edirne','mugla','ordu','erzurum'])
+@pytest.mark.parametrize('city',['kocaeli', 'gaziantep', 'sivas', 'edirne', 'mugla', 'ordu', 'erzurum', 'mardin', 'tokat', 'canakkale', 'duzce', 'burdur', 'nigde', 'kirklareli', 'osmaniye', 'kastamonu'])
 def test_real_arrivals_minutes_stops_and_static_mapping(city):
     b=arrival_body(city);stop=arrival_stop(b);rows=normalize_arrivals(b,stop)
     first=next(x for x in rows if x['vehicle_id']==b['busList'][0]['busId'])
@@ -154,9 +154,9 @@ def test_arrivals_api_static_validation_and_capability(gtfs_db):
 
 @pytest.mark.parametrize('city,region,line,code',[
     ('adana','003','00112','112'),('antalya','026','00080','KL08'),
-    ('mugla','010','10001','1-9'),('ordu','031','00210','21'),('erzurum','038','10020','B2')])
+    ('mugla','010','10001','1-9'),('ordu','031','00210','21'),('erzurum','038','10020','B2'),('mardin', '032', '00020', 'H2'),('tokat', '039', '60210', '1'),('canakkale', '007', '70013', '11Ç'),('duzce', '036', '10010', '1'),('burdur', '017', '00001', '1'),('nigde', '023', '51001', '1'),('kirklareli', '027', '00001', '01'),('osmaniye', '033', '00050', 'A5'),('kastamonu', '025', '37001', '1')])
 @pytest.mark.asyncio
-async def test_adana_antalya_real_paths_and_shared_arrivals(city,region,line,code):
+async def test_verified_city_real_paths_and_shared_arrivals(city,region,line,code):
     fixture_dir=Path(__file__).parent/'fixtures/kentkart';calls=[]
     def handler(r):
         calls.append(r)
@@ -165,7 +165,8 @@ async def test_adana_antalya_real_paths_and_shared_arrivals(city,region,line,cod
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as c:
         live=KentkartLive(region,c)
         vehicles=await live.vehicles(line,line={'code':code})
-        assert vehicles.data and all(r['line_id']==line for r in vehicles.data)
+        assert all(r['line_id']==line for r in vehicles.data)
+        if city!='duzce':assert vehicles.data  # Düzce snapshot has no vehicles on this verified line
         assert (await live.vehicles(line,line={'code':code})).cached
         body=arrival_body(city);stop=arrival_stop(body);arrivals=await live.arrivals_for_stop(stop)
         assert arrivals.data and len(calls)==3 and len(live.requests)==3

@@ -1,0 +1,65 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194852",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "17",
+    "busStopName": "CUMHURİYET MEYDANI",
+    "lat": "40.1481084",
+    "lng": "26.4051997"
+  },
+  "busList": [
+    {
+      "busId": "17002",
+      "disabledPerson": "0",
+      "displayRouteCode": "Ç4",
+      "displayName": "Ç-4",
+      "headSign": "Ç-4",
+      "routeCode": "70004",
+      "shapeId": "700040",
+      "stopDiff": "1",
+      "routeColor": "DF4F37",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "0",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "3",
+      "lat": "40.14445",
+      "lng": "26.4075",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    },
+    {
+      "busId": "17083",
+      "disabledPerson": "1",
+      "displayRouteCode": "11Ç",
+      "displayName": "11Ç ÇINARLI-ESENLER",
+      "headSign": "11Ç ÇINARLI-ESENLER",
+      "routeCode": "70013",
+      "shapeId": "700130",
+      "stopDiff": "4",
+      "routeColor": "FFFFFF",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "0",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "6",
+      "lat": "40.137394",
+      "lng": "26.408482",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    }
+  ],
+  "routeList": []
+}

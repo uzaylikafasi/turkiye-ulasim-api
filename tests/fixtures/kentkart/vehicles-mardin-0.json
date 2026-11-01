@@ -1,0 +1,54 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194933",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "ÜNİVERSİTE-2.CADDE-MEYDANBAŞI-CEZAEVİ",
+      "displayRouteCode": "H2",
+      "direction": "0",
+      "tripShortName": "ÜNİVERSİTE-2.CADDE-MEYDANBAŞI-CEZAEVİ",
+      "direction_name": "",
+      "path_code": "000200",
+      "busList": [
+        {
+          "busId": "47185",
+          "lat": "37.34697",
+          "lng": "40.65692",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "69.9"
+        },
+        {
+          "busId": "47182",
+          "lat": "37.310402",
+          "lng": "40.725983",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "132.9"
+        },
+        {
+          "busId": "47210",
+          "lat": "37.30788",
+          "lng": "40.76032",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "2.7"
+        },
+        {
+          "busId": "47211",
+          "lat": "37.320457",
+          "lng": "40.729496",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "272.5"
+        }
+      ]
+    }
+  ]
+}

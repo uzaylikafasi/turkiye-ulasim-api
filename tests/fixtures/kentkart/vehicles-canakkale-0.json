@@ -1,0 +1,30 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194852",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "11Ç ÇINARLI-ESENLER",
+      "displayRouteCode": "11Ç",
+      "direction": "0",
+      "tripShortName": "70013 ",
+      "direction_name": "",
+      "path_code": "700130",
+      "busList": [
+        {
+          "busId": "17083",
+          "lat": "40.137394",
+          "lng": "26.408482",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "352.38"
+        }
+      ]
+    }
+  ]
+}

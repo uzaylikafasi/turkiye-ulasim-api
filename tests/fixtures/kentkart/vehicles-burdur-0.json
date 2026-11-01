@@ -1,0 +1,54 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194855",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "OTOGAR - ATATÜRK MAHALLESİ",
+      "displayRouteCode": "1",
+      "direction": "0",
+      "tripShortName": "OTOGAR-ATATÜRK MAHALLESİ",
+      "direction_name": "",
+      "path_code": "000010",
+      "busList": [
+        {
+          "busId": "15036",
+          "lat": "37.74216",
+          "lng": "30.308998",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "233.1"
+        },
+        {
+          "busId": "15024",
+          "lat": "37.718655",
+          "lng": "30.274475",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "294.11"
+        },
+        {
+          "busId": "15051",
+          "lat": "37.735996",
+          "lng": "30.306017",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "223.9"
+        },
+        {
+          "busId": "15002",
+          "lat": "37.71368",
+          "lng": "30.23292",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "258.39"
+        }
+      ]
+    }
+  ]
+}

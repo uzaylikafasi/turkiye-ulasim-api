@@ -1,0 +1,65 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194854",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "10838",
+    "busStopName": "ÜNİVERSİTE POLİKİLİNİK DURAĞI",
+    "lat": "40.9040162",
+    "lng": "31.1744998"
+  },
+  "busList": [
+    {
+      "busId": "81070",
+      "disabledPerson": "0",
+      "displayRouteCode": "81",
+      "displayName": "PAZARYERİ-D.ÜNİVERSİTESİ",
+      "headSign": "PAZARYERİ-D.ÜNİVERSİTESİ",
+      "routeCode": "10420",
+      "shapeId": "104201",
+      "stopDiff": "1",
+      "routeColor": "FF0000",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "1",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "1",
+      "lat": "40.905476",
+      "lng": "31.173903",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    },
+    {
+      "busId": "82087",
+      "disabledPerson": "0",
+      "displayRouteCode": "2",
+      "displayName": "MELEN PARK-D.HASTANESİ-ÜNİVERSİTE",
+      "headSign": "MELEN PARK-D.HASTANESİ-ÜNİVERSİTE",
+      "routeCode": "10030",
+      "shapeId": "100301",
+      "stopDiff": "6",
+      "routeColor": "FF0000",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "1",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "4",
+      "lat": "40.890358",
+      "lng": "31.168634",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    }
+  ],
+  "routeList": []
+}

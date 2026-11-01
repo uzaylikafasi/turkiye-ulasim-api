@@ -144,3 +144,15 @@ Antalya/Adana turu: 195 çevrimdışı test geçti.
 Muğla 010, Ordu 031, Erzurum 038 bölgeleri gerçek araç ve varış yanıtlarıyla bağlandı. Muğla 1-9 ve Erzurum B2 yalnız yön 0 döndürüyor; yön 1 üretilmez. Antalya 35 için yerel 00354 ile kaynak 00035 yol öneki, gidiş 62/dönüş 65 durak kimliği aynı sırayla doğrulanarak bağlandı. Bu tek hatta özel, bölgeye bağlı eşlemedir; diğer kimliklere genellenmez. Kaynak varışında routeCode 00354/shapeId 000350 birlikte görüldü ve aynı eşleme uygulandı. Toplam 28 il, Kentkart canlı 9 il.
 
 Bu tamamlama turunda 203 çevrimdışı test geçti.
+
+## Kalan dokuz mevcut Kentkart ili
+
+Mardin H2, Tokat 1, Çanakkale 11Ç, Düzce 1, Burdur 1, Niğde 1, Kırklareli 01, Osmaniye A5 ve Kastamonu 1 için tam kaynak hat/yön kimliği ve gerçek durak varışı doğrulandı. İlk boş/sonuçsuz örneklerden sonra Mardin/Osmaniye’de başka hatlar gerçek araç verdi. Kaynakta olup yerelde olmayan duraklar uydurulmaz.
+
+- [x] Dokuz mevcut ilde araç + varış, gerçek yanıt fixture’ları, cache ve ortak kota testleri.
+- [ ] GPS ölçüm zamanı, eksik kaynak hat/yön ve yerel durak ilişkileri.
+- [ ] Diyarbakır ETA, Ankara koordinat/geometri ve diğer mevcut il eksikleri.
+
+İl sayısı 28; mevcut 18 Kentkart ilinin tamamında canlı bağlantı var. Her hattın/yönün tam olduğu iddia edilmez.
+
+Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194850",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "GEYRAS-SOFOR EVLERi",
+      "displayRouteCode": "1",
+      "direction": "0",
+      "tripShortName": "SOFOR EVLERi",
+      "direction_name": "",
+      "path_code": "602100",
+      "busList": []
+    }
+  ]
+}

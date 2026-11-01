@@ -1,0 +1,21 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194853",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "11Ç ESENLER-ÇINARLI",
+      "displayRouteCode": "11Ç",
+      "direction": "1",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "700131",
+      "busList": []
+    }
+  ]
+}

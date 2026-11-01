@@ -13,17 +13,17 @@
 | Adana | 291 | 132 | 3618 | Var / Var | Topluluk GTFS |
 | Gaziantep | 162 | 162 | 3110 | Var / Var | Topluluk GTFS |
 | Erzurum | 55 | 51 | 724 | Var / Var | Topluluk GTFS |
-| Mardin | 92 | 87 | 765 | Yok / Yok | Topluluk GTFS |
+| Mardin | 92 | 87 | 765 | Var / Var | Topluluk GTFS |
 | Muğla | 383 | 321 | 3436 | Var / Var | Topluluk GTFS |
 | Ordu | 56 | 44 | 886 | Var / Var | Topluluk GTFS |
-| Çanakkale | 32 | 11 | 324 | Yok / Yok | Topluluk GTFS |
-| Düzce | 57 | 50 | 1240 | Yok / Yok | Topluluk GTFS |
-| Burdur | 18 | 18 | 346 | Yok / Yok | Topluluk GTFS |
-| Niğde | 10 | 1 | 24 | Yok / Yok | Topluluk GTFS |
-| Kırklareli | 8 | 5 | 127 | Yok / Yok | Topluluk GTFS |
-| Osmaniye | 17 | 15 | 221 | Yok / Yok | Topluluk GTFS |
-| Tokat | 23 | 2 | 63 | Yok / Yok | Topluluk GTFS |
-| Kastamonu | 27 | 23 | 91 | Yok / Yok | Topluluk GTFS |
+| Çanakkale | 32 | 11 | 324 | Var / Var | Topluluk GTFS |
+| Düzce | 57 | 50 | 1240 | Var / Var | Topluluk GTFS |
+| Burdur | 18 | 18 | 346 | Var / Var | Topluluk GTFS |
+| Niğde | 10 | 1 | 24 | Var / Var | Topluluk GTFS |
+| Kırklareli | 8 | 5 | 127 | Var / Var | Topluluk GTFS |
+| Osmaniye | 17 | 15 | 221 | Var / Var | Topluluk GTFS |
+| Tokat | 23 | 2 | 63 | Var / Var | Topluluk GTFS |
+| Kastamonu | 27 | 23 | 91 | Var / Var | Topluluk GTFS |
 | Sivas | 111 | 111 | 624 | Var / Var | Katalog + Kentkart servisi |
 | Edirne | 23 | 23 | 392 | Var / Var | Katalog + Kentkart servisi |
 | Sakarya | 301 güzergâh (160 hat) | 206 | 2.581 | Yok / Yok | Resmî SAKUS servisi |
@@ -39,7 +39,7 @@
 - Sıralı durak kaydı bulunmayan hatlarda `directions` boş olabilir. Kaynakta geometri yoksa çizgi uydurulmaz; boş liste ve uyarı döner.
 - Konya kaynağı Kasım 2025 dosyasıdır; takvimin ileri tarihe uzaması güncellik kanıtı değildir.
 - Kahramanmaraş tam hat kataloğu sunmaz; arama sonuçları sınırlıdır. Kaynak veri lisansı belirtilmemiştir.
-- [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesinde takvim ve zamanlar türetilmiş olabilir. Derleme CC0, temel veri hakları Kentkart/belediyededir. Antalya, Adana, Kocaeli, Gaziantep, Muğla, Ordu ve Erzurum’da ayrıca Kentkart canlı araç ve varış desteği vardır; diğer topluluk GTFS illerinde bu canlı yetenekler henüz yoktur.
+- [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesinde takvim ve zamanlar türetilmiş olabilir. Derleme CC0, temel veri hakları Kentkart/belediyededir. Bu 16 topluluk GTFS ilinin tamamında ayrıca Kentkart canlı araç ve varış bağlantısı vardır.
 
 ## Kastamonu düzeltmesi
 
@@ -91,3 +91,7 @@ Antalya/Adana turu: 195 çevrimdışı test geçti.
 Mevcut il tamamlama: Muğla/Ordu/Erzurum araç ve varış desteği; Antalya 35 iki yöndeki 62/65 durak aynı sırayla doğrulanarak açık kimlik eşlemesiyle açıldı. Kapsam 28 il, Kentkart canlı 9 il. Önceki 35→501 kaydı bu doğrulamayla güncellendi.
 
 Bu tamamlama turunda 203 çevrimdışı test geçti.
+
+Son mevcut il tamamlama: Mardin, Tokat, Çanakkale, Düzce, Burdur, Niğde, Kırklareli, Osmaniye ve Kastamonu araç/varış bağlantıları doğrulandı. Kentkart canlı 18 il, toplam 28 il. GPS zamanı ve hat/yön kapsam boşlukları sürer.
+
+Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.

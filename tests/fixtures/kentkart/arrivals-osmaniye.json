@@ -1,0 +1,65 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194950",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "10083",
+    "busStopName": "YURTKUR DURAĞI",
+    "lat": "37.051695",
+    "lng": "36.2333988"
+  },
+  "busList": [
+    {
+      "busId": "80135",
+      "disabledPerson": "0",
+      "displayRouteCode": "A5",
+      "displayName": "FAKIUŞAĞI - ÇARŞI",
+      "headSign": "FAKIUŞAĞI - ÇARŞI",
+      "routeCode": "00050",
+      "shapeId": "000500",
+      "stopDiff": "1",
+      "routeColor": "FF5900",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "0",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "1",
+      "lat": "37.049988",
+      "lng": "36.231026",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    },
+    {
+      "busId": "80342",
+      "disabledPerson": "0",
+      "displayRouteCode": "A16",
+      "displayName": "FAKIUŞAĞI - OTOGAR",
+      "headSign": "FAKIUŞAĞI - OTOGAR",
+      "routeCode": "00160",
+      "shapeId": "001600",
+      "stopDiff": "1",
+      "routeColor": "FF0000",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "0",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "1",
+      "lat": "37.042812",
+      "lng": "36.23435",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    }
+  ],
+  "routeList": []
+}

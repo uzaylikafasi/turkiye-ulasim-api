@@ -1,0 +1,46 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194858",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "YENİ TERMİNAL - SSK A",
+      "displayRouteCode": "1",
+      "direction": "1",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "510011",
+      "busList": [
+        {
+          "busId": "51092",
+          "lat": "37.96974",
+          "lng": "34.6864",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "51108",
+          "lat": "37.96139",
+          "lng": "34.648277",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "51021",
+          "lat": "37.969498",
+          "lng": "34.644363",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        }
+      ]
+    }
+  ]
+}

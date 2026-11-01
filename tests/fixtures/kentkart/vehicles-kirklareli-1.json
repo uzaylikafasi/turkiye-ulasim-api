@@ -1,0 +1,62 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194859",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "Kampus - Karahıdır",
+      "displayRouteCode": "01",
+      "direction": "1",
+      "tripShortName": "",
+      "direction_name": "",
+      "path_code": "000011",
+      "busList": [
+        {
+          "busId": "39103",
+          "lat": "41.73965",
+          "lng": "27.21679",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "162.4"
+        },
+        {
+          "busId": "39147",
+          "lat": "41.719353",
+          "lng": "27.195211",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "312.2"
+        },
+        {
+          "busId": "39133",
+          "lat": "41.719284",
+          "lng": "27.194834",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "155.69"
+        },
+        {
+          "busId": "39139",
+          "lat": "41.71905",
+          "lng": "27.194893",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "205.9"
+        },
+        {
+          "busId": "39145",
+          "lat": "41.71812",
+          "lng": "27.21279",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "304.1"
+        }
+      ]
+    }
+  ]
+}

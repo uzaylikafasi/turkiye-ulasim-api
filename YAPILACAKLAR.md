@@ -274,3 +274,17 @@ Kapsam 28 il; Kentkart araç/varış destekli 9 il. Muğla 1-9 ve Erzurum B2 iç
 Bu tamamlama turunda 203 çevrimdışı test geçti.
 
 Dış kontrol: Muğla 1 araç/5 varış, Ordu 5 araç/0 varış, Erzurum 10 araç/0 varış, Antalya 35 2 araç/0 varış. Sayılar anlık; boş varış başarılı kaynak yanıtıdır. Cache, 404, kaynak yol kimlikleri ve mevcut servis/ana site/eski Maraş sağlığı doğrulandı. Önceki kaynak araştırmasında Ordu/Erzurum/Antalya 35 dolu varışları fixture olarak kaydedildi.
+
+## Kalan dokuz mevcut Kentkart ili
+
+Mardin H2, Tokat 1, Çanakkale 11Ç, Düzce 1, Burdur 1, Niğde 1, Kırklareli 01, Osmaniye A5 ve Kastamonu 1 için tam kaynak hat/yön kimliği ve gerçek durak varışı doğrulandı. İlk boş/sonuçsuz örneklerden sonra Mardin/Osmaniye’de başka hatlar gerçek araç verdi. Kaynakta olup yerelde olmayan duraklar uydurulmaz.
+
+- [x] Dokuz mevcut ilde araç + varış, gerçek yanıt fixture’ları, cache ve ortak kota testleri.
+- [ ] GPS ölçüm zamanı, eksik kaynak hat/yön ve yerel durak ilişkileri.
+- [ ] Diyarbakır ETA, Ankara koordinat/geometri ve diğer mevcut il eksikleri.
+
+İl sayısı 28; mevcut 18 Kentkart ilinin tamamında canlı bağlantı var. Her hattın/yönün tam olduğu iddia edilmez.
+
+Kalan dokuz il tamamlama turu: 221 çevrimdışı test geçti.
+
+Dış yayın kontrolü: mardin 5 araç/2 varış, tokat 2 araç/1 varış, canakkale 1 araç/2 varış, duzce 0 araç/1 varış, burdur 6 araç/2 varış, nigde 8 araç/3 varış, kirklareli 8 araç/3 varış, osmaniye 2 araç/2 varış, kastamonu 3 araç/4 varış. Sayılar anlık. Dokuz ilde cache/404 ve 200, eski servis sağlığı doğrulandı. Genel yetenek sayıları: 28 il, 24 araç destekli, 22 varış destekli.

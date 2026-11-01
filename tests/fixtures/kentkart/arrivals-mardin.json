@@ -1,0 +1,65 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194950",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "10079",
+    "busStopName": "Kampüs Giriş",
+    "lat": "37.349744",
+    "lng": "40.659414"
+  },
+  "busList": [
+    {
+      "busId": "47185",
+      "disabledPerson": "0",
+      "displayRouteCode": "H2",
+      "displayName": "ÜNİVERSİTE-2.CADDE-MEYDANBAŞI-CEZAEVİ",
+      "headSign": "ÜNİVERSİTE-2.CADDE-MEYDANBAŞI-CEZAEVİ",
+      "routeCode": "00020",
+      "shapeId": "000200",
+      "stopDiff": "1",
+      "routeColor": "660099",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "0",
+      "vehicleType": "-1",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "1",
+      "lat": "37.34748",
+      "lng": "40.65825",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    },
+    {
+      "busId": "47170",
+      "disabledPerson": "0",
+      "displayRouteCode": "M6",
+      "displayName": "MEYDANBAŞI-2.CADDE-RAVZA CADDESİ-VALİ OZAN CADDESİ-ERKEK YURDU-ÜNİVERSİTE",
+      "headSign": "MEYDANBAŞI-2.CADDE-RAVZA CADDESİ-VALİ OZAN CADDESİ-ERKEK YURDU-ÜNİVERSİTE",
+      "routeCode": "00160",
+      "shapeId": "001601",
+      "stopDiff": "4",
+      "routeColor": "00EEC6",
+      "routeType": "3",
+      "routeTextColor": "FFFFFF",
+      "direction": "1",
+      "vehicleType": "-1",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "2",
+      "lat": "37.336945",
+      "lng": "40.6879",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": ""
+    }
+  ],
+  "routeList": []
+}

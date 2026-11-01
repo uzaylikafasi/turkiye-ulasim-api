@@ -1,0 +1,38 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194902",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "Askeriye - Cezaevi-1",
+      "displayRouteCode": "1",
+      "direction": "0",
+      "tripShortName": "Cezaevi-1 Gidiş",
+      "direction_name": "",
+      "path_code": "370010",
+      "busList": [
+        {
+          "busId": "37094",
+          "lat": "41.427998",
+          "lng": "33.776073",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        },
+        {
+          "busId": "37082",
+          "lat": "41.370647",
+          "lng": "33.766705",
+          "disabledPerson": "0",
+          "bike": "0",
+          "bearing": "0"
+        }
+      ]
+    }
+  ]
+}

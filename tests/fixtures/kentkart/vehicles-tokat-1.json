@@ -1,0 +1,38 @@
+{
+  "result": {
+    "cmd": "/web/pathInfo",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194851",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "pathList": [
+    {
+      "headSign": "MADO-GEYRAS",
+      "displayRouteCode": "1",
+      "direction": "1",
+      "tripShortName": "SOFOR EVLERi DÖNÜŞ",
+      "direction_name": "",
+      "path_code": "602101",
+      "busList": [
+        {
+          "busId": "60038",
+          "lat": "40.32391",
+          "lng": "36.55238",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "205"
+        },
+        {
+          "busId": "60052",
+          "lat": "40.27196",
+          "lng": "36.544384",
+          "disabledPerson": "1",
+          "bike": "0",
+          "bearing": "348.6"
+        }
+      ]
+    }
+  ]
+}

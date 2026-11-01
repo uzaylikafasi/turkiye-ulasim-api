@@ -10,9 +10,9 @@
 | İstanbul · İETT | Var | Kaynakta yok | Var | Desteklenmiyor | İBB Açık Veri Lisansı |
 | Konya | Var | Var | Desteklenmiyor | Desteklenmiyor | CC BY 4.0 |
 | Kahramanmaraş · topluluk köprüsü | Arama / durak / yakın durak | Var | Var | Var | Kaynak veri lisansı belirtilmemiş |
-| Antalya, Adana, Kocaeli, Gaziantep, Muğla, Ordu, Erzurum · topluluk GTFS + Kentkart canlı | Var | Kaynakta bulunan hatlarda | Var | Var | Statik derleme CC0; canlı lisansı belirtilmemiş |
+| Topluluk GTFS kullanan 16 il + Kentkart canlı | Var | Kaynakta bulunan hatlarda | Var | Var | Statik derleme CC0; canlı lisansı belirtilmemiş |
 
-Kahramanmaraş, [Kahramankart Ulaşım API’sinin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır. Bu 16 ilin Antalya, Adana, Kocaeli, Gaziantep, Muğla, Ordu ve Erzurum kaynaklarında ayrıca Kentkart canlı araç ve durak varış desteği vardır.
+Kahramanmaraş, [Kahramankart Ulaşım API’sinin](https://github.com/uzaylikafasi/kahramankart-ulasim-api) herkese açık köprüsünü kullanır. `source_kind=community_bridge` ile işaretlenir; GTFS ve tam hat kataloğu sunmaz. İzmir, İstanbul ve Konya `official_open_data` kaynaklarıdır. Diğer 16 il [Egezenn/kk-gtfs](https://github.com/Egezenn/kk-gtfs) topluluk derlemesini kullanır (`community_gtfs`); resmi belediye yayını değildir. Kaynaktaki takvim ve ara durak zamanları türetilmiştir; takvim verinin güncel olduğunun kanıtı değildir. Yalnız otobüsler alınır. Bu 16 ilin tamamında ayrıca Kentkart canlı araç ve durak varış desteği vardır.
 
 Şehirlerin kurulum durumu ve yetenekleri `/v1/cities` yanıtındaki `available` ve `capabilities` alanlarından okunur; `available` kaynağın yapılandırıldığını belirtir, anlık sağlık kontrolü değildir. `capabilities.line_catalog` tam hat listesini, `gtfs` statik GTFS desteğini belirtir. Canlı verisi desteklenmeyen uç `501`, henüz veritabanı kurulmamış şehir `503` döner. Boş bir araç listesi başarılı bir canlı sorgunun sonucu olabilir; destek yokluğu anlamına gelmez.
 
@@ -210,7 +210,7 @@ Yanıttaki `source_kind`, `source` ve `license` statik şehir kaynağını tanı
 
 ### Kentkart durak varışları
 
-Aynı dokuz ilde [web/nearest/bus](https://service.kentkart.com/rl1/web/nearest/bus) kaynağı kullanılır. Çağrıya yerel durağın kimliği ve koordinatları gider; dönen `stopInfo.busStopid` tam eşleşmelidir. Koordinatsız durak 501, kaynak/kimlik hatası 502, bilinmeyen yerel durak 404 döner.
+Aynı 18 ilde [web/nearest/bus](https://service.kentkart.com/rl1/web/nearest/bus) kaynağı kullanılır. Çağrıya yerel durağın kimliği ve koordinatları gider; dönen `stopInfo.busStopid` tam eşleşmelidir. Koordinatsız durak 501, kaynak/kimlik hatası 502, bilinmeyen yerel durak 404 döner.
 
 - `/v1/kocaeli/stops/80671/arrivals`
 - `/v1/gaziantep/stops/11734/arrivals`
@@ -244,4 +244,22 @@ Bu eşleme diğer illere/hatlara veya sayısal dönüşüme genellenmez. Doğrul
 | Ordu | `/v1/ordu/lines/00210/vehicles` | `/v1/ordu/stops/40140/arrivals` |
 | Erzurum | `/v1/erzurum/lines/10020/vehicles` | `/v1/erzurum/stops/10148/arrivals` |
 
-Üç şehir aynı Kentkart sözleşmesini kullanır: kaynak hat/yön ve durak kimliği doğrulaması, 15 saniye cache, araç/varış ortak 30 kaynak isteği/dakika bütçesi. Muğla 1-9 ve Erzurum B2 örneğinde kaynak yalnız yön 0 döndürdü; yön 1 uyarıyla eksik kalır, veri üretilmez. Ordu 21 iki yönde doğrulandı. Ölçüm zamanı null kalır; kaynak lisansı belirtilmemiştir. Mardin’in ilk araç örneği boş, Tokat’ın ilk hat örneği sonuç-yok verdi; bu tur bu şehirlerin canlı yetenekleri açılmadı.
+Üç şehir aynı Kentkart sözleşmesini kullanır: kaynak hat/yön ve durak kimliği doğrulaması, 15 saniye cache, araç/varış ortak 30 kaynak isteği/dakika bütçesi. Muğla 1-9 ve Erzurum B2 örneğinde kaynak yalnız yön 0 döndürdü; yön 1 uyarıyla eksik kalır, veri üretilmez. Ordu 21 iki yönde doğrulandı. Ölçüm zamanı null kalır; kaynak lisansı belirtilmemiştir. Mardin/Tokat’ın ilk başarısız örnekleri sonrasında başka hatlarda gerçek canlı veri doğrulanarak aşağıdaki tamamlama turunda destek açıldı.
+
+### Kalan Kentkart illerinde canlı destek
+
+Kentkart bağlantısı mevcut 18 ilde etkin: önceki dokuz ile aşağıdaki dokuz il eklendi. İl toplamı 28 kaldı.
+
+| Şehir | Kaynak bölge | Araç örneği | Varış örneği |
+|---|---|---|---|
+| Mardin | `032` | `/v1/mardin/lines/00020/vehicles` | `/v1/mardin/stops/10079/arrivals` |
+| Tokat | `039` | `/v1/tokat/lines/60210/vehicles` | `/v1/tokat/stops/60625/arrivals` |
+| Çanakkale | `007` | `/v1/canakkale/lines/70013/vehicles` | `/v1/canakkale/stops/17/arrivals` |
+| Düzce | `036` | `/v1/duzce/lines/10010/vehicles` | `/v1/duzce/stops/10838/arrivals` |
+| Burdur | `017` | `/v1/burdur/lines/00001/vehicles` | `/v1/burdur/stops/20052/arrivals` |
+| Niğde | `023` | `/v1/nigde/lines/51001/vehicles` | `/v1/nigde/stops/51084/arrivals` |
+| Kırklareli | `027` | `/v1/kirklareli/lines/00001/vehicles` | `/v1/kirklareli/stops/20016/arrivals` |
+| Osmaniye | `033` | `/v1/osmaniye/lines/00050/vehicles` | `/v1/osmaniye/stops/10083/arrivals` |
+| Kastamonu | `025` | `/v1/kastamonu/lines/37001/vehicles` | `/v1/kastamonu/stops/37016/arrivals` |
+
+Aynı katı hat/yön/durak doğrulaması, 15 saniye cache ve şehir başına ortak 30 kaynak isteği/dakika bütçesi uygulanır. Kaynak lisansı belirtilmemiştir; GPS ölçüm zamanı null kalır. Düzce 1 örneğinde iki yön de doğrulanıp boş araç listesi verdi, fakat durak kaynağı gerçek varışlar döndürdü. Mardin’de ilk incelenen kaynak durağı yerel katalogda yoktu; örnek uç için yerelde bulunan 10079 kullanılır. Yerelde bulunmayan durak yine 404 döner. Doğrulanmamış hat/yönler üretilmez.

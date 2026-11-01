@@ -1,0 +1,44 @@
+{
+  "result": {
+    "cmd": "/web/nearest/bus",
+    "code": 0,
+    "message": "OK",
+    "dateTime": "20261101194850",
+    "debugTimeDiff": "",
+    "authType": ""
+  },
+  "stopInfo": {
+    "busStopid": "60625",
+    "busStopName": "GARDİYAN DURAĞI",
+    "lat": "40.3336847",
+    "lng": "36.5594101"
+  },
+  "busList": [
+    {
+      "busId": "60021",
+      "disabledPerson": "1",
+      "displayRouteCode": "12/H",
+      "displayName": "KEMERKÖPRÜ-HASTANE-YAZICIOGLU",
+      "headSign": "KEMERKÖPRÜ-HASTANE-YAZICIOGLU",
+      "routeCode": "60410",
+      "shapeId": "604100",
+      "stopDiff": "4",
+      "routeColor": "null",
+      "routeType": "3",
+      "routeTextColor": "null",
+      "direction": "0",
+      "vehicleType": "3",
+      "ac": "0",
+      "bike": "0",
+      "timeDiff": "4",
+      "lat": "40.329266",
+      "lng": "36.557583",
+      "dropoffType": "",
+      "pickupType": "",
+      "bearing": "289.3",
+      "busCapacity": "1",
+      "busCapacityColor": "#67D066"
+    }
+  ],
+  "routeList": []
+}
